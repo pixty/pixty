@@ -1,0 +1,42 @@
+.App {
+
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40px;
+}
+
+.App-header {
+  background: black;
+  overflow: hidden;
+  padding: 0px;
+  color: white;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+.Scene {
+  width: 640px;
+  height: 320px;
+  padding: 0;
+  margin: auto;
+  background-color: black;
+}
+
+.Face {
+  position: absolute;
+  top: 130px;
+  left: 200px;
+  width: 80px;
+  height: 80px;
+  border: 2px solid orange;
+  border-radius: 5px;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
