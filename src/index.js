@@ -26,13 +26,27 @@ const history = createHistory()
 const middleware = routerMiddleware(history)
 const sagaMiddleware = createSagaMiddleware()
 
+function selected(state = "", action) {
+
+  switch (action.type) {
+
+    case 'CLICK_PERSONS':
+        state = action.payload.id === state ? "" : action.payload.id
+        return state
+    default:
+      return state
+  }
+  
+}
+
 // Add the reducer to your store on the `router` key
 // Also apply our middleware for navigating
 const store = createStore(  
   combineReducers({
     entities: reducers,
     router: routerReducer,
-    loadingBar: loadingBarReducer
+    loadingBar: loadingBarReducer,
+    selectedPerson: selected
   }),
   applyMiddleware(sagaMiddleware, loadingBarMiddleware(), thunk.withExtraArgument({ api, pixtySchema }), middleware)
 )

@@ -9,6 +9,7 @@ class User extends React.Component {
 
   handleClick() {
     this.setState({ selected: !this.state.selected})
+    //this.props.onClick()
   }
 
   render() {

@@ -3,7 +3,7 @@
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
+  animation: App-logo-spin infinite 2s linear;
   height: 40px;
 }
 
@@ -20,7 +20,7 @@
 
 .Scene {
   width: 640px;
-  height: 320px;
+  height: 360px;
   padding: 0;
   margin: auto;
   background-color: black;
@@ -28,10 +28,10 @@
 
 .Face {
   position: absolute;
-  top: 130px;
-  left: 200px;
-  width: 80px;
-  height: 80px;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;  
   border: 2px solid orange;
   border-radius: 5px;
 }

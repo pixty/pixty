@@ -1,4 +1,4 @@
-import { SCENE } from '../actions'
+import { SCENE, CLICK_PERSONS } from '../actions'
 
 export default function reducer(state = {}, action) {
 
@@ -9,6 +9,10 @@ export default function reducer(state = {}, action) {
         ...state,
         ...action.response.entities.persons
       }
+
+    case CLICK_PERSONS:
+      console.log('CLICK_PERSONS', state, action)
+      return state
 
     default:
       return state

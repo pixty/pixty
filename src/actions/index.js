@@ -1,5 +1,6 @@
 export const ADD_ENTITIES = 'ADD_ENTITIES'
 export const CLICK_USERS = 'CLICK_USERS'
+export const CLICK_PERSONS = 'CLICK_PERSONS'
 export const LOAD_USER_PAGE = 'LOAD_USER_PAGE'
 export const LOAD_SCENE = 'LOAD_SCENE'
 
@@ -26,6 +27,12 @@ export const clickUser = (id) => ({
   type: CLICK_USERS,
   id
 })
+
+export const clickPerson = (payload) => ({
+  type: CLICK_PERSONS,
+  payload: payload
+})
+
 
 function action(type, payload = {}) {
   return {type, ...payload}

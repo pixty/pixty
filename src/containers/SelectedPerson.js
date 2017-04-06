@@ -1,11 +1,11 @@
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import Scene from '../components/Scene'
+import SelectedPerson from '../components/SelectedPerson'
 
-const mapStateToProps = (state, ownProps) => ({
-  scenes: state.entities.scenes,
+const mapStateToProps = (state, ownProps) => ({   
   persons: state.entities.persons,
-  pictures: state.entities.pictures
+  profiles: state.entities.profiles,
+  selectedPerson: state.selectedPerson
 })
 
 const mapDispatchToProps = {
@@ -14,4 +14,4 @@ const mapDispatchToProps = {
 export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(Scene))
+)(SelectedPerson))

@@ -1,32 +1,40 @@
 import React, { PropTypes } from 'react'
-import logo from '../logo.svg'
+import PersonList from '../containers/PersonList'
+import SelectedPerson from '../containers/SelectedPerson'
 import _ from 'lodash'
 
 class Scene extends React.Component {
   
   render() {
 
-    //const scenes = Object.values(this.props.scenes)
     const scenes = _.values(this.props.scenes)
+    const persons = _.values(this.props.persons)
+    //const pictures = _.values(this.props.pictures)
     
-    let snapshotUrl = 'loading...'
+    let snapshotScr, foundFaces
     if (scenes && scenes[0]) {
-      snapshotUrl = scenes[0].snapshot.url
-    } else {
-      console.log('scenes=====', scenes)
+      snapshotScr = scenes[0].snapshot.src      
+    } 
+
+    if (scenes && persons) {
+      foundFaces = _.map(persons, id => { return id.snapshotRect })
     }
-    const firstScene = {...scenes[Object.keys(scenes)[0]]}
-    const snapshot = {...firstScene.snapshot}    
+
+    let index = 1
     
     return (
       <div className="App-header">
-        <div className="Scene" style={{background: `#333  url('${snapshotUrl}') top left no-repeat`, backgroundSize: '640px 360px'}}>
+        <div className="Scene">                  
           <div style={{position: 'absolute'}}>
-            <div className="Face" />
-            <img src={logo} className="App-logo" alt="Logo" />            
-          </div>          
-        </div>        
-      </div>
+            <img alt="Face" src={snapshotScr} />          
+            { _.map(foundFaces, face =>
+              <div className="Face" key={ index++ }style={{ top: face.t, left: face.l, bottom: face.b, right: face.r}}/>
+            )}  
+          </div>                  
+        </div>    
+        <PersonList />    
+        <SelectedPerson />        
+      </div>      
     )
   }
 }
