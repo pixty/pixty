@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react'
 import _ from 'lodash'
-
+import ReactTooltip from 'react-tooltip'
 
 class Person extends React.Component {
 
   render() {
     return (
-      <li title={this.props.name} onClick={this.props.onClick} style={{
+      <li title={this.props.name} data-tip={this.props.name} onClick={this.props.onClick} style={{
         borderColor: this.props.selectedId === this.props.id ? 'green' : 'white',
         cursor: 'pointer',
         border: '3px solid white',
@@ -20,9 +20,10 @@ class Person extends React.Component {
 
       { _.map(this.props.pictures, pic =>
         <div key={pic.id}>
-          <img alt={ pic.id } src={ pic.url }  style={{ width: '100px', height: '100px'}}/>
-        </div>
+          <img alt={ pic.id } src={ pic.url }  style={{ width: '100px', height: '100px'}}/>          
+        </div>        
       )}
+      <ReactTooltip />
     </li>
     )
   }

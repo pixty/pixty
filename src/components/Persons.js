@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import _ from 'lodash'
 import Person from './Person'
+import ReactTooltip from 'react-tooltip'
 
 const Persons = ({ persons, pictures, profiles, onClick, selectedPerson }) => {
 
@@ -11,12 +12,12 @@ const Persons = ({ persons, pictures, profiles, onClick, selectedPerson }) => {
           <Person key={person.id}
             {...person}
             onClick={() => onClick({ id: person.id, selected: selectedPerson})}
-            name={person.profile ? profiles[person.profile].attributes.name : "?"}
+            name={person.profile ? profiles[person.profile].attributes.name : person.id}
             selectedId={selectedPerson}      
-            pictures={ _.map(person.pictures, id => ( pictures[id] ))}
+            pictures={ _.map(person.pictures, id => ( pictures[id] ))}            
           />        
         )}    
-      </ul>
+      </ul>            
     </div>
 )
 }
