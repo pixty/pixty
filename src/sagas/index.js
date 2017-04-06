@@ -44,7 +44,7 @@ export const fetchScene       = fetchEntity.bind(null, scene, api.fetchScene)
 // Fetch data every N seconds                                           
 function* pollData() {  
     try {        
-        yield call(delay, 1000)
+        yield call(delay, 20000)
         yield call(fetchScene, 'pixty')
     } catch (error) {        
         return
