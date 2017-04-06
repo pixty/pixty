@@ -13,7 +13,7 @@ class Scene extends React.Component {
     
     let snapshotScr, foundFaces
     if (scenes && scenes[0]) {
-      snapshotScr = scenes[0].snapshot.src      
+      snapshotScr = scenes[0].snapshot.url      
     } 
 
     if (scenes && persons) {

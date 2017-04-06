@@ -28,7 +28,7 @@ export const fakeJson = {
             "occuracy": 9900,
             "orgId": "org-1234",
             "attributes": {
-                "name": "Pixty Founder",
+                "name": "Mr. Right",
                 "lastName": "Wahl",
                 "foot-size": "7"
             } 
