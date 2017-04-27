@@ -68,11 +68,11 @@ store.subscribe(() =>
   console.log(store.getState())
 )
 
+
 function loadAll() {
   return function (dispatch) {
-    dispatch(loadUserPage('bedunkevich'))
-    dispatch(loadUserPage('dspasibenko'))
-    dispatch(loadScene('fake'))
+    //dispatch(loadUserPage('fp-123'))
+    dispatch(loadScene('fp-123'))
   }
 }
 

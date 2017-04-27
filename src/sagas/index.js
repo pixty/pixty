@@ -45,7 +45,7 @@ export const fetchScene       = fetchEntity.bind(null, scene, api.fetchScene)
 function* pollData() {  
     try {        
         yield call(delay, 1000)
-        yield call(fetchScene, 'pixty')
+        yield call(fetchScene, 'fp-123')
     } catch (error) {        
         return
     }

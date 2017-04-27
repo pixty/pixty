@@ -4,7 +4,7 @@ export const fakeJson = {
   "snapshot": {
         "id": "tmp-pic-1234", 
         "timestamp": "2017-03-25T12:00:00,999Z",
-        "url": "http://pixty.io/assets/scene4.png",
+        "url": "",
         "src": "",
         "size": {
             "w": 1280,
@@ -58,7 +58,7 @@ export const fakeJson = {
         "pictures": [ {
             "id": "pc-1234", 
             "timestamp": "2017-03-25T12:00:00,999Z",
-            "url": "https://avatars1.githubusercontent.com/u/92251?v=3",
+            "url": "http://pixty.io/assets/snapshots/rest0300.png",
             "size": {
                 "w": 200,
                 "h": 200
@@ -73,7 +73,7 @@ export const fakeJson = {
         {
             "id": "pc-1235", 
             "timestamp": "2017-03-25T12:00:00,999Z",
-            "url": "https://avatars0.githubusercontent.com/u/1653492?v=3",
+            "url": "http://pixty.io/assets/snapshots/rest0310.png",
             "size": {
                 "w": 456,
                 "h": 456
@@ -125,7 +125,7 @@ export const fakeJson = {
         "pictures": [ {
             "id": "pc-123434", 
             "timestamp": "2017-03-25T12:00:00,999Z",
-            "url": "https://avatars0.githubusercontent.com/u/1653?v=3",
+            "url": "http://pixty.io/assets/snapshots/rest0100.png",
             "size": {
                 "w": 200,
                 "h": 200

@@ -1,5 +1,5 @@
 .App {
-  
+
 }
 
 .App-logo {
@@ -8,23 +8,40 @@
 }
 
 .App-header {
-  background: black;
+  background: #333;
   overflow: hidden;
   padding: 0px;
   color: white;
+}
+
+.Snapshot--size {  
+  width: 640px;
+  height: 360px;  
+}
+
+@media only screen and (max-device-width: 480px) {
+  .Snapshot--size {  
+    width: 320px;
+    height: 180px;  
+  }
 }
 
 .App-intro {
   font-size: large;
 }
 
-.Scene {
-  width: 640px;
-  height: 360px;
-  padding: 0;
-  margin: auto;
-  background-color: black;
+
+.Scene {  
+  padding: 0px;
+  margin: 20px auto;
+  box-shadow: 2px 2px 15px rgba(0,0,0,0.6)
 }
+
+.Scene--size {
+  width: 320px;
+  height: 180px;
+}
+
 
 .Face {
   position: absolute;

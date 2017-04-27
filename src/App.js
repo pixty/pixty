@@ -10,7 +10,7 @@ class App extends Component {
   render() {
     return (      
       <div className="App">
-        <LoadingBar style={{ backgroundColor: 'green', height: '4px' }} />
+        <LoadingBar style={{ backgroundColor: 'orange', height: '2px' }} />
         <Scene />        
       </div>
     );
