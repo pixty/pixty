@@ -9,7 +9,7 @@ class Person extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = { currentPictureSrc: this.props.pictures[0].url, pictureIndex: 0, pictureCount:this.props.pictures.length  }
+    this.state = { currentFaceSrc: this.props.pictures[0].url, currentPictureSrc: this.props.pictures[0].picURL, pictureIndex: 0, pictureCount:this.props.pictures.length  }
   }
 
   changePic(event) {        
@@ -17,14 +17,14 @@ class Person extends React.Component {
     if (offset > 640/this.state.pictureCount/2) {
       lastX = event.nativeEvent.offsetX
       let index = this.state.pictureIndex < this.state.pictureCount - 1 ? this.state.pictureIndex + 1 : 0    
-      this.setState( { currentPictureSrc: this.props.pictures[index].url, pictureIndex:index })      
+      this.setState( { currentFaceSrc: this.props.pictures[index].url, currentPictureSrc: this.props.pictures[index].picURL, pictureIndex:index })      
     }
     
   }
 
   render() {
     return (
-      <div>        
+      <div style={{ position: "relative"}}>        
         <li alt={this.props.name} className="Snapshot--size" onMouseMove={this.changePic.bind(this)} data-tip={this.props.name}
           onClick={this.props.onClick} style={{
           border: this.props.selectedId === this.props.id ? '2px solid orange' : '2px solid rgba(0,0,0,0.5)',
@@ -37,7 +37,8 @@ class Person extends React.Component {
           float: 'left'
         }}>
         { this.props.selectedId === this.props.id ? <SelectedPerson /> : '' }              
-        <img alt={this.props.name} className="Snapshot--size" src={ this.state.currentPictureSrc } style={{ borderRadius: '2px'}}/>
+        <img alt='' style={{ position: "absolute", width: "200px" }} src={ this.state.currentFaceSrc } />
+        <img alt={this.state.currentPictureSrc} className="Snapshot--size" src={ this.state.currentPictureSrc } style={{ borderRadius: '2px'}}/>
         </li>    
       
     </div>

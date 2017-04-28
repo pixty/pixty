@@ -28,7 +28,7 @@ class Scene extends React.Component {
           <div style={{position: 'absolute'}}>
             <img alt="Face" src={snapshotScr} className="Scene--size" />          
             { _.map(foundFaces, face =>
-              <div className="Face" key={ index++ } /*style={{ top: face.t, left: face.l, bottom: face.b, right: face.r}}*//>
+              <div className="Face" key={ index++ } /*style={{ top: face.t, left: face.l, bottom: face.b, right: face.r}}*/ />
             )}  
           </div>                  
         </div>       

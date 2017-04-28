@@ -17,11 +17,11 @@ const currentPerson = (person, profile) => (
         </div>
       } 
 
-      <span style={{fontSize: "12px"}}>
+      <div style={{fontSize: "11px", position: "absolute", bottom: "30px"}}>
       Id: {person.id}<br/>
       capturedAt: {person.capturedAt}<br/>
       lostAt: {person.lostAt}<br/>
-      </span>
+      </div>
     </div>
   )
 
@@ -37,7 +37,7 @@ class SelectedPerson extends React.Component {
 
     return (
       <div style={{position: 'relative', zIndex: '2'}}>
-        <div style={{position: 'absolute', padding: "10px", background: "rgba(0,0,0,0.6)"}}>
+        <div style={{position: 'absolute', padding: "10px", width: "640px", height: "360px"}}>
           { this.props.selectedPerson ? currentPerson(person, profile) :'' }
         </div>
       </div>

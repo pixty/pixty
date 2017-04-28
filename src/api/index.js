@@ -2,7 +2,7 @@ import { normalize } from 'normalizr'
 import { camelizeKeys } from 'humps'
 import * as schema from '../api/schema'
 import { fakeJson } from './fake'
-const API_ROOT = 'http://lvh.me:8080/'
+const API_ROOT = 'http://localhost:8080/'
 
 function callApi(endpoint, schema) {
   const fullUrl = (endpoint.indexOf(API_ROOT) === -1) ? API_ROOT + endpoint : endpoint
@@ -33,7 +33,7 @@ function pad(num, size) {
 }
 
 function fakeCallApi(endpoint, schema) {
-  const fullUrl = "http://lvh.me:8080/cameras/fp-123/scenes"
+  const fullUrl = "http://localhost:8080/cameras/fp-123/scenes"
 
   console.log('fakeCallApi')
   
