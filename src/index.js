@@ -17,7 +17,6 @@ import createSagaMiddleware, { END } from 'redux-saga'
 import rootSaga from './sagas'
 import { loadUserPage, loadScene} from './actions'
 
-//let reducers = {}
 
 // Create a history of your choosing (we're using a browser history in this case)
 const history = createHistory()
@@ -38,6 +37,7 @@ function selected(state = "", action) {
   }
   
 }
+
 
 // Add the reducer to your store on the `router` key
 // Also apply our middleware for navigating
@@ -79,28 +79,13 @@ function loadAll() {
 
 store.dispatch(loadAll())
 
-
-import { Component } from 'react'
-
-class About extends Component {  
-  render() {  
-    return (
-    <button onClick={ () => {
-      store.dispatch(push('/'))
-    } }>
-      Hello!
-    </button>
-    );
-  }
-}
-
 ReactDOM.render(
   <Provider store={store}>
     { /* ConnectedRouter will use the store from Provider automatically */ }
     <ConnectedRouter history={history}>
       <div>
         <Route exact path="/" component={App}/>
-        <Route path="/about" component={About}/>
+        <Route path="/about" component={App}/>
       </div>
     </ConnectedRouter>
   </Provider>,

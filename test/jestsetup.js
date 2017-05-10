@@ -1,3 +1,13 @@
+import { shallow, render, mount } from 'enzyme'
+global.shallow = shallow
+global.render = render
+global.mount = mount
+console.error = message => {
+   throw new Error(message)
+}
+
+/*
+
 {
   "name": "pixty",
   "version": "0.1.0",
@@ -14,8 +24,7 @@
     "react-tooltip": "^3.2.10",
     "redux": "^3.6.0",
     "redux-saga": "^0.15.3",
-    "redux-thunk": "^2.2.0",
-    "whatwg-fetch": "^2.0.3"
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "babel-jest": "^20.0.0",
@@ -27,13 +36,12 @@
     "jest": "^20.0.0",
     "react-addons-test-utils": "^15.5.1",
     "react-scripts": "0.9.5",
-    "react-test-renderer": "^15.5.4",
-    "redux-mock-store": "^1.2.3"
+    "react-test-renderer": "^15.5.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest --verbose",
+    "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "eject": "react-scripts eject"
@@ -51,3 +59,5 @@
     }
   }
 }
+
+*/

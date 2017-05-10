@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import PersonList from '../containers/PersonList'
 //import SelectedPerson from '../containers/SelectedPerson'
 import _ from 'lodash'

@@ -85,8 +85,8 @@ function* watchPollData() {
 
 export default function* root() {
   yield [
-    fork(watchPollData),
-    fork(watchLoadUserPage),
+    //fork(watchPollData),
+    //fork(watchLoadUserPage),
     fork(watchLoadScene)
   ]
 }

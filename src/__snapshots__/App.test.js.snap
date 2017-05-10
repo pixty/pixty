@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App renders without crashing 1`] = `
+<div
+  class="App"
+>
+  <div>
+    <div
+      style="opacity:0;transform:scaleX(0);transform-origin:left;transition:transform 800ms linear;width:100%;will-change:transform, opacity;height:2px;background-color:orange;position:absolute;"
+    />
+    <div
+      style="display:table;clear:both;"
+    />
+  </div>
+  <div
+    class="App-header"
+  >
+    <div
+      class="Scene Scene--size"
+    >
+      <div
+        style="position:absolute;"
+      >
+        <img
+          alt="Face"
+          class="Scene--size"
+        />
+      </div>
+    </div>
+    <div
+      style="margin:0px;padding:10px;width:100%;background:#333;overflow-x:scroll;overflow-scrolling:touch;-webkit-overflow-scrolling:touch;"
+    >
+      <ul
+        style="overflow:hidden;width:0px;"
+      />
+    </div>
+  </div>
+</div>
+`;

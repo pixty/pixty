@@ -2,6 +2,7 @@ import { normalize } from 'normalizr'
 import { camelizeKeys } from 'humps'
 import * as schema from '../api/schema'
 import { fakeJson } from './fake'
+import 'whatwg-fetch'
 const API_ROOT = 'http://localhost:8080/'
 
 function callApi(endpoint, schema) {
@@ -32,10 +33,10 @@ function pad(num, size) {
     return s;
 }
 
-function fakeCallApi(endpoint, schema) {
-  const fullUrl = "http://localhost:8080/cameras/fp-123/scenes"
+function apiCall(endpoint, schema) {
 
-  console.log('fakeCallApi')
+  const fullUrl = (endpoint.indexOf(API_ROOT) === -1) ? API_ROOT + endpoint : endpoint
+  //const fullUrl = "http://localhost:8080/cameras/fp-123/scenes"
   
   return fetch(fullUrl)
     .then(response =>
@@ -46,7 +47,7 @@ function fakeCallApi(endpoint, schema) {
         return Promise.reject(json)
       }
 
-      console.log("response.ok=", response, "json=", json)
+      //console.log("response.ok=", response, "json=", json)
       //let number = (Date.now() % 300) + 1          
       //fakeJson.snapshot.url = `http://pixty.io/assets/snapshots/rest${pad(number, 4)}.png`
       //console.log(fakeJson.snapshot.url)
@@ -69,5 +70,5 @@ function fakeCallApi(endpoint, schema) {
 
 
 export const fetchUser = login => callApi(`cameras/${login}/scenes`, schema.user)
-export const fetchScene = login => fakeCallApi(`cameras/${login}/scenes`, schema.scene)
+export const fetchScene = login => apiCall(`cameras/${login}/scenes`, schema.scene)
 
