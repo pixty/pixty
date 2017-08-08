@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import logo from '../logo.svg'
+import TimeAgo from 'react-timeago'
 
 
 const currentPerson = (person, profile) => ( 
@@ -18,10 +19,10 @@ const currentPerson = (person, profile) => (
         </div>
       } 
 
-      <div style={{fontSize: "11px", position: "absolute", bottom: "30px"}}>
+      <div style={{fontSize: "11px", position: "", bottom: "30px"}}>
       Id: {person.id}<br/>
-      capturedAt: {person.capturedAt}<br/>
-      lostAt: {person.lostAt}<br/>
+      capturedAt: <TimeAgo date={person.capturedAt} /><br/>
+      lostAt: <TimeAgo date={person.lostAt} /><br/>
       </div>
     </div>
   )
@@ -31,14 +32,13 @@ class SelectedPerson extends React.Component {
     let person, profile
     
     if (this.props.selectedPerson) {
-      person = this.props.persons[this.props.selectedPerson]
+      person = this.props.selectedPerson
       profile = this.props.profiles[person.profile]
-      console.log('profile=',profile)
     }
 
     return (
       <div style={{position: 'relative', zIndex: '2'}}>
-        <div style={{position: 'absolute', padding: "10px", width: "640px", height: "360px"}}>
+        <div style={{position: '', padding: "10px", width: "640px", height: "360px"}}>
           { this.props.selectedPerson ? currentPerson(person, profile) :'' }
         </div>
       </div>

@@ -11,8 +11,8 @@
 }
 
 .Snapshot--size {  
-  width: 640px;
-  height: 360px;  
+  width: 330px;  
+  height: 600px;
 }
 
 @media only screen and (max-device-width: 480px) {
@@ -26,16 +26,13 @@
   font-size: large;
 }
 
-
 .Scene {  
   padding: 0px;
-  margin: 20px auto;
   box-shadow: 2px 2px 15px rgba(0,0,0,0.6)
 }
 
-.Scene--size {
-  width: 320px;
-  height: 180px;
+.Scene--size {  
+  height: 80px;
 }
 
 

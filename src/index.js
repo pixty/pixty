@@ -16,6 +16,7 @@ import { loadingBarReducer, loadingBarMiddleware } from 'react-redux-loading-bar
 import createSagaMiddleware, { END } from 'redux-saga'
 import rootSaga from './sagas'
 import { loadUserPage, loadScene} from './actions'
+import selectedPersonReducer from './reducers/selectedPerson'
 
 
 // Create a history of your choosing (we're using a browser history in this case)
@@ -25,20 +26,6 @@ const history = createHistory()
 const middleware = routerMiddleware(history)
 const sagaMiddleware = createSagaMiddleware()
 
-function selected(state = "", action) {
-
-  switch (action.type) {
-
-    case 'CLICK_PERSONS':
-        state = action.payload.id === state ? "" : action.payload.id
-        return state
-    default:
-      return state
-  }
-  
-}
-
-
 // Add the reducer to your store on the `router` key
 // Also apply our middleware for navigating
 const store = createStore(  
@@ -46,7 +33,7 @@ const store = createStore(
     entities: reducers,
     router: routerReducer,
     loadingBar: loadingBarReducer,
-    selectedPerson: selected
+    selectedPerson: selectedPersonReducer
   }),
   applyMiddleware(sagaMiddleware, loadingBarMiddleware(), thunk.withExtraArgument({ api, pixtySchema }), middleware)
 )
@@ -65,7 +52,7 @@ store.close = () => store.dispatch(END)
 store.runSaga(rootSaga)
 
 store.subscribe(() =>
-  console.log(store.getState())
+  console.log('state=', store.getState())
 )
 
 
@@ -75,7 +62,6 @@ function loadAll() {
     dispatch(loadScene('fp-123'))
   }
 }
-
 
 store.dispatch(loadAll())
 

@@ -27,18 +27,27 @@ function callApi(endpoint, schema) {
     )
 }
 
+
 function pad(num, size) {
-    var s = num+"";
+    var s = num + "";
     while (s.length < size) s = "0" + s;
     return s;
 }
 
-function apiCall(endpoint, schema) {
+function apiCall(endpoint, schema, method = 'get', data = null) {
 
   const fullUrl = (endpoint.indexOf(API_ROOT) === -1) ? API_ROOT + endpoint : endpoint
   //const fullUrl = "http://localhost:8080/cameras/fp-123/scenes"
+  const body = data ? JSON.stringify(data) : null
   
-  return fetch(fullUrl)
+  return fetch(fullUrl, {
+      method: method,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: body,
+    })
     .then(response =>
       response.json().then(json => ({ json, response }))
     ).then(({ json, response }) => {
@@ -48,14 +57,14 @@ function apiCall(endpoint, schema) {
       }
 
       //console.log("response.ok=", response, "json=", json)
-      //let number = (Date.now() % 300) + 1          
-      //fakeJson.snapshot.url = `http://pixty.io/assets/snapshots/rest${pad(number, 4)}.png`
+      let number = (Date.now() % 300) + 1          
+      fakeJson.snapshot.url = `http://pixty.io/assets/snapshots/rest${pad(number, 4)}.png`
       //console.log(fakeJson.snapshot.url)
       
-      //const camelizedJson = camelizeKeys(fakeJson)
-      const camelizedJson = camelizeKeys(json[0])
+      const camelizedJson = camelizeKeys(fakeJson)
+      //const camelizedJson = camelizeKeys(json[0])
 
-      console.log('normalize!', normalize(camelizedJson, schema))      
+      //console.log('normalize!', normalize(camelizedJson, schema))      
 
       return Object.assign({},
         normalize(camelizedJson, schema)//,{ nextPageUrl }
@@ -67,8 +76,7 @@ function apiCall(endpoint, schema) {
     )
 }
 
-
-
 export const fetchUser = login => callApi(`cameras/${login}/scenes`, schema.user)
 export const fetchScene = login => apiCall(`cameras/${login}/scenes`, schema.scene)
+export const postProfile = profile => apiCall(`profiles/${profile.id}/persons`, schema.scene, 'post', profile)
 

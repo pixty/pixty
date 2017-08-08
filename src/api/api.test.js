@@ -3,9 +3,6 @@ import {fetchScene} from '../api'
 
 
 describe('API', () => {
-  it('Should pass', () => {
-    expect(1).toBe(1)    
-  })
 
   it('Makes sure window.fetch is the one from the polyfill', () => {
     expect(window.fetch.polyfill).toBe(true);

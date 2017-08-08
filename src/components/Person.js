@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import SelectedPerson from '../containers/SelectedPerson'
-//import ReactTooltip from 'react-tooltip'
+import ImageButton from './styled/ImageButton'
+import PersonLi from './styled/PersonLi'
 
 let lastX = 1
 
@@ -24,25 +25,26 @@ class Person extends React.Component {
   }
 
   render() {
-    return (
-      <div style={{ position: "relative"}}>        
-        <li alt={this.props.name} className="Snapshot--size" onMouseMove={this.changePic.bind(this)} data-tip={this.props.name}
-          onClick={this.props.onClick} style={{
-          border: this.props.selectedId === this.props.id ? '2px solid orange' : '2px solid rgba(0,0,0,0.5)',
-          cursor: 'pointer',
+    return (      
+        <PersonLi alt={this.props.name} className="Snapshot--size" onMouseMove={this.changePic.bind(this)}          
+          style={{
+          border: this.props.selectedId === this.props.id ? '2px solid #ADD8E6' : '2px solid rgba(0,0,0,0.5)',          
           margin: '10px',
-          padding: '0px',
-          overflow: 'hidden',
-          //opacity: this.props.selectedId === this.props.id ? 1.0 : 0.4,      
-          borderRadius: '2px',        
+          padding: '0px',          
+          background: this.props.selectedId === this.props.id ? '#eee' : '#bbb',
+          borderRadius: '2px',
+          color: 'black',
           float: 'left'
-        }}>
-        { this.props.selectedId === this.props.id ? <SelectedPerson /> : '' }              
-        <img alt='' style={{ position: "absolute", width: "200px" }} src={ this.state.currentFaceSrc } />
-        <img alt={this.state.currentPictureSrc} className="Snapshot--size" src={ this.state.currentPictureSrc } style={{ borderRadius: '2px'}}/>
-        </li>    
-      
-    </div>
+        }}>          
+          <img alt='' onClick={this.props.onClick} style={{ width: '330px', cursor: 'pointer' }} src={ this.state.currentFaceSrc } />
+          <div style={{float: 'right', marginRight: '10px'}}>
+            <ImageButton width="16px" type="image" src="/images/menu.svg" />
+          </div>
+          <div style={{padding: '10px', fontSize: '11px'}}>            
+            {this.props.id}
+          </div>
+          { this.props.selectedId === this.props.id ? <SelectedPerson {...this.props} /> : '' }          
+        </PersonLi>
     )
   }
 }

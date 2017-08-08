@@ -8,7 +8,7 @@ import { browserHistory } from 'react-router'
 export const history = browserHistory
 
 // each entity defines 3 creators { request, success, failure }
-const { user, scene } = actions
+const { user, scene, profile } = actions
 
 // Utility function to delay effects
 function delay(millis) {  
@@ -19,13 +19,6 @@ function delay(millis) {
 }
 
 
-/***************************** Subroutines ************************************/
-
-// resuable fetch Subroutine
-// entity :  user | repo | starred | stargazers
-// apiFn  : api.fetchUser | api.fetchRepo | ...
-// id     : login | fullName
-// url    : next page url. If not provided will use pass it to apiFn
 function* fetchEntity(entity, apiFn, id, url) {
   yield put(showLoading())
   yield put( entity.request(id) )
@@ -40,11 +33,12 @@ function* fetchEntity(entity, apiFn, id, url) {
 // yeah! we can also bind Generators
 export const fetchUser       = fetchEntity.bind(null, user, api.fetchUser)
 export const fetchScene       = fetchEntity.bind(null, scene, api.fetchScene)
+export const postProfile       = fetchEntity.bind(null, profile, api.postProfile)
 
 // Fetch data every N seconds                                           
 function* pollData() {  
     try {        
-        yield call(delay, 1000)
+        yield call(delay, 10000)
         yield call(fetchScene, 'fp-123')
     } catch (error) {        
         return
@@ -69,9 +63,15 @@ function* watchLoadUserPage() {
 
 function* watchLoadScene() {
   while(true) {
-    const {orgId} = yield take(actions.LOAD_SCENE)
+    const {login, requiredFields = []} = yield take(actions.LOAD_SCENE)
+    yield call(fetchScene, login)
+  }
+}
 
-    yield call(fetchScene, orgId)
+function* watchPostProfile() {
+  while(true) {
+    const {profile} = yield take(actions.POST_PROFILE)
+    yield call(postProfile, profile)
   }
 }
 
@@ -85,8 +85,9 @@ function* watchPollData() {
 
 export default function* root() {
   yield [
-    //fork(watchPollData),
-    //fork(watchLoadUserPage),
-    fork(watchLoadScene)
+    fork(watchPollData),
+    fork(watchLoadUserPage),
+    fork(watchLoadScene),
+    fork(watchPostProfile),
   ]
 }

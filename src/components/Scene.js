@@ -3,38 +3,76 @@ import PropTypes from 'prop-types'
 import PersonList from '../containers/PersonList'
 //import SelectedPerson from '../containers/SelectedPerson'
 import _ from 'lodash'
+import styled from 'styled-components'
+import SelectedPerson from './SelectedPerson'
+import CameraPreview from './styled/CameraPreview'
+import PersonForm from './PersonForm'
+import TopMenu from './TopMenu'
+import Draggable from 'react-draggable'
+
+const RightBar = styled.div.attrs({  
+  width: props => props.width || '200px',
+  opacity: props => props.opacity || 0, 
+})`
+  position: absolute;
+  background: #333;
+  opacity: ${props => props.opacity};
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  padding: 20px;
+  font-weight: 300;
+  z-index: 3;
+  transition: all 0.5s ease;
+  width: ${props => props.width};
+  border-left: 1px solid rgba(0,0,0,0.2);
+`;
 
 class Scene extends React.Component {
+  static propTypes = {  
+    scenes: PropTypes.object.isRequired  
+  }
+
+  constructor() {
+    super()
+    this.state = { width: 100, opacity: 0 }
+  }
+
+  componentWillReceiveProps(nextProps) {    
+    if (nextProps.selectedPerson.id) {
+      this.setState({ width: 300, opacity: 1 })
+    } else {
+      this.setState({ width: 100, opacity: 0 })
+    }
+  }
   
   render() {
-
     const scenes = _.values(this.props.scenes)
     const persons = _.values(this.props.persons)
     //const pictures = _.values(this.props.pictures)
-    
-    let snapshotScr, foundFaces
-    if (scenes && scenes[0]) {
-      snapshotScr = scenes[0].url      
-    } 
+    const snapshotScr = scenes && scenes[0] && scenes[0].snapshot && scenes[0].snapshot.url       
+    const foundFaces = scenes && persons && _.map(persons, id => { return { rect: id.snapshotRect, id: id.id } })
 
-    if (scenes && persons) {
-      foundFaces = _.map(persons, id => { return id.snapshotRect })
-    }
+    const selectedPerson = this.props.selectedPerson
 
-    let index = 1
-    
     return (
-      <div className="App-header">   
-        <div className="Scene Scene--size">                  
-          <div style={{position: 'absolute'}}>
-            <img alt="Face" src={snapshotScr} className="Scene--size" />          
+      <div>      
+        <TopMenu organizationName={scenes && scenes[0] && scenes[0].organizationName} camId={scenes && scenes[0] && scenes[0].camId} />
+        <Draggable>
+          <CameraPreview style={{position: 'absolute', width: '143px', height: '80px'}}>
+            <img alt="Face" src={snapshotScr} style={{borderRadius: '5px'}} className="Scene--size" />          
             { _.map(foundFaces, face =>
-              <div className="Face" key={ index++ } /*style={{ top: face.t, left: face.l, bottom: face.b, right: face.r}}*/ />
+              <div className="Face" style={{borderColor: '#ADD8E6'}}key={face.id} />
             )}  
-          </div>                  
-        </div>       
-        <PersonList />    
-      </div>      
+          </CameraPreview>
+        </Draggable>
+        <div>
+          <PersonList />
+        </div>
+        <RightBar width={this.state.width + 'px'}  opacity={this.state.opacity} >
+          { selectedPerson && <PersonForm person={selectedPerson} /> } 
+        </RightBar>
+      </div>
     )
   }
 }
@@ -49,9 +87,5 @@ class Scene extends React.Component {
           </div>                  
         </div>
 */
-
-Scene.propTypes = {  
-  scenes: PropTypes.object.isRequired  
-}
 
 export default Scene

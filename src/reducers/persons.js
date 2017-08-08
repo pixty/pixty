@@ -3,16 +3,11 @@ import { SCENE, CLICK_PERSONS } from '../actions'
 export default function reducer(state = {}, action) {
 
   switch (action.type) {
-
     case SCENE.SUCCESS:      
       return {
         ...state,
         ...action.response.entities.persons
       }
-
-    case CLICK_PERSONS:
-      console.log('CLICK_PERSONS', state, action)
-      return state
 
     default:
       return state

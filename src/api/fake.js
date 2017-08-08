@@ -1,10 +1,11 @@
 export const fakeJson = {
   "camId": "cm-1234",
+  "organizationName" : "Feel Good Inc.",
   "timestamp": "2017-03-25T12:00:00,999Z",
   "snapshot": {
         "id": "tmp-pic-1234", 
         "timestamp": "2017-03-25T12:00:00,999Z",
-        "url": "",
+        "url": "http://pixty.io/assets/snapshots/rest0350.png",
         "src": "",
         "size": {
             "w": 1280,
@@ -15,7 +16,7 @@ export const fakeJson = {
     {
         "id": "123-333-222",
         "camId": "cam-1234",
-        "capturedAt": "2017-03-25T12:00:00,999Z",
+        "capturedAt": "2017-07-25T12:00:00,999Z",
         "lostAt": "2017-03-25T12:00:00,999Z",
         "snapshotRect": {
             "l": 180,
@@ -28,7 +29,7 @@ export const fakeJson = {
             "occuracy": 9900,
             "orgId": "org-1234",
             "attributes": {
-                "name": "Mr. Right",
+                "name": "Дядя Вася",
                 "lastName": "Wahl",
                 "foot-size": "7"
             } 
@@ -73,7 +74,7 @@ export const fakeJson = {
         {
             "id": "pc-1235", 
             "timestamp": "2017-03-25T12:00:00,999Z",
-            "url": "http://pixty.io/assets/snapshots/rest0310.png",
+            "url": "http://pixty.io/assets/snapshots/rest0130.png",
             "size": {
                 "w": 456,
                 "h": 456
