@@ -3,7 +3,7 @@ export const fakeJson = {
   "organizationName" : "Feel Good Inc.",
   "timestamp": "2017-03-25T12:00:00,999Z",
   "snapshot": {
-        "id": "tmp-pic-1234", 
+        "id": "tmp-pic-1234",
         "timestamp": "2017-03-25T12:00:00,999Z",
         "url": "http://pixty.io/assets/snapshots/rest0350.png",
         "src": "",
@@ -25,18 +25,18 @@ export const fakeJson = {
             "b": 150
         },
         "profile": {
-            "id": "pn-1334", 
+            "id": "pn-1334",
             "occuracy": 9900,
             "orgId": "org-1234",
             "attributes": {
                 "name": "Дядя Вася",
                 "lastName": "Wahl",
                 "foot-size": "7"
-            } 
+            }
         },
         "matches": [
-          {            
-            "id": "pn-1234", 
+          {
+            "id": "pn-1234",
             "occuracy": 9500,
             "orgId": "org-1234",
             "attributes": {
@@ -44,7 +44,7 @@ export const fakeJson = {
                 "lastName": "Wahl",
                 "foot-size": "7"
             }
-          },          
+          },
           {
               "id": "pn-1235",
               "occuracy": 9000,
@@ -53,32 +53,32 @@ export const fakeJson = {
                   "name": "Vasya",
                   "lastName": "Petrov",
                   "foot-size": "7"
-              } 
+              }
           }
-        ], 
+        ],
         "pictures": [ {
-            "id": "pc-1234", 
+            "id": "pc-1234",
             "timestamp": "2017-03-25T12:00:00,999Z",
-            "url": "http://pixty.io/assets/snapshots/rest0300.png",
+            "url": "https://api.pixty.io/images/cm-ptt1504241500992_590_218_1001_630.png",
             "size": {
                 "w": 200,
                 "h": 200
-            }, 
+            },
             "rect": {
                 "l": 10,
                 "t": 20,
                 "r": 183,
                 "b": 192
             }
-        }, 
+        },
         {
-            "id": "pc-1235", 
+            "id": "pc-1235",
             "timestamp": "2017-03-25T12:00:00,999Z",
-            "url": "http://pixty.io/assets/snapshots/rest0130.png",
+            "url": "https://api.pixty.io/images/cm-ptt1504241500502.png",
             "size": {
                 "w": 456,
                 "h": 456
-            }, 
+            },
             "rect": {
                 "l": 23,
                 "t": 0,
@@ -99,11 +99,11 @@ export const fakeJson = {
             "r": 500,
             "b": 200
         },
-        "profile": {            
+        "profile": {
         },
         "matches": [
-          {            
-            "id": "pn-1234-42", 
+          {
+            "id": "pn-1234-42",
             "occuracy": 9500,
             "orgId": "org-1234",
             "attributes": {
@@ -111,7 +111,7 @@ export const fakeJson = {
                 "lastName": "Wahl",
                 "foot-size": "7"
             }
-          },          
+          },
           {
               "id": "pn-1235-224",
               "occuracy": 9000,
@@ -120,17 +120,17 @@ export const fakeJson = {
                   "name": "Vasya",
                   "lastName": "Petrov",
                   "foot-size": "7"
-              } 
+              }
           }
-        ], 
+        ],
         "pictures": [ {
-            "id": "pc-123434", 
+            "id": "pc-123434",
             "timestamp": "2017-03-25T12:00:00,999Z",
-            "url": "http://pixty.io/assets/snapshots/rest0100.png",
+            "url": "https://api.pixty.io/images/cm-ptt1504241567000_731_353_950_572.png",
             "size": {
                 "w": 200,
                 "h": 200
-            }, 
+            },
             "rect": {
                 "l": 10,
                 "t": 20,

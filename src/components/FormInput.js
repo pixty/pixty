@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-const Input = styled.input`  
+const Input = styled.input`
   border: none;
   background: none;
   font-size: medium;
@@ -10,10 +10,11 @@ const Input = styled.input`
   color: white;
   outline: none;
   width: 100%;
+  font-family: 'Source Sans Pro', sans-serif;
   transition: all 0.3s ease-out 0.06s;
   padding: 5px 0px;
   &:focus {
-    border-color: rgba(255, 255, 255, 0.2); 
+    border-color: rgba(255, 255, 255, 0.2);
   }
 `;
 
@@ -38,15 +39,17 @@ class FormInput extends React.Component {
   componentWillMount() {
     setTimeout(() => {
       this.setState({show: true })
-    }, 100)    
+    }, 100)
   }
 
   render() {
+    const inputType = this.props.password ? 'password' : 'text'
+
     return (
-      <Wrapper show={this.state.show}> 
+      <Wrapper show={this.state.show}>
         <label style={{color: 'rgba(255,255,255,0.4)', fontSize: 'small'}}>
           {this.props.label}<br/>
-          <Input type="text" value={this.props.value} onChange={this.props.onChange} />
+          <Input type={inputType} value={this.props.value} onChange={this.props.onChange} />
         </label>
       </Wrapper>
     )

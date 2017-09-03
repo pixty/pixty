@@ -1,14 +1,13 @@
-import { SCENE } from '../actions'
+import { CAMERA, GET_CAMERAS } from '../actions'
 
 export default function reducer(state = {}, action) {
 
   switch (action.type) {
 
-    case SCENE.SUCCESS:
+    case CAMERA.SUCCESS:
       return {
         ...state,
-        ...action.response.entities.scenes,
-        ...action.response.entities.real
+        ...action.response
       }
 
     default:

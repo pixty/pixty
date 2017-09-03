@@ -10,15 +10,15 @@
   color: white;
 }
 
-.Snapshot--size {  
-  width: 330px;  
-  height: 600px;
+.Snapshot--size {
+  width: 330px;
+  min-height: 600px;
 }
 
 @media only screen and (max-device-width: 480px) {
-  .Snapshot--size {  
+  .Snapshot--size {
     width: 320px;
-    height: 180px;  
+    height: 180px;
   }
 }
 
@@ -26,12 +26,12 @@
   font-size: large;
 }
 
-.Scene {  
+.Scene {
   padding: 0px;
   box-shadow: 2px 2px 15px rgba(0,0,0,0.6)
 }
 
-.Scene--size {  
+.Scene--size {
   height: 80px;
 }
 
@@ -41,7 +41,7 @@
   top: 0px;
   left: 0px;
   bottom: 0px;
-  right: 0px;  
+  right: 0px;
   border: 2px solid orange;
   border-radius: 5px;
 }

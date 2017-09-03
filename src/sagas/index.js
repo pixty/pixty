@@ -5,13 +5,14 @@ import * as actions from '../actions'
 import { getUser } from '../reducers/selectors'
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
 import { browserHistory } from 'react-router'
+import { CurrentUser } from '../api'
 export const history = browserHistory
 
 // each entity defines 3 creators { request, success, failure }
-const { user, scene, profile } = actions
+const { user, scene, profile, camera, get_profile } = actions
 
 // Utility function to delay effects
-function delay(millis) {  
+function delay(millis) {
     const promise = new Promise(resolve => {
         setTimeout(() => resolve(true), millis)
     });
@@ -20,6 +21,7 @@ function delay(millis) {
 
 
 function* fetchEntity(entity, apiFn, id, url) {
+
   yield put(showLoading())
   yield put( entity.request(id) )
   const {response, error} = yield call(apiFn, url || id)
@@ -31,16 +33,18 @@ function* fetchEntity(entity, apiFn, id, url) {
 }
 
 // yeah! we can also bind Generators
-export const fetchUser       = fetchEntity.bind(null, user, api.fetchUser)
+export const fetchCameras     = fetchEntity.bind(null, camera, api.fetchCameras)
+export const fetchUser        = fetchEntity.bind(null, user, api.fetchUser)
 export const fetchScene       = fetchEntity.bind(null, scene, api.fetchScene)
-export const postProfile       = fetchEntity.bind(null, profile, api.postProfile)
+export const postProfile      = fetchEntity.bind(null, profile, api.postProfile)
+export const fetchProfile     = fetchEntity.bind(null, get_profile, api.fetchProfile)
 
-// Fetch data every N seconds                                           
-function* pollData() {  
-    try {        
-        yield call(delay, 10000)
-        yield call(fetchScene, 'fp-123')
-    } catch (error) {        
+// Fetch data every N seconds
+function* pollData() {
+    try {
+        yield call(fetchScene, 'ptt')
+        yield call(delay, 20000)
+    } catch (error) {
         return
     }
 }
@@ -53,11 +57,17 @@ function* loadUser(login, requiredFields) {
   }
 }
 
-function* watchLoadUserPage() {
+function* watchGetCameras() {
   while(true) {
-    const {login, requiredFields = []} = yield take(actions.LOAD_USER_PAGE)
+    const {id} = yield take(actions.GET_CAMERAS)
+    yield call(fetchCameras, id)
+  }
+}
 
-    yield fork(loadUser, login, requiredFields)
+function* watchGetProfile() {
+  while(true) {
+    const {id} = yield take(actions.GET_PROFILE)
+    yield call(fetchProfile, 1) //1 for test, need id var
   }
 }
 
@@ -76,18 +86,19 @@ function* watchPostProfile() {
 }
 
 // Wait for successful response, then fire another request
-// Cancel polling if user logs out                                         
-function* watchPollData() {  
-    while (true) {             
-        yield call(pollData)        
+// Cancel polling if user logs out
+function* watchPollData() {
+
+    while (CurrentUser.loggedIn()) {
+        yield call(pollData)
     }
 }
 
 export default function* root() {
   yield [
     fork(watchPollData),
-    fork(watchLoadUserPage),
-    fork(watchLoadScene),
+    fork(watchGetCameras),
+    fork(watchGetProfile),
     fork(watchPostProfile),
   ]
 }

@@ -10,7 +10,7 @@ import styled from 'styled-components'
 import ReactTooltip from 'react-tooltip'
 import ImageButton from './styled/ImageButton'
 
-const Button = styled.button` 
+const Button = styled.button`
   background: ${props => props.primary ? 'white' : 'none'};
   color: ${props => props.primary ? 'black' : 'white'};
   cursor: pointer;
@@ -31,12 +31,12 @@ const Button = styled.button`
 
 class PersonForm extends React.Component {
   static propTypes = {
-    person: PropTypes.object.isRequired    
+    person: PropTypes.object.isRequired
   }
 
   constructor(props) {
     super(props)
-    this.state = { attributes: {} }
+    this.state = { attributes: {}, profileId: null}
   }
 
   componentWillReceiveProps(nextProps) {
@@ -46,16 +46,17 @@ class PersonForm extends React.Component {
     Object.defineProperty( this, "PROFILE", { value: profile, writable: false, enumerable: true, configurable: true })
 
     if (profile) {
-      this.setState({ attributes: profile.attributes})
+      if (this.state.profileId !== profile.id)
+        this.setState({ attributes: profile.attributes, profileId: profile.id})
     } else {
-      this.setState({ attributes: {}})
-    }    
+      this.setState({ attributes: {}, profileId: null})
+    }
   }
 
-  onChange(key) {    
-    return el => {      
+  onChange(key) {
+    return el => {
       this.setState( { attributes: { ...this.state.attributes, ...{ [key] : el.target.value }}})
-    }    
+    }
   }
 
   newAttribute() {
@@ -68,7 +69,7 @@ class PersonForm extends React.Component {
   }
 
   render() {
-    const person = this.PERSON    
+    const person = this.PERSON
     const profile = this.PROFILE
 
     if (!person)
@@ -83,20 +84,20 @@ class PersonForm extends React.Component {
         </div>
       )
 
-    return (      
+    return (
         <div>
           <ReactTooltip />
-          <img src={this.props.pictures[this.props.person.pictures[0]].url} style={{width: "300px"}} />          
+          <img src={this.props.pictures[this.props.person.pictures[0]].url} style={{width: "300px"}} />
           <div style={{lineHeight: '150%', marginTop: '20px', color: '#ccc'}}>
           id: {person.id}<br/>
           p_id: {profile.id}<br/>
           occuracy: {profile.occuracy}<br/>
           </div>
 
-          { _.keys(this.state.attributes).map( key => (            
+          { _.keys(this.state.attributes).map( key => (
             <FormInput key={key} label={key} onChange={this.onChange(key)} value={this.state.attributes[key]} />
           ))
-          }          
+          }
           <div>
             <div style={{float: 'left'}}>
               <ImageButton data-tip="Add New Field" onClick={this.newAttribute.bind(this)} width="25px" type="image" src="/images/plus.svg" />
@@ -104,7 +105,7 @@ class PersonForm extends React.Component {
             <div style={{float: 'right'}}>
               <Button onClick={this.onClickUpdate.bind(this)}>Save</Button>
             </div>
-          </div>          
+          </div>
         </div>
     )
   }

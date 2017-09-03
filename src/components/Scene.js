@@ -10,67 +10,81 @@ import PersonForm from './PersonForm'
 import TopMenu from './TopMenu'
 import Draggable from 'react-draggable'
 
-const RightBar = styled.div.attrs({  
-  width: props => props.width || '200px',
-  opacity: props => props.opacity || 0, 
+const Main = styled.div.attrs({
+  //marginRight: props => props.right || '0px',
+})`
+  position: absolute;
+  right: ${props => props.right };
+  left: 0px;
+  top: 0px;
+  bottom: 0px;
+  margin-right: ${props => props.margin };
+  transition: all 0.5s ease;
+`;
+
+const RightBar = styled.div.attrs({
+  width: props => props.width || '0px',
+  opacity: props => props.opacity || 0,
 })`
   position: absolute;
   background: #333;
   opacity: ${props => props.opacity};
   right: 0px;
   top: 0px;
-  bottom: 0px;
   padding: 20px;
   font-weight: 300;
+  height: 100%;
   z-index: 3;
   transition: all 0.5s ease;
   width: ${props => props.width};
-  border-left: 1px solid rgba(0,0,0,0.2);
+  border-left: 1px solid rgba(0,0,0,0.1);
 `;
 
 class Scene extends React.Component {
-  static propTypes = {  
-    scenes: PropTypes.object.isRequired  
+  static propTypes = {
+    scenes: PropTypes.object.isRequired
   }
 
   constructor() {
     super()
-    this.state = { width: 100, opacity: 0 }
+    this.state = { width: 0, opacity: 0, margin: 0 }
   }
 
-  componentWillReceiveProps(nextProps) {    
+  componentWillReceiveProps(nextProps) {
     if (nextProps.selectedPerson.id) {
-      this.setState({ width: 300, opacity: 1 })
+      this.setState({ width: 300, opacity: 1, margin: 30 })
     } else {
-      this.setState({ width: 100, opacity: 0 })
+      this.setState({ width: 0, opacity: 0, margin: 0 })
     }
   }
-  
+
   render() {
     const scenes = _.values(this.props.scenes)
     const persons = _.values(this.props.persons)
     //const pictures = _.values(this.props.pictures)
-    const snapshotScr = scenes && scenes[0] && scenes[0].snapshot && scenes[0].snapshot.url       
+    const snapshotScr = scenes && scenes[0] && scenes[0].snapshot && scenes[0].snapshot.url
     const foundFaces = scenes && persons && _.map(persons, id => { return { rect: id.snapshotRect, id: id.id } })
 
     const selectedPerson = this.props.selectedPerson
 
     return (
-      <div>      
-        <TopMenu organizationName={scenes && scenes[0] && scenes[0].organizationName} camId={scenes && scenes[0] && scenes[0].camId} />
+      <div style={{position: 'absolute', top: 0, left: 0, right: 0, width: '100%', height: '100%', overflow: 'hidden'}}>
         <Draggable>
           <CameraPreview style={{position: 'absolute', width: '143px', height: '80px'}}>
-            <img alt="Face" src={snapshotScr} style={{borderRadius: '5px'}} className="Scene--size" />          
+            <img alt="Face" src={snapshotScr} style={{borderRadius: '5px'}} className="Scene--size" />
             { _.map(foundFaces, face =>
               <div className="Face" style={{borderColor: '#ADD8E6'}}key={face.id} />
-            )}  
+            )}
           </CameraPreview>
         </Draggable>
-        <div>
+
+        <Main right={this.state.width + 'px'} margin={this.state.margin + 'px'}>
+          <TopMenu organizationName={scenes && scenes[0] && scenes[0].organizationName} camId={scenes && scenes[0] && scenes[0].camId} />
           <PersonList />
-        </div>
+        </Main>
+
         <RightBar width={this.state.width + 'px'}  opacity={this.state.opacity} >
-          { selectedPerson && <PersonForm person={selectedPerson} /> } 
+            { selectedPerson && <PersonForm person={selectedPerson} /> }
         </RightBar>
       </div>
     )
@@ -78,13 +92,13 @@ class Scene extends React.Component {
 }
 
 /*
-<div className="Scene">                  
+<div className="Scene">
           <div style={{position: 'absolute'}}>
-            <img alt="Face" src={snapshotScr} />          
+            <img alt="Face" src={snapshotScr} />
             { _.map(foundFaces, face =>
               <div className="Face" key={ index++ }style={{ top: face.t, left: face.l, bottom: face.b, right: face.r}}/>
-            )}  
-          </div>                  
+            )}
+          </div>
         </div>
 */
 

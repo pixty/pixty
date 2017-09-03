@@ -4,7 +4,7 @@ export default function reducer(state = {}, action) {
 
   switch (action.type) {
 
-    case SCENE.SUCCESS:      
+    case SCENE.SUCCESS:
       return {
         ...state,
         ...action.response.entities.pictures

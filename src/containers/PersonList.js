@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { clickPerson } from '../actions'
+import { clickPerson, getProfile } from '../actions'
 import Persons from '../components/Persons'
 
 const mapStateToProps = (state, ownProps) => ({
@@ -11,7 +11,8 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = {
-  onClick: clickPerson
+  onClick: clickPerson,
+  getProfile: getProfile
 }
 
 export default withRouter(connect(
