@@ -33,7 +33,7 @@ class Persons extends React.Component {
 
     return (
       <div style={{margin: '0px', marginTop: '20px', padding: '0px', width: '100%',
-                  background: '#333', overflowX: 'scroll',
+                  background: '', overflowX: 'scroll',
                   overflowScrolling: "touch", WebkitOverflowScrolling: "touch"
                 }}>
         <div style={{width: div_width + 'px', overflow: 'hidden'}}>

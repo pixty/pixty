@@ -9,6 +9,8 @@ const API_ROOT = 'https://api.pixty.io/', //'http://localhost:8080/',
       PIXTY_API_ROOT = 'https://api.pixty.io/'
 
 function CurrentUser() {
+  CurrentUser.cookies = new Cookies();
+
   this.getToken = () => {
     return CurrentUser.cookies.get('_Pixty_Session')
   }
@@ -16,11 +18,11 @@ function CurrentUser() {
     return CurrentUser.cookies.remove('_Pixty_Session')
   }
   this.signIn = (token) => {
-    CurrentUser.cookies.set('_Pixty_Session', token)
+    CurrentUser.cookies.set('_Pixty_Session', token, { maxAge: 60*60 })
   }
 }
 
-CurrentUser.cookies = new Cookies();
+
 CurrentUser.loggedIn = () => {
   return CurrentUser.cookies.get('_Pixty_Session') !== undefined;
 }

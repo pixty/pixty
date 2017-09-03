@@ -9,6 +9,7 @@ import CameraPreview from './styled/CameraPreview'
 import PersonForm from './PersonForm'
 import TopMenu from './TopMenu'
 import Draggable from 'react-draggable'
+import { backroundColor } from './styled/Colors'
 
 const Main = styled.div.attrs({
   //marginRight: props => props.right || '0px',
@@ -27,7 +28,7 @@ const RightBar = styled.div.attrs({
   opacity: props => props.opacity || 0,
 })`
   position: absolute;
-  background: #333;
+  background: ${backroundColor};
   opacity: ${props => props.opacity};
   right: 0px;
   top: 0px;
@@ -37,7 +38,7 @@ const RightBar = styled.div.attrs({
   z-index: 3;
   transition: all 0.5s ease;
   width: ${props => props.width};
-  border-left: 1px solid rgba(0,0,0,0.1);
+  border-left: 1px solid rgba(0,0,0,0.5);
 `;
 
 class Scene extends React.Component {

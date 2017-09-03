@@ -23,14 +23,14 @@ class LoginPage extends React.Component {
     const user = 'stas',
           password = '123456';
 
-    fetch('https://rentaplane.online/api/sessions', {
-      method: 'POST',
+    fetch('https://api.pixty.io/ping', {
+      method: 'GET',
       //credentials: "include",
-      mode: 'no-cors',
+      //mode: 'no-cors',
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization' : 'Basic ' + base64.encode(user + ":" + password)
+        //'Accept': 'application/json',
+        //'Content-Type': 'application/json',
+        //'Authorization' : 'Basic ' + base64.encode(user + ":" + password)
       },
       //body: JSON.stringify({user: user, password: password})
     }).then(

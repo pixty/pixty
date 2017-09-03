@@ -30,28 +30,25 @@ class Person extends React.Component {
 
   render() {
 
-    let attributes = this.props.profile && this.props.profile.attributes.map((a) => (<p><span style={{fontSize: '12px'}}>{a.name}</span><br/>{a.value}</p>))
+    let attributes = this.props.profile && this.props.profile.attributes.map((a) => (<div><span style={{fontSize: '12px', color: '#777'}}>{a.name}</span><br/>{a.value}</div>))
 
     return (
         <PersonLi alt={this.props.name} className="Snapshot--size" onMouseMove={this.changePic.bind(this)}
           style={{
-          border: this.props.selectedId === this.props.id ? '2px solid #ADD8E6' : '2px solid rgba(0,0,0,0.5)',
+          border: this.props.selectedId === this.props.id ? '1px solid #ADD8E6' : '1px solid #222',
           margin: '10px',
           padding: '0px',
-          background: this.props.selectedId === this.props.id ? '#eee' : '#444',
+          background: this.props.selectedId === this.props.id ? '#eee' : '#333',
           borderRadius: '2px',
-          color: 'black',
+          color: this.props.selectedId === this.props.id ? 'black' : 'white',
           float: 'left'
         }}>
           <img alt='' onClick={this.props.onClick} style={{ width: '330px', cursor: 'pointer' }} src={ this.state.currentFaceSrc } />
-          <div style={{float: 'right', marginRight: '10px'}}>
-            <ImageButton width="16px" type="image" src="/images/menu.svg" />
-          </div>
           <div style={{padding: '10px', fontSize: '11px'}}>
             {this.props.id}
             {this.props.profile ? this.props.profile.avatarUrl : 'no profile' }
           </div>
-          <div style={{padding: '10px', fontSize: '18px', lineHeight: '100%'}}>
+          <div style={{padding: '10px', fontSize: '20px', lineHeight: '100%'}}>
             {attributes ? attributes : null }
           </div>
           { this.props.selectedId === this.props.id ? <SelectedPerson {...this.props} /> : '' }
