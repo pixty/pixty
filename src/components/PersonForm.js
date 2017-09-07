@@ -7,7 +7,6 @@ import { postProfile } from '../actions'
 import _ from 'lodash'
 import FormInput from './FormInput'
 import styled from 'styled-components'
-import ReactTooltip from 'react-tooltip'
 import ImageButton from './styled/ImageButton'
 
 const Button = styled.button`
@@ -86,7 +85,6 @@ class PersonForm extends React.Component {
 
     return (
         <div>
-          <ReactTooltip />
           <img src={this.props.pictures[this.props.person.pictures[0]].url} style={{width: "300px"}} />
           <div style={{lineHeight: '150%', marginTop: '20px', color: '#ccc'}}>
           id: {person.id}<br/>
@@ -100,7 +98,7 @@ class PersonForm extends React.Component {
           }
           <div>
             <div style={{float: 'left'}}>
-              <ImageButton data-tip="Add New Field" onClick={this.newAttribute.bind(this)} width="25px" type="image" src="/images/plus.svg" />
+              <ImageButton onClick={this.newAttribute.bind(this)} width="25px" type="image" src="/images/plus.svg" />
             </div>
             <div style={{float: 'right'}}>
               <Button onClick={this.onClickUpdate.bind(this)}>Save</Button>

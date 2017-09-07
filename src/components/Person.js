@@ -30,7 +30,7 @@ class Person extends React.Component {
 
   render() {
 
-    let attributes = this.props.profile && this.props.profile.attributes.map((a) => (<div><span style={{fontSize: '12px', color: '#777'}}>{a.name}</span><br/>{a.value}</div>))
+    let attributes = this.props.profile && this.props.profile.attributes.map((a) => (<div key={a.name}><span style={{fontSize: '12px', color: '#777'}}>{a.name}</span><br/>{a.value}</div>))
 
     return (
         <PersonLi alt={this.props.name} className="Snapshot--size" onMouseMove={this.changePic.bind(this)}

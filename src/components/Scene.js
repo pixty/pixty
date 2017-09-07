@@ -7,6 +7,7 @@ import styled from 'styled-components'
 import SelectedPerson from './SelectedPerson'
 import CameraPreview from './styled/CameraPreview'
 import PersonForm from './PersonForm'
+import Modals from '../containers/Modals'
 import TopMenu from './TopMenu'
 import Draggable from 'react-draggable'
 import { backroundColor } from './styled/Colors'
@@ -32,13 +33,14 @@ const RightBar = styled.div.attrs({
   opacity: ${props => props.opacity};
   right: 0px;
   top: 0px;
-  padding: 20px;
+  padding: 0px;
   font-weight: 300;
   height: 100%;
   z-index: 3;
   transition: all 0.5s ease;
+  overflow: auto;
   width: ${props => props.width};
-  border-left: 1px solid rgba(0,0,0,0.5);
+  border-left: 1px solid rgba(0,0,0,0.3);
 `;
 
 class Scene extends React.Component {
@@ -53,7 +55,7 @@ class Scene extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.selectedPerson.id) {
-      this.setState({ width: 300, opacity: 1, margin: 30 })
+      this.setState({ width: 300, opacity: 1, margin: 0 })
     } else {
       this.setState({ width: 0, opacity: 0, margin: 0 })
     }
@@ -70,6 +72,9 @@ class Scene extends React.Component {
 
     return (
       <div style={{position: 'absolute', top: 0, left: 0, right: 0, width: '100%', height: '100%', overflow: 'hidden'}}>
+
+        <Modals />
+
         <Draggable>
           <CameraPreview style={{position: 'absolute', width: '143px', height: '80px'}}>
             <img alt="Face" src={snapshotScr} style={{borderRadius: '5px'}} className="Scene--size" />
@@ -85,7 +90,9 @@ class Scene extends React.Component {
         </Main>
 
         <RightBar width={this.state.width + 'px'}  opacity={this.state.opacity} >
+            <div style={{padding: '10px'}}>
             { selectedPerson && <PersonForm person={selectedPerson} /> }
+            </div>
         </RightBar>
       </div>
     )

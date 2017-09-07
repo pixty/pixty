@@ -6,6 +6,7 @@ import persons from './persons'
 import pictures from './pictures'
 import profiles from './profiles'
 import cameras from './cameras'
+import modals from './modals'
 
 const reducer = combineReducers({
   users,
@@ -13,7 +14,8 @@ const reducer = combineReducers({
   persons,
   pictures,
   profiles,
-  cameras
+  cameras,
+  modals
 });
 
 export default reducer

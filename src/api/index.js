@@ -2,6 +2,7 @@ import { normalize } from 'normalizr'
 import { camelizeKeys } from 'humps'
 import * as schema from '../api/schema'
 import { fakeJson } from './fake'
+import { fakeJson2 } from './fake2'
 import Cookies from 'universal-cookie'
 import 'whatwg-fetch'
 
@@ -62,14 +63,9 @@ function apiCall(endpoint, schema, method = 'get', data = null) {
       fakeJson.snapshot.url = `http://pixty.io/assets/snapshots/rest${pad(number, 4)}.png`
       //console.log(fakeJson.snapshot.url)
 
-      const camelizedJson = camelizeKeys(fakeJson)
-
-      //debugger;
-      const realCamelizedJson = camelizeKeys(json)
+      const camelizedJson = camelizeKeys(Date.now() % 2 ? fakeJson : fakeJson2)
 
       //console.log('normalize!', normalize(camelizedJson, schema))
-
-      camelizedJson.real = realCamelizedJson
 
       return Object.assign({},
         normalize(camelizedJson, schema)

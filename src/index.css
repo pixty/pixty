@@ -7,11 +7,10 @@ body {
 }
 
 html {
-
   position: relative;
   height: 100%;
   width:  100%;
-  min-height: 700px;
+  min-height: 300px;
 }
 
 ul, li {

@@ -6,6 +6,8 @@ export const LOAD_SCENE = 'LOAD_SCENE'
 export const POST_PROFILE = 'POST_PROFILE'
 export const GET_CAMERAS = 'GET_CAMERAS'
 export const GET_PROFILE = 'GET_PROFILE'
+export const OPEN_MODAL = 'OPEN_MODAL'
+export const CLOSE_MODAL = 'CLOSE_MODAL'
 
 const REQUEST = 'REQUEST'
 const SUCCESS = 'SUCCESS'
@@ -79,5 +81,7 @@ export const loadScene = (login, requiredFields = []) => action(LOAD_SCENE, {log
 export const postProfile = (profile) => action(POST_PROFILE, {profile})
 export const getCameras = (id) => action(GET_CAMERAS, {id})
 export const getProfile = (id) => action(GET_PROFILE, {id})
+export const openModal = (dialog, obj) => action(OPEN_MODAL, {dialog, obj})
+export const closeModal = (dialog) => action(CLOSE_MODAL, {dialog})
 
 

@@ -43,7 +43,7 @@ export const fetchProfile     = fetchEntity.bind(null, get_profile, api.fetchPro
 function* pollData() {
     try {
         yield call(fetchScene, 'ptt')
-        yield call(delay, 20000)
+        yield call(delay, 15000)
     } catch (error) {
         return
     }
