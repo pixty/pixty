@@ -11,6 +11,7 @@ import Modals from '../containers/Modals'
 import TopMenu from './TopMenu'
 import Draggable from 'react-draggable'
 import { backroundColor } from './styled/Colors'
+import Spinner from './Spinner'
 
 const Main = styled.div.attrs({
   //marginRight: props => props.right || '0px',
@@ -38,14 +39,16 @@ const RightBar = styled.div.attrs({
   height: 100%;
   z-index: 3;
   transition: all 0.5s ease;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   width: ${props => props.width};
   border-left: 1px solid rgba(0,0,0,0.3);
 `;
 
 class Scene extends React.Component {
+
   static propTypes = {
-    scenes: PropTypes.object.isRequired
+    scene: PropTypes.object.isRequired
   }
 
   constructor() {
@@ -61,32 +64,38 @@ class Scene extends React.Component {
     }
   }
 
-  render() {
-    const scenes = _.values(this.props.scenes)
-    const persons = _.values(this.props.persons)
-    //const pictures = _.values(this.props.pictures)
-    const snapshotScr = scenes && scenes[0] && scenes[0].snapshot && scenes[0].snapshot.url
-    const foundFaces = scenes && persons && _.map(persons, id => { return { rect: id.snapshotRect, id: id.id } })
+  pad(num, size) {
+    var s = num + "";
+    while (s.length < size) s = "0" + s;
+    return s;
+  }
 
+  render() {
+    const scene = this.props.scene
     const selectedPerson = this.props.selectedPerson
+
+    let number = (Date.now() % 300) + 1
+    let snapshot_url = `http://pixty.io/assets/snapshots/rest${this.pad(number, 4)}.png`
 
     return (
       <div style={{position: 'absolute', top: 0, left: 0, right: 0, width: '100%', height: '100%', overflow: 'hidden'}}>
 
         <Modals />
 
-        <Draggable>
+        <Draggable defaultPosition={{x:100, y:100}}>
           <CameraPreview style={{position: 'absolute', width: '143px', height: '80px'}}>
-            <img alt="Face" src={snapshotScr} style={{borderRadius: '5px'}} className="Scene--size" />
-            { _.map(foundFaces, face =>
-              <div className="Face" style={{borderColor: '#ADD8E6'}}key={face.id} />
-            )}
+            <img alt="Face" onDragStart={(event)=>{ event.preventDefault(); return false;}}   src={scene.frame && scene.frame['picURL'] || snapshot_url} style={{borderRadius: '5px'}} className="Scene--size" />
           </CameraPreview>
         </Draggable>
 
         <Main right={this.state.width + 'px'} margin={this.state.margin + 'px'}>
-          <TopMenu organizationName={scenes && scenes[0] && scenes[0].organizationName} camId={scenes && scenes[0] && scenes[0].camId} />
-          <PersonList />
+          <TopMenu />
+
+          { scene.persons && scene.persons.length ? <PersonList /> : <div style={{position: 'absolute', top: '50%', left: '50%'}}>
+            <Spinner opacity={0.5} />
+          </div>
+          }
+
         </Main>
 
         <RightBar width={this.state.width + 'px'}  opacity={this.state.opacity} >
@@ -98,16 +107,5 @@ class Scene extends React.Component {
     )
   }
 }
-
-/*
-<div className="Scene">
-          <div style={{position: 'absolute'}}>
-            <img alt="Face" src={snapshotScr} />
-            { _.map(foundFaces, face =>
-              <div className="Face" key={ index++ }style={{ top: face.t, left: face.l, bottom: face.b, right: face.r}}/>
-            )}
-          </div>
-        </div>
-*/
 
 export default Scene

@@ -51,7 +51,7 @@ export const fakeJson = {
         "pictures": [ {
             "id": "pc-123434",
             "timestamp": "2017-03-25T12:00:00,999Z",
-            "url": "https://api.pixty.io/images/cm-ptt1504241567000_731_353_950_572.png",
+            "url": "http://pixty.io/assets/snapshots/rest0350.png",
             "size": {
                 "w": 200,
                 "h": 200

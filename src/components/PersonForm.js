@@ -8,6 +8,7 @@ import _ from 'lodash'
 import FormInput from './FormInput'
 import styled from 'styled-components'
 import ImageButton from './styled/ImageButton'
+import { fetchProfile } from '../api'
 
 const Button = styled.button`
   background: ${props => props.primary ? 'white' : 'none'};
@@ -28,7 +29,7 @@ const Button = styled.button`
   }
 `;
 
-class PersonForm extends React.Component {
+class PersonForm extends React.PureComponent {
   static propTypes = {
     person: PropTypes.object.isRequired
   }
@@ -36,17 +37,31 @@ class PersonForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = { attributes: {}, profileId: null}
+    this.findNextValue = this.findNextValue.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     const person = nextProps.person
-    const profile = person.profile && nextProps.profiles[person.profile]
+    const profile = person.profile
     Object.defineProperty( this, "PERSON", { value: person, writable: false, enumerable: true, configurable: true })
     Object.defineProperty( this, "PROFILE", { value: profile, writable: false, enumerable: true, configurable: true })
 
     if (profile) {
-      if (this.state.profileId !== profile.id)
-        this.setState({ attributes: profile.attributes, profileId: profile.id})
+      if (this.state.profileId !== profile.id) {
+        //this.setState({ attributes: profile.attributes, profileId: profile.id})
+        //this.setState({profileId: profile.id})
+
+        fetchProfile(profile.id).then((response) => {
+
+            let attrs = {};
+            response.response.attributes.map((a) => {
+              attrs[a.name] = a.value;
+            });
+
+            setTimeout(() => this.setState({ attributes: attrs, profileId: profile.id}), 200);
+          }
+        );
+      }
     } else {
       this.setState({ attributes: {}, profileId: null})
     }
@@ -58,13 +73,32 @@ class PersonForm extends React.Component {
     }
   }
 
+  findNextValue() {
+
+    const keys = this.props.metaInfo.map((meta_key) => {
+      if (!this.state.attributes) {
+        return meta_key.fieldName;
+      }
+
+      if(this.state.attributes[meta_key.fieldName] || this.state.attributes[meta_key.fieldName] == '') {
+        return null;
+      } else {
+        return meta_key.fieldName;
+      }
+    });
+    console.log(keys);
+    return _.compact(keys)[0];
+  }
+
   newAttribute() {
-    let key = '_' + parseInt(Math.random() * 1000)
-    this.setState( { attributes: { ...this.state.attributes, ...{ [key] : '' }}})
+    let key = this.findNextValue();
+    if (key) {
+      this.setState( { attributes: { ...this.state.attributes, ...{ [key] : '' }}})
+    }
   }
 
   onClickUpdate() {
-    this.props.update({id: this.PROFILE.id, ...this.state.attributes});
+    this.props.update({orgId:1, id: this.PROFILE.id, ...this.state.attributes});
   }
 
   render() {
@@ -77,6 +111,7 @@ class PersonForm extends React.Component {
     if (!profile)
       return (
         <div>
+          <img src={this.props.person.avatarUrl} style={{width: "280px"}} />
           id: {person.id}<br/>
           No profile
           <Button onClick={() => alert('Create')}>Create</Button>
@@ -85,11 +120,9 @@ class PersonForm extends React.Component {
 
     return (
         <div>
-          <img src={this.props.pictures[this.props.person.pictures[0]].url} style={{width: "300px"}} />
-          <div style={{lineHeight: '150%', marginTop: '20px', color: '#ccc'}}>
-          id: {person.id}<br/>
-          p_id: {profile.id}<br/>
-          occuracy: {profile.occuracy}<br/>
+          <img src={this.props.person.avatarUrl} style={{width: "280px"}} />
+          <div style={{lineHeight: '150%', margin: '10px 0px', color: '#555', fontSize: '11px'}}>
+          {person.id}
           </div>
 
           { _.keys(this.state.attributes).map( key => (
@@ -97,7 +130,7 @@ class PersonForm extends React.Component {
           ))
           }
           <div>
-            <div style={{float: 'left'}}>
+            <div style={{float: 'left', marginTop: '10px'}}>
               <ImageButton onClick={this.newAttribute.bind(this)} width="25px" type="image" src="/images/plus.svg" />
             </div>
             <div style={{float: 'right'}}>
@@ -110,10 +143,8 @@ class PersonForm extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  scenes: state.entities.scenes,
-  persons: state.entities.persons,
-  pictures: state.entities.pictures,
-  profiles: state.entities.profiles,
+  scene: state.entities.scene,
+  metaInfo: state.entities.orgs[0].metaInfo,
 })
 
 const mapDispatchToProps = {

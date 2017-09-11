@@ -4,9 +4,7 @@ import { clickPerson, getProfile } from '../actions'
 import Persons from '../components/Persons'
 
 const mapStateToProps = (state, ownProps) => ({
-  persons: state.entities.persons,
-  profiles: state.entities.profiles,
-  pictures: state.entities.pictures,
+  scene: state.entities.scene,
   selectedPerson: state.selectedPerson
 })
 

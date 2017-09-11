@@ -2,7 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
 import './index.css'
-
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import createHistory from 'history/createBrowserHistory'
@@ -16,13 +15,14 @@ import reducers from './reducers'
 import { loadingBarReducer, loadingBarMiddleware } from 'react-redux-loading-bar'
 import createSagaMiddleware, { END } from 'redux-saga'
 import rootSaga from './sagas'
-import { loadScene, getCameras } from './actions'
+import { loadScene, getOrgs } from './actions'
 import selectedPersonReducer from './reducers/selectedPerson'
 import LoginPage from './components/LoginPage'
 import { CurrentUser } from './api'
+import Modals from './containers/Modals'
 
 //const preloadedState = window.__PRELOADED_STATE__
-const preloadedState = { entities: { cameras: { 0: { id: "preloaded-ptt", orgId: 1, hasSecretKey: true }}}}
+const preloadedState = { entities: { orgs: { 0: { cameras: [{id: "preloaded-ptt", orgId: 1, hasSecretKey: true}] }}}}
 // Allow the passed state to be garbage-collected
 delete window.__PRELOADED_STATE__
 
@@ -67,6 +67,7 @@ store.subscribe(() =>
 setTimeout(() => store.dispatch(loadAll()), 0)
 
 const Welcome = () => (<div>
+    <Modals />
     <h2 style={{padding: '20px', color: 'white'}}>Analytics</h2>
     <Link style={{padding: '20px', color: 'white'}} to="/">Home</Link>
   </div>
@@ -136,7 +137,7 @@ ReactDOM.render(
 
 function loadAll() {
   return function (dispatch) {
-    dispatch(getCameras('fake'))
+    dispatch(getOrgs());
     //dispatch(loadScene('fp-123'))
   }
 }

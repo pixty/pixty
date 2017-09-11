@@ -9,7 +9,7 @@ import { CurrentUser } from '../api'
 export const history = browserHistory
 
 // each entity defines 3 creators { request, success, failure }
-const { user, scene, profile, camera, get_profile } = actions
+const { user, scene, profile, get_profile, orgs } = actions
 
 // Utility function to delay effects
 function delay(millis) {
@@ -33,17 +33,20 @@ function* fetchEntity(entity, apiFn, id, url) {
 }
 
 // yeah! we can also bind Generators
-export const fetchCameras     = fetchEntity.bind(null, camera, api.fetchCameras)
 export const fetchUser        = fetchEntity.bind(null, user, api.fetchUser)
 export const fetchScene       = fetchEntity.bind(null, scene, api.fetchScene)
 export const postProfile      = fetchEntity.bind(null, profile, api.postProfile)
 export const fetchProfile     = fetchEntity.bind(null, get_profile, api.fetchProfile)
+export const fetchOrgs        = fetchEntity.bind(null, orgs, api.fetchOrgs)
 
 // Fetch data every N seconds
 function* pollData() {
     try {
-        yield call(fetchScene, 'ptt')
-        yield call(delay, 15000)
+        const camera_id = CurrentUser.getCamera();
+        if (camera_id) {
+          yield call(fetchScene, camera_id);
+        }
+        yield call(delay, 1000);
     } catch (error) {
         return
     }
@@ -57,10 +60,10 @@ function* loadUser(login, requiredFields) {
   }
 }
 
-function* watchGetCameras() {
+function* watchGetOrgs() {
   while(true) {
-    const {id} = yield take(actions.GET_CAMERAS)
-    yield call(fetchCameras, id)
+    const {id} = yield take(actions.GET_ORGS)
+    yield call(fetchOrgs, id)
   }
 }
 
@@ -96,8 +99,8 @@ function* watchPollData() {
 
 export default function* root() {
   yield [
+    fork(watchGetOrgs),
     fork(watchPollData),
-    fork(watchGetCameras),
     fork(watchGetProfile),
     fork(watchPostProfile),
   ]

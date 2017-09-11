@@ -36,10 +36,8 @@ class FormInput extends React.Component {
     this.state = { show: false }
   }
 
-  componentWillMount() {
-    setTimeout(() => {
-      this.setState({show: true })
-    }, 100)
+  componentDidMount() {
+    this.setState(() => (setTimeout(()=>{ this.setState({show: true}) }, 100)))
   }
 
   render() {

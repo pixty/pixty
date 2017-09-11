@@ -7,8 +7,7 @@ export default function reducer(state = {}, action) {
     case SCENE.SUCCESS:
       return {
         ...state,
-        ...action.response.entities.scenes,
-        ...action.response.entities.real
+        ...action.response
       }
 
     default:

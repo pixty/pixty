@@ -4,10 +4,10 @@ export const CLICK_PERSONS = 'CLICK_PERSONS'
 export const LOAD_USER_PAGE = 'LOAD_USER_PAGE'
 export const LOAD_SCENE = 'LOAD_SCENE'
 export const POST_PROFILE = 'POST_PROFILE'
-export const GET_CAMERAS = 'GET_CAMERAS'
 export const GET_PROFILE = 'GET_PROFILE'
 export const OPEN_MODAL = 'OPEN_MODAL'
 export const CLOSE_MODAL = 'CLOSE_MODAL'
+export const GET_ORGS = 'GET_ORGS'
 
 const REQUEST = 'REQUEST'
 const SUCCESS = 'SUCCESS'
@@ -24,6 +24,7 @@ export const USER = createRequestTypes('USER')
 export const SCENE = createRequestTypes('SCENE')
 export const CAMERA = createRequestTypes('CAMERA')
 export const PROFILE = createRequestTypes('PROFILE')
+export const ORGS = createRequestTypes('ORGS')
 
 export const addEntities = (entities) => ({
   type: ADD_ENTITIES,
@@ -69,19 +70,20 @@ export const scene = {
   failure: (login, error) => action(SCENE.FAILURE, {login, error}),
 }
 
-export const camera = {
-  request: () => action(CAMERA.REQUEST, {}),
-  success: (id, response) => action(CAMERA.SUCCESS, {id, response}),
-  failure: (id, error) => action(CAMERA.FAILURE, {id, error}),
+export const orgs = {
+  request: () => action(ORGS.REQUEST, {}),
+  success: (id, response) => action(ORGS.SUCCESS, {id, response}),
+  failure: (id, error) => action(ORGS.FAILURE, {id, error}),
 }
 
 
 export const loadUserPage = (login, requiredFields = []) => action(LOAD_USER_PAGE, {login, requiredFields})
 export const loadScene = (login, requiredFields = []) => action(LOAD_SCENE, {login, requiredFields})
 export const postProfile = (profile) => action(POST_PROFILE, {profile})
-export const getCameras = (id) => action(GET_CAMERAS, {id})
+
 export const getProfile = (id) => action(GET_PROFILE, {id})
 export const openModal = (dialog, obj) => action(OPEN_MODAL, {dialog, obj})
 export const closeModal = (dialog) => action(CLOSE_MODAL, {dialog})
+export const getOrgs = () => action(GET_ORGS, {})
 
 

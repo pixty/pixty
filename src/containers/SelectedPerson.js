@@ -2,9 +2,8 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import SelectedPerson from '../components/SelectedPerson'
 
-const mapStateToProps = (state, ownProps) => ({   
-  persons: state.entities.persons,
-  profiles: state.entities.profiles,
+const mapStateToProps = (state, ownProps) => ({
+  scene: state.entities.scene,
   selectedPerson: state.selectedPerson
 })
 

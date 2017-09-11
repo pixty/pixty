@@ -7,25 +7,33 @@ import Cookies from 'universal-cookie'
 import 'whatwg-fetch'
 
 const API_ROOT = 'https://api.pixty.io/', //'http://localhost:8080/',
-      PIXTY_API_ROOT = 'https://api.pixty.io/'
+      PIXTY_API_ROOT = 'https://api.pixty.io/',
+      SESSION_NAME = 'pixty_session'
 
 function CurrentUser() {
   CurrentUser.cookies = new Cookies();
 
   this.getToken = () => {
-    return CurrentUser.cookies.get('_Pixty_Session')
+    return CurrentUser.cookies.get(SESSION_NAME)
   }
   this.logOut = () => {
-    return CurrentUser.cookies.remove('_Pixty_Session')
+    return CurrentUser.cookies.remove(SESSION_NAME)
   }
   this.signIn = (token) => {
-    CurrentUser.cookies.set('_Pixty_Session', token, { maxAge: 60*60 })
+    CurrentUser.cookies.set(SESSION_NAME, token, { maxAge: 60*60 })
   }
 }
 
-
 CurrentUser.loggedIn = () => {
-  return CurrentUser.cookies.get('_Pixty_Session') !== undefined;
+  return CurrentUser.cookies.get(SESSION_NAME) !== undefined;
+}
+
+CurrentUser.setCamera = (id) => {
+  CurrentUser.selectedCamera = id;
+}
+
+CurrentUser.getCamera = () => {
+  return CurrentUser.selectedCamera;
 }
 
 export { CurrentUser }
@@ -44,10 +52,11 @@ function apiCall(endpoint, schema, method = 'get', data = null) {
 
   return fetch(fullUrl, {
       method: method,
-      //headers: {
+      credentials: 'include',
+      headers: {
       //  'Accept': 'application/json',
-      //  'Content-Type': 'application/json',
-      //},
+        'Content-Type': 'application/json',
+      },
       body: body,
     })
     .then(response =>
@@ -73,7 +82,10 @@ function apiCall(endpoint, schema, method = 'get', data = null) {
     })
     .then(
       response => ({ response }),
-      error => ({error: error.message || 'Something bad happened'})
+      error => {
+        alert(error);
+        return error;
+      }
     )
 }
 
@@ -84,6 +96,7 @@ function pixtyApiCall(endpoint, method = 'GET', data = null) {
 
   return fetch(fullUrl, {
       method: method,
+      credentials: 'include',
       //mode: 'no-cors',
       headers: {
         //'Accept': 'application/json',
@@ -111,12 +124,13 @@ function pixtyApiCall(endpoint, method = 'GET', data = null) {
     )
 }
 
-//export const fetchUser = login => callApi(`cameras/${login}/scenes`, schema.user)
-export const fetchScene = camId => apiCall(`cameras/${camId}/timeline`, schema.scene)
+
+//export const fetchScene = camId => apiCall(`cameras/${camId}/timeline`, schema.scene)
+export const fetchScene = camId => pixtyApiCall(`cameras/${camId}/timeline`)
 
 export const fetchTimeline = camId => pixtyApiCall(`cameras/${camId}/timeline`)
-export const fetchCameras = id => pixtyApiCall(`cameras`)
+export const fetchOrgs = id => pixtyApiCall(`orgs`)
 export const fetchProfile = id => pixtyApiCall(`profiles/${id}`)
 
-export const postProfile = profile => apiCall(`profiles/${profile.id}/persons`, schema.scene, 'post', profile)
+export const postProfile = profile => apiCall(`profiles/${profile.id}`, schema.scene, 'put', profile)
 

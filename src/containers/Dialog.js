@@ -61,7 +61,7 @@ class Dialog extends React.PureComponent {
               <ImageButton width="10px" type="image" onClick={() => (closeDialog.call(this, id))} src="/images/cross.svg" />
             </div>
           </div>
-          <div style={{clear: 'both', marginTop: '10px', padding: '20px'}}>
+          <div style={{clear: 'both', margin: '0px', padding: '20px'}}>
             {context}
           </div>
         </div>

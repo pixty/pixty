@@ -28,25 +28,23 @@ class Persons extends React.Component {
   }
   // <SortableList items={this.state.items} onSortEnd={this.onSortEnd} />
   render() {
-    const { persons, pictures, profiles, onClick, selectedPerson, getProfile } = this.props;
+    const { scene, onClick, selectedPerson, getProfile } = this.props;
+    const persons = scene.persons;
     const div_width = _.size(persons) * 360;
 
     return (
       <div style={{margin: '0px', marginTop: '20px', padding: '0px', width: '100%',
-                  background: '', overflowX: 'scroll',
+                  background: '', overflowX: 'scroll', position: 'absolute', top: '25px', bottom: '0px',
                   overflowScrolling: "touch", WebkitOverflowScrolling: "touch"
                 }}>
-        <div style={{width: div_width + 'px', overflow: 'hidden'}}>
-        <ul>
+        <div style={{width: div_width + 'px', overflow: 'hidden', padding: '4px', height: '100%'}}>
+        <ul style={{display:'flex', height: '96%', justifyContent: 'top'}}>
           { _.map(persons, person =>
             <Person key={person.id}
               {...person}
-              profile={profiles['1']}
+              selectedPerson={selectedPerson}
               onClick={() => onClick({ id: person.id, selected: person})}
               getProfile={() => getProfile(person.id) }
-              name={person.profile ? profiles[person.profile].attributes.name : person.id}
-              selectedId={selectedPerson.id}
-              pictures={ _.map(person.pictures, id => ( pictures[id] ))}
             />
           )}
         </ul>
