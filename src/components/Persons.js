@@ -30,24 +30,26 @@ class Persons extends React.Component {
   render() {
     const { scene, onClick, selectedPerson, getProfile } = this.props;
     const persons = scene.persons;
-    const div_width = _.size(persons) * 360;
+    const div_width = _.size(persons) * 330;
 
     return (
-      <div style={{margin: '0px', marginTop: '20px', padding: '0px', width: '100%',
-                  background: '', overflowX: 'scroll', position: 'absolute', top: '25px', bottom: '0px',
-                  overflowScrolling: "touch", WebkitOverflowScrolling: "touch"
+      <div style={{margin: '0px', padding: '0px', right: '0px', left: '0px',
+                  background: '', overflow: 'hidden', position: 'absolute', top: '50px', bottom: '50px', justifyContent: 'center',
+                  display: 'flex',
                 }}>
-        <div style={{width: div_width + 'px', overflow: 'hidden', padding: '4px', height: '100%'}}>
-        <ul style={{display:'flex', height: '96%', justifyContent: 'top'}}>
-          { _.map(persons, person =>
-            <Person key={person.id}
-              {...person}
-              selectedPerson={selectedPerson}
-              onClick={() => onClick({ id: person.id, selected: person})}
-              getProfile={() => getProfile(person.id) }
-            />
-          )}
-        </ul>
+        <div style={{overflowX: 'auto', overflowScrolling: "touch",
+        WebkitOverflowScrolling: "touch", overflowY: 'hidden', margin: '0px',
+        flexShrink: 1, padding: '0px'}}>
+          <ul style={{height: '98%', width: div_width + 5 + 'px'}}>
+            { _.map(persons, person =>
+              <Person key={person.id}
+                {...person}
+                selectedPerson={selectedPerson}
+                onClick={() => onClick({ id: person.id, selected: person})}
+                getProfile={() => getProfile(person.id) }
+              />
+            )}
+          </ul>
         </div>
       </div>
     )

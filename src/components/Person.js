@@ -5,6 +5,7 @@ import SelectedPerson from '../containers/SelectedPerson'
 import ImageButton from './styled/ImageButton'
 import PersonLi from './styled/PersonLi'
 import TimeAgo from 'react-timeago'
+import { mainColor } from '../components/styled/Colors'
 
 let lastX = 1
 
@@ -38,27 +39,32 @@ class Person extends React.Component {
     return (
         <PersonLi alt={this.props.name} onMouseMove={this.changePic.bind(this)}
           style={{
-          border: selectedId === this.props.id ? '1px solid #ADD8E6' : '1px solid #222',
+          border: selectedId === this.props.id ? `1px solid ${mainColor}` : '1px solid #555',
           height: '100%',
           width: '320px',
-          overflowX: 'hidden',
-          overflowY: 'auto',
-          margin: '10px',
+          float: 'left',
+          margin: '0px',
+          marginRight: '10px',
           padding: '0px',
-          flexShrink: '0',
+          boxShadow: selectedId === this.props.id ? '4px 4px 6px rgba(0,0,0,0.2)' : '2px 2px 2px rgba(0,0,0,0.2)',
           background: selectedId === this.props.id ? '#eee' : '#444',
           borderRadius: '2px',
           color: selectedId === this.props.id ? 'black' : 'white'
         }}>
           <img alt='' style={{ width: '30px', position: 'absolute' }} src={ this.state.currentFaceSrc } />
           <img alt='' onClick={this.props.onClick} style={{ width: '320px', cursor: 'pointer' }} src={ this.props.avatarUrl } />
-          { this.props.pictures.map((pic)=> <img key={pic.id} src={pic.url} style={{width: '50px'}} />)}
-          <div style={{padding: '10px', fontSize: '40px', lineHeight: '100%', wordWarp: 'break-word'}}>
-            Dmitry Spasibenko
+          { this.props.pictures.map((pic)=> <img key={pic.id} src={pic.picURL} style={{width: '50px'}} />)}
+          <div style={{padding: '10px', fontSize: '25px', lineHeight: '120%', wordWrap: 'break-word'}}>
+            Константин Константинович Контантиновский
           </div>
-          <div style={{padding: '10px', fontSize: '13px', lineHeight: '150%', wordWarp: 'break-word'}}>
-            lastSeenAt: <TimeAgo date={this.props.lastSeenAt} /><br/>
-            Profile: {this.props.profile ? 'has profile' : 'no profile' }
+          <div style={{padding: '10px', fontSize: '14px', fontWeight: 'normal', lineHeight: '150%', wordWrap: 'break-word'}}>
+            <div style={{fontSize: '11px', opacity: 0.5}}>Last seen at, {this.props.profile ? 'has profile' : 'no profile' }</div>
+            <TimeAgo date={this.props.lastSeenAt} /><br/>
+
+            <div style={{fontSize: '11px', opacity: 0.5}}>Visit Count</div>
+            <div>1</div>
+
+
             <br/><br/>
             { selectedId === this.props.id ? <SelectedPerson {...this.props} /> : selectedId }
           </div>

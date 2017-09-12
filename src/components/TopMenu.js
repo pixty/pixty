@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import SelectedPerson from '../containers/SelectedPerson'
 import DropDownMenu from './DropDownMenu'
 import ImageButton from './styled/ImageButton'
-import Button from './styled/Button'
+import { RegularButton } from './styled/Button'
 import Select from 'react-select'
 import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router-dom'
@@ -20,9 +20,10 @@ class TopMenu extends React.Component {
   }
 
   constructor(props) {
-    super(props)
+    super(props);
+    const cams = _.map(this.props.org.cameras, c => ({ id: c.id, label: c.name}));
 
-    this.state = { options: [], selected: null }
+    this.state = { options: cams, selected: CurrentUser.getCamera() };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -40,7 +41,7 @@ class TopMenu extends React.Component {
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc at laoreet est. Mauris ligula orci, auctor fringilla mollis ut, accumsan ac magna. Sed blandit dictum ex, a auctor est faucibus at. Aliquam mollis auctor nunc vitae lacinia. Ut et odio dui. Vivamus posuere lorem vitae magna mollis varius. Phasellus cursus dui non enim tincidunt pharetra. Vivamus ullamcorper eu dolor ac ornare. Maecenas mi turpis, consequat eget convallis quis, hendrerit id dui. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas non arcu sit amet libero euismod tincidunt ut eu velit. Proin tempor pulvinar pharetra.
 <br/><br/>
 <div style={{float: 'right', marginBottom: '15px'}}>
-  <Button>Save</Button>
+  <RegularButton>Save</RegularButton>
 </div>
 </div>);
     this.refs.drop_down.setState(() => ({open: false}));

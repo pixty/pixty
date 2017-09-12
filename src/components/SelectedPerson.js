@@ -6,7 +6,7 @@ import TimeAgo from 'react-timeago'
 
 
 const currentPerson = (person, profile) => (
-    <div>
+    <div style={{color: '#ddd', fontSize: '12px'}}>
       { _.isEmpty(profile) ?
         <div>
           <img src={logo} className="App-logo" alt="logo" />

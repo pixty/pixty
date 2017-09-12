@@ -1,7 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const Label = styled.div`
+    position: absolute;
+    margin-top: 34px;
+    margin-left: -50px;
+    text-align: center;
+    color: rgba(255,255,255,0.2);
+    font-size: 11px;
+    width: 100px;
+`
+
 const Spinner = (props) => (
+  <div>
+  <Label>
+    identifying process
+  </Label>
   <StyledSpinner opacity={props.opacity} viewBox="0 0 50 50">
     <circle
       className="path"
@@ -12,6 +26,7 @@ const Spinner = (props) => (
       strokeWidth="1"
     />
   </StyledSpinner>
+  </div>
 );
 
 const StyledSpinner = styled.svg`

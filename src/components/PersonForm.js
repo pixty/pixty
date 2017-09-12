@@ -8,26 +8,8 @@ import _ from 'lodash'
 import FormInput from './FormInput'
 import styled from 'styled-components'
 import ImageButton from './styled/ImageButton'
+import { RegularButton } from './styled/Button'
 import { fetchProfile } from '../api'
-
-const Button = styled.button`
-  background: ${props => props.primary ? 'white' : 'none'};
-  color: ${props => props.primary ? 'black' : 'white'};
-  cursor: pointer;
-  font-size: 1em;
-  margin-top: 1em;
-  padding: 0.25em 1em;
-  border: 1px solid white;
-  border-radius: 3px;
-  transition: all 0.3s ease-out 0.06s;
-  outline: none;
-  &:hover {
-    background: rgba(0,0,0,0.1)
-  }
-  &:active {
-    opacity: 0.6;
-  }
-`;
 
 class PersonForm extends React.PureComponent {
   static propTypes = {
@@ -114,7 +96,7 @@ class PersonForm extends React.PureComponent {
           <img src={this.props.person.avatarUrl} style={{width: "280px"}} />
           id: {person.id}<br/>
           No profile
-          <Button onClick={() => alert('Create')}>Create</Button>
+          <RegularButton onClick={() => alert('Create')}>Create</RegularButton>
         </div>
       )
 
@@ -134,7 +116,7 @@ class PersonForm extends React.PureComponent {
               <ImageButton onClick={this.newAttribute.bind(this)} width="25px" type="image" src="/images/plus.svg" />
             </div>
             <div style={{float: 'right'}}>
-              <Button onClick={this.onClickUpdate.bind(this)}>Save</Button>
+              <RegularButton onClick={this.onClickUpdate.bind(this)}>Save</RegularButton>
             </div>
           </div>
         </div>
