@@ -6,6 +6,12 @@ import ImageButton from './styled/ImageButton'
 import PersonLi from './styled/PersonLi'
 import TimeAgo from 'react-timeago'
 import { mainColor } from '../components/styled/Colors'
+import styled from 'styled-components'
+
+export const UserPic = styled.img`
+  width: 320px;
+  height: 180px;
+`
 
 let lastX = 1
 
@@ -51,9 +57,14 @@ class Person extends React.Component {
           borderRadius: '2px',
           color: selectedId === this.props.id ? 'black' : 'white'
         }}>
-          <img alt='' style={{ width: '30px', position: 'absolute' }} src={ this.state.currentFaceSrc } />
-          <img alt='' onClick={this.props.onClick} style={{ width: '320px', cursor: 'pointer' }} src={ this.props.avatarUrl } />
-          { this.props.pictures.map((pic)=> <img key={pic.id} src={pic.picURL} style={{width: '50px'}} />)}
+
+          <div onClick={this.props.onClick} style={{cursor: 'pointer', overflowX: 'scroll', overflowY: 'auto', height: '180px'}}>
+            <div style={{overflowScrolling: "touch",
+        WebkitOverflowScrolling: "touch", width: 320 * this.props.pictures.length + 'px', height: '180px'}}>
+              { this.props.pictures.map((pic)=> <UserPic key={pic.id} src={pic.picURL} />)}
+            </div>
+          </div>
+
           <div style={{padding: '10px', fontSize: '25px', lineHeight: '120%', wordWrap: 'break-word'}}>
             Константин Константинович Контантиновский
           </div>
