@@ -7,11 +7,8 @@ import PersonLi from './styled/PersonLi'
 import TimeAgo from 'react-timeago'
 import { mainColor } from '../components/styled/Colors'
 import styled from 'styled-components'
-
-export const UserPic = styled.img`
-  width: 320px;
-  height: 180px;
-`
+import Picture from '../components/Picture'
+import Spinner from './Spinner'
 
 let lastX = 1
 
@@ -51,6 +48,8 @@ class Person extends React.Component {
           float: 'left',
           margin: '0px',
           marginRight: '10px',
+          overflowX: 'hidden',
+          overflowY: 'auto',
           padding: '0px',
           boxShadow: selectedId === this.props.id ? '4px 4px 6px rgba(0,0,0,0.2)' : '2px 2px 2px rgba(0,0,0,0.2)',
           background: selectedId === this.props.id ? '#eee' : '#444',
@@ -58,25 +57,25 @@ class Person extends React.Component {
           color: selectedId === this.props.id ? 'black' : 'white'
         }}>
 
-          <div onClick={this.props.onClick} style={{cursor: 'pointer', overflowX: 'scroll', overflowY: 'auto', height: '180px'}}>
+          <div onClick={this.props.onClick} style={{cursor: 'pointer', overflowX: 'scroll', overflowY: 'hidden', height: '180px'}}>
             <div style={{overflowScrolling: "touch",
         WebkitOverflowScrolling: "touch", width: 320 * this.props.pictures.length + 'px', height: '180px'}}>
-              { this.props.pictures.map((pic)=> <UserPic key={pic.id} src={pic.picURL} />)}
+              { this.props.pictures.map((pic)=> <Picture key={pic.id} placeholder={<Spinner noLabel />} src={pic.picURL} /> )}
             </div>
           </div>
 
-          <div style={{padding: '10px', fontSize: '25px', lineHeight: '120%', wordWrap: 'break-word'}}>
-            Константин Константинович Контантиновский
-          </div>
           <div style={{padding: '10px', fontSize: '14px', fontWeight: 'normal', lineHeight: '150%', wordWrap: 'break-word'}}>
-            <div style={{fontSize: '11px', opacity: 0.5}}>Last seen at, {this.props.profile ? 'has profile' : 'no profile' }</div>
-            <TimeAgo date={this.props.lastSeenAt} /><br/>
+            <div style={{float:'right', textAlign: 'right'}}>
+              <div style={{fontSize: '11px', opacity: 0.5}}>Visit Count</div>
+              <div>1</div>
+            </div>
+            <div style={{fontSize: '11px', opacity: 0.5}}>Last seen at</div>
+            <div><TimeAgo date={this.props.lastSeenAt} /></div>
 
-            <div style={{fontSize: '11px', opacity: 0.5}}>Visit Count</div>
-            <div>1</div>
+            <div style={{marginTop: '10px', fontSize: '25px', fontWeight: 'normal', lineHeight: '140%', wordWrap: 'break-word'}}>
+              { this.props.profile && this.props.profile.attributes.map((attr) => <div>{attr.value}</div>) }
+            </div>
 
-
-            <br/><br/>
             { selectedId === this.props.id ? <SelectedPerson {...this.props} /> : selectedId }
           </div>
         </PersonLi>

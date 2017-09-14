@@ -83,7 +83,7 @@ class Scene extends React.Component {
         <Modals />
 
         <Draggable defaultPosition={{x:100, y:100}}>
-          <CameraPreview style={{position: 'absolute', width: '143px', height: '80px'}}>
+          <CameraPreview style={{position: 'absolute', width: '142px', height: '80px', borderRadius: '6px'}}>
             <img alt="Face" onDragStart={(event)=>{ event.preventDefault(); return false;}}   src={scene.frame && scene.frame['picURL'] || snapshot_url} style={{borderRadius: '5px'}} className="Scene--size" />
           </CameraPreview>
         </Draggable>

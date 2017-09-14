@@ -13,9 +13,7 @@ const Label = styled.div`
 
 const Spinner = (props) => (
   <div>
-  <Label>
-    identifying process
-  </Label>
+  { props.noLabel ? null : <Label>identifying process</Label> }
   <StyledSpinner opacity={props.opacity} viewBox="0 0 50 50">
     <circle
       className="path"
