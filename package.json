@@ -56,7 +56,8 @@
     "test": "jest --verbose",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "start:server": "node server"
   },
   "jest": {
     "setupFiles": [
