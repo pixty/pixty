@@ -1,27 +1,29 @@
-import React from 'react'
-import { MemoryRouter } from 'react-router-dom'
-import { Provider } from 'react-redux'
-import sinon from 'sinon'
-import configureStore from 'redux-mock-store'
-import App from './App'
+import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import sinon from 'sinon';
+import configureStore from 'redux-mock-store';
+import App from './App';
 
-const middlewares = []
-const mockStore = configureStore(middlewares)
+const middlewares = [];
+const mockStore = configureStore(middlewares);
 
 it('App renders without crashing', () => {
 
   const initialState = {
     entities: {
-      scenes: {}
+      scene: {},
+      modals: {},
+      orgs: { 0: { cameras: [{id: 0, label: 'loading...', orgId: 1, hasSecretKey: true}] }}
     },
     router: {},
     loadingBar: 0,
     selectedPerson: {}
-  }
+  };
 
-  const store = mockStore(initialState)  
-  const dispatchSpy = sinon.spy()
-  store.dispatch = dispatchSpy
+  const store = mockStore(initialState);
+  const dispatchSpy = sinon.spy();
+  store.dispatch = dispatchSpy;
 
   const app = render(
     <Provider store={store}>
@@ -29,6 +31,6 @@ it('App renders without crashing', () => {
         <App />
       </MemoryRouter>
     </Provider>
-  )
-  expect(app).toMatchSnapshot()
-})
+  );
+  expect(app).toMatchSnapshot();
+});

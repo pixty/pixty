@@ -1,15 +1,15 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
-import * as api from '../api'
-import { postProfile } from '../actions'
-import _ from 'lodash'
-import FormInput from './FormInput'
-import styled from 'styled-components'
-import ImageButton from './styled/ImageButton'
-import { RegularButton } from './styled/Button'
-import { fetchProfile } from '../api'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import * as api from '../api';
+import { postProfile } from '../actions';
+import _ from 'lodash';
+import FormInput from './FormInput';
+import styled from 'styled-components';
+import ImageButton from './styled/ImageButton';
+import { RegularButton } from './styled/Button';
+import { fetchProfile } from '../api';
 
 class PersonForm extends React.PureComponent {
   static propTypes = {
@@ -17,16 +17,16 @@ class PersonForm extends React.PureComponent {
   }
 
   constructor(props) {
-    super(props)
-    this.state = { attributes: {}, profileId: null}
+    super(props);
+    this.state = { attributes: {}, profileId: null};
     this.findNextValue = this.findNextValue.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    const person = nextProps.person
-    const profile = person.profile
-    Object.defineProperty( this, "PERSON", { value: person, writable: false, enumerable: true, configurable: true })
-    Object.defineProperty( this, "PROFILE", { value: profile, writable: false, enumerable: true, configurable: true })
+    const person = nextProps.person;
+    const profile = person.profile;
+    Object.defineProperty( this, "PERSON", { value: person, writable: false, enumerable: true, configurable: true });
+    Object.defineProperty( this, "PROFILE", { value: profile, writable: false, enumerable: true, configurable: true });
 
     if (profile) {
       if (this.state.profileId !== profile.id) {
@@ -45,14 +45,14 @@ class PersonForm extends React.PureComponent {
         );
       }
     } else {
-      this.setState({ attributes: {}, profileId: null})
+      this.setState({ attributes: {}, profileId: null});
     }
   }
 
   onChange(key) {
     return el => {
-      this.setState( { attributes: { ...this.state.attributes, ...{ [key] : el.target.value }}})
-    }
+      this.setState( { attributes: { ...this.state.attributes, ...{ [key] : el.target.value }}});
+    };
   }
 
   findNextValue() {
@@ -75,7 +75,7 @@ class PersonForm extends React.PureComponent {
   newAttribute() {
     let key = this.findNextValue();
     if (key) {
-      this.setState( { attributes: { ...this.state.attributes, ...{ [key] : '' }}})
+      this.setState( { attributes: { ...this.state.attributes, ...{ [key] : '' }}});
     }
   }
 
@@ -84,11 +84,11 @@ class PersonForm extends React.PureComponent {
   }
 
   render() {
-    const person = this.PERSON
-    const profile = this.PROFILE
+    const person = this.PERSON;
+    const profile = this.PROFILE;
 
     if (!person)
-      return null
+      return null;
 
     if (!profile)
       return (
@@ -98,7 +98,7 @@ class PersonForm extends React.PureComponent {
           No profile
           <RegularButton onClick={() => alert('Create')}>Create</RegularButton>
         </div>
-      )
+      );
 
     return (
         <div>
@@ -120,20 +120,20 @@ class PersonForm extends React.PureComponent {
             </div>
           </div>
         </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = (state, ownProps) => ({
   scene: state.entities.scene,
   metaInfo: state.entities.orgs[0].metaInfo,
-})
+});
 
 const mapDispatchToProps = {
   update: postProfile
-}
+};
 
 export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(PersonForm))
+)(PersonForm));

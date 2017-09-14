@@ -1,4 +1,4 @@
-import { SCENE } from '../actions'
+import { SCENE } from '../actions';
 
 export default function reducer(state = {}, action) {
 
@@ -8,9 +8,9 @@ export default function reducer(state = {}, action) {
       return {
         ...state,
         ...action.response
-      }
+      };
 
     default:
-      return state
+      return state;
   }
 }

@@ -1,4 +1,4 @@
-import { OPEN_MODAL, CLOSE_MODAL } from '../actions'
+import { OPEN_MODAL, CLOSE_MODAL } from '../actions';
 
 export default function reducer(state = {}, action) {
 
@@ -8,15 +8,15 @@ export default function reducer(state = {}, action) {
       return {
         ...state,
         ...{[action.dialog] : { id: action.dialog, open: true, context: action.obj }}
-      }
+      };
 
     case CLOSE_MODAL:
       return {
         ...state,
         ...{[action.dialog] : {open: false}}
-      }
+      };
 
     default:
-      return state
+      return state;
   }
 }

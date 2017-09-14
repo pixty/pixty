@@ -1,10 +1,10 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
-import { closeModal } from '../actions'
-import Draggable from 'react-draggable'
-import ImageButton from '../components/styled/ImageButton'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { closeModal } from '../actions';
+import Draggable from 'react-draggable';
+import ImageButton from '../components/styled/ImageButton';
 
 const dialogStyle = {
       minWidth: '30px',
@@ -21,13 +21,13 @@ const dialogStyle = {
       margin: '0px',
       boxShadow: '8px 8px 12px rgba(0,0,0,0.2)',
       transition: 'opacity 0.2s ease'
-}
+};
 
 class Dialog extends React.PureComponent {
 
   constructor(props) {
     super(props);
-    this.state = { x: 0, y: 0, width: 0, height: 0, opacity: 0 }
+    this.state = { x: 0, y: 0, width: 0, height: 0, opacity: 0 };
     this.dragStop = this.dragStop.bind(this);
 
     //opacity: this.state.opacity
@@ -66,18 +66,18 @@ class Dialog extends React.PureComponent {
           </div>
         </div>
       </Draggable>
-    )
+    );
   }
 }
 
 const mapStateToProps = (state, ownProps) => ({
-})
+});
 
 const mapDispatchToProps = {
   closeDialog: closeModal
-}
+};
 
 export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(Dialog))
+)(Dialog));

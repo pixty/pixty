@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const ImageButton = styled.input`
   display: block;
@@ -9,6 +9,6 @@ const ImageButton = styled.input`
   &:active {
     opacity: 0.5;
   }
-`
+`;
 
-export default ImageButton
+export default ImageButton;

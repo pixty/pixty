@@ -4,34 +4,159 @@ exports[`App renders without crashing 1`] = `
 <div
   class="App"
 >
-  <div>
-    <div
-      style="opacity:0;transform:scaleX(0);transform-origin:left;transition:transform 800ms linear;width:100%;will-change:transform, opacity;height:2px;background-color:orange;position:absolute;"
-    />
-    <div
-      style="display:table;clear:both;"
-    />
-  </div>
+  <div />
   <div
-    class="App-header"
+    style="position:absolute;top:0;left:0;right:0;width:100%;height:100%;overflow:hidden;"
   >
+    <div />
     <div
-      class="Scene Scene--size"
+      class="react-draggable sc-ifAKCX eyOSGJ"
+      style="touch-action:none;position:absolute;width:142px;height:80px;border-radius:6px;transform:translate(100px,100px);"
+    >
+      <img
+        alt="Face"
+        class="Scene--size"
+        src="http://pixty.io/assets/snapshots/rest0103.png"
+        style="border-radius:5px;"
+      />
+    </div>
+    <div
+      class="sc-iwsKbI cAHoiV"
     >
       <div
-        style="position:absolute;"
+        style="margin:0px;display:flex;align-items:center;justify-content:center;"
       >
-        <img
-          alt="Face"
-          class="Scene--size"
-        />
+        <div
+          style="margin:0px 15px;width:auto;flex-grow:0;"
+        >
+          <div
+            style="float:left;"
+          >
+            <img
+              src="http://www.gravatar.com/avatar/6604f6e418d8db645955aa2626f7b309?s=60&d=identicon"
+              style="width:30px;border-radius:30px;margin-top:10px;"
+            />
+          </div>
+          <div
+            style="float:left;color:#ccc;margin-top:15px;margin-left:10px;font-size:14px;font-weight:bold;"
+          />
+        </div>
+        <div
+          style="margin:0px 15px;width:auto;flex-grow:1;"
+        >
+          <div
+            style="float:left;margin-left:15px;"
+          >
+            <div
+              style="position:relative;"
+            >
+              <input
+                class="sc-bdVaJa jCnrIS"
+                src="/images/camera.svg"
+                type="image"
+                width="25px"
+              />
+              <div
+                class="_drop_down sc-dnqmqq lhDpnN"
+                style="visibility:hidden;opacity:0;"
+              >
+                <ul>
+                  <li />
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div
+            style="float:left;margin-bottom:7px;margin-left:10px;"
+          >
+            <span
+              style="color:#888;font-size:13px;font-weight:200;"
+            />
+          </div>
+          <div
+            style="float:left;margin-left:15px;"
+          >
+            <input
+              class="sc-bdVaJa jCnrIS"
+              src="/images/eye.svg"
+              type="image"
+              width="25px"
+            />
+          </div>
+        </div>
+        <div
+          style="width:25px;margin-right:15px;"
+        >
+          <div
+            style="position:relative;"
+          >
+            <input
+              class="sc-bdVaJa jCnrIS"
+              src="/images/settings.svg"
+              type="image"
+              width="25px"
+            />
+            <div
+              class="_drop_down sc-dnqmqq eZMwGw"
+              style="visibility:hidden;opacity:0;"
+            >
+              <ul>
+                <li>
+                  <a
+                    href="/analytics"
+                  >
+                    Analytics
+                  </a>
+                </li>
+                <hr />
+                <li>
+                  Settings
+                </li>
+                <li>
+                  <a
+                    href="/logout"
+                  >
+                    Logout
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style="position:absolute;top:50%;left:50%;"
+      >
+        <div>
+          <div
+            class="sc-htpNat hhAasZ"
+          >
+            identifying process
+          </div>
+          <svg
+            class="sc-bxivhb jecG"
+            opacity="0.5"
+            viewbox="0 0 50 50"
+          >
+            <circle
+              class="path"
+              cx="25"
+              cy="25"
+              fill="none"
+              r="20"
+              stroke-width="1"
+            />
+          </svg>
+        </div>
       </div>
     </div>
     <div
-      style="margin:0px;padding:10px;width:100%;background:#333;overflow-x:scroll;overflow-scrolling:touch;-webkit-overflow-scrolling:touch;"
+      class="sc-gZMcBi coPbFD"
+      opacity="0"
+      width="0px"
     >
-      <ul
-        style="overflow:hidden;width:0px;"
+      <div
+        style="padding:10px;"
       />
     </div>
   </div>

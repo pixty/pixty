@@ -1,13 +1,13 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import ImageButton from './styled/ImageButton'
-import DropDown from './styled/DropDown'
+import React from 'react';
+import PropTypes from 'prop-types';
+import ImageButton from './styled/ImageButton';
+import DropDown from './styled/DropDown';
 
 class DropDownMenu extends React.Component {
 
   constructor(props) {
-    super(props)
-    this.state = { open: this.props.open || false, left_offset: 0 }
+    super(props);
+    this.state = { open: this.props.open || false, left_offset: 0 };
     this.setMenu = this.setMenu.bind(this);
     this.handleClickOutside = this.handleClickOutside.bind(this);
     this.onClick = this.onClick.bind(this);
@@ -23,7 +23,7 @@ class DropDownMenu extends React.Component {
 
   onClick() {
     if (this.props.float && this.props.float === 'right') {
-      this.setState({ open: !this.state.open, left_offset: 30 - this.menu.querySelector('._drop_down').offsetWidth })
+      this.setState({ open: !this.state.open, left_offset: 30 - this.menu.querySelector('._drop_down').offsetWidth });
     } else {
       this.setState({ open: !this.state.open, left_offset: -7 });
     }
@@ -47,7 +47,7 @@ class DropDownMenu extends React.Component {
           {this.props.children}
         </DropDown>
       </div>
-    )
+    );
   }
 
 }

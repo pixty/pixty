@@ -1,4 +1,4 @@
-import { CLICK_PERSONS } from '../actions'
+import { CLICK_PERSONS } from '../actions';
 
 export default function selectedPersonReducer(state = {}, action) {
 
@@ -6,14 +6,14 @@ export default function selectedPersonReducer(state = {}, action) {
 
     case CLICK_PERSONS:
       if (state.id === action.payload.id) {
-        return {}
+        return {};
       } else {
         return {
           ...state,
           ...action.payload.selected
-        }
+        };
       }
     default:
-      return state
+      return state;
   }
 }

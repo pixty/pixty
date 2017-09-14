@@ -1,4 +1,4 @@
-import { SCENE, CLICK_PERSONS } from '../actions'
+import { SCENE, CLICK_PERSONS } from '../actions';
 
 export default function reducer(state = {}, action) {
 
@@ -8,9 +8,9 @@ export default function reducer(state = {}, action) {
       return {
         ...state,
         ...action.response.entities.persons
-      }
+      };
 
     default:
-      return state
+      return state;
   }
 }

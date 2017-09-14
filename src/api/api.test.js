@@ -1,29 +1,32 @@
 //"test": "react-scripts test --env=jsdom",
-import {fetchScene} from '../api'
-
+import {fetchOrgs, postSession} from '../api';
 
 describe('API', () => {
 
+  it('Success login', async () => {
+    expect.assertions(1);
+    const data = await postSession('super', '123');
+    expect(data.response.user.login).toEqual('super');
+  });
+
   it('Makes sure window.fetch is the one from the polyfill', () => {
     expect(window.fetch.polyfill).toBe(true);
-  })
+  });
 
   it('Fetch scene data', () => {
 
-    expect.assertions(1) 
-
-    return fetchScene('fp-123')
+    return fetchOrgs()
     .then(data => {
-      if (data["error"]) {        
-        expect(data).toBe(null) //{ error: 'Network request failed' }
+      if (data["error"]) {
+        expect(data).toBe(null); //{ error: 'Network request failed' }
       } else {
-        //expect(data).toBeInstanceOf(Object)
+        expect(data).toBeInstanceOf(Object);
 
-        expect(data.response).toEqual(expect.objectContaining({
-          entities: expect.any(Object)            
+        /*expect(data.response).toEqual(expect.objectContaining({
+          entities: expect.any(Object)
           }
-        ))
+        ))*/
       }
-    })
-  })
-})
+    });
+  });
+});

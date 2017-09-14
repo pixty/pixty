@@ -1,17 +1,17 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import SelectedPerson from '../containers/SelectedPerson'
-import DropDownMenu from './DropDownMenu'
-import ImageButton from './styled/ImageButton'
-import { RegularButton } from './styled/Button'
-import Select from 'react-select'
-import { Link } from 'react-router-dom'
-import { withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
-import '../../__less__/select.css'
-import { openModal } from '../actions'
-import { CurrentUser } from '../api'
-import _ from 'lodash'
+import React from 'react';
+import PropTypes from 'prop-types';
+import SelectedPerson from '../containers/SelectedPerson';
+import DropDownMenu from './DropDownMenu';
+import ImageButton from './styled/ImageButton';
+import { RegularButton } from './styled/Button';
+import Select from 'react-select';
+import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import '../../__less__/select.css';
+import { openModal } from '../actions';
+import { CurrentUser } from '../api';
+import _ from 'lodash';
 
 class TopMenu extends React.Component {
 
@@ -30,7 +30,7 @@ class TopMenu extends React.Component {
     const cams = _.map(nextProps.org.cameras, c => ({ id: c.id, label: c.name}));
 
     if (!_.isEqual(this.props.options, cams)) {
-      this.setState({ options: cams, selected: CurrentUser.getCamera() })
+      this.setState({ options: cams, selected: CurrentUser.getCamera() });
     }
 
   }
@@ -49,12 +49,12 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc at laoreet est. Ma
 
   selectCamera(id) {
     CurrentUser.setCamera(id);
-    this.setState({ selected: id })
+    this.setState({ selected: id });
     this.refs.camera_select.setState(() => ({open: false}));
   }
 
   render() {
-    const options = this.state.options
+    const options = this.state.options;
 
     return (
       <div style={{margin: '0px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
@@ -95,19 +95,19 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc at laoreet est. Ma
         </div>
 
       </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = (state, ownProps) => ({
   org: state.entities.orgs[0]
-})
+});
 
 const mapDispatchToProps = {
   openModalDialog: openModal
-}
+};
 
 export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(TopMenu))
+)(TopMenu));

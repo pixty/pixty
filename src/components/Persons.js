@@ -1,12 +1,12 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import _ from 'lodash'
-import Person from './Person'
-import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc'
+import React from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
+import Person from './Person';
+import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
 
 const SortableItem = SortableElement(({value}) =>
   <li>{value}</li>
-)
+);
 
 const SortableList = SortableContainer(({items}) => {
   return (
@@ -16,7 +16,7 @@ const SortableList = SortableContainer(({items}) => {
       ))}
     </ul>
   );
-})
+});
 
 class Persons extends React.Component {
 //const Persons = ({ persons, pictures, profiles, onClick, selectedPerson }) => {
@@ -24,7 +24,7 @@ class Persons extends React.Component {
   onSortEnd = ({oldIndex, newIndex}) => {
     this.setState({
       items: arrayMove(this.state.items, oldIndex, newIndex),
-    })
+    });
   }
   // <SortableList items={this.state.items} onSortEnd={this.onSortEnd} />
   render() {
@@ -52,13 +52,13 @@ class Persons extends React.Component {
           </ul>
         </div>
       </div>
-    )
+    );
     }
 }
 
 Persons.propTypes = {
   onClick: PropTypes.func.isRequired,
   getProfile: PropTypes.func.isRequired
-}
+};
 
-export default Persons
+export default Persons;

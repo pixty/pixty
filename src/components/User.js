@@ -1,15 +1,15 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 
 class User extends React.Component {
   constructor(props) {
-    super(props)
-    this.state = {selected: false}
+    super(props);
+    this.state = {selected: false};
   }
 
   handleClick() {
-    this.setState({ selected: !this.state.selected})
+    this.setState({ selected: !this.state.selected});
     //this.props.onClick()
   }
 
@@ -28,7 +28,7 @@ class User extends React.Component {
       }}>
       <img alt='{this.props.login}' src={this.props.avatarUrl} style={{width: '100px'}}/>      
     </li>
-    )
+    );
   }
 }
 
@@ -36,6 +36,6 @@ User.propTypes = {
   onClick: PropTypes.func.isRequired,
   login: PropTypes.string.isRequired,
   selected: PropTypes.bool
-}
+};
 
-export default User
+export default User;

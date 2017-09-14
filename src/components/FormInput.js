@@ -1,6 +1,6 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 const Input = styled.input`
   border: none;
@@ -23,7 +23,7 @@ const Wrapper = styled.div`
   opacity: ${props => props.show ? 1.0 : 0.0};
   height: ${props => props.show ? '60px' : 0};
   transition: all 0.5s ease-out;
-`
+`;
 
 class FormInput extends React.Component {
   static propTypes = {
@@ -32,16 +32,16 @@ class FormInput extends React.Component {
   }
 
   constructor(props) {
-    super(props)
-    this.state = { show: false }
+    super(props);
+    this.state = { show: false };
   }
 
   componentDidMount() {
-    this.setState(() => (setTimeout(()=>{ this.setState({show: true}) }, 100)))
+    this.setState(() => (setTimeout(()=>{ this.setState({show: true}); }, 100)));
   }
 
   render() {
-    const inputType = this.props.password ? 'password' : 'text'
+    const inputType = this.props.password ? 'password' : 'text';
 
     return (
       <Wrapper show={this.state.show}>
@@ -50,8 +50,8 @@ class FormInput extends React.Component {
           <Input type={inputType} value={this.props.value} onChange={this.props.onChange} />
         </label>
       </Wrapper>
-    )
+    );
   }
 }
 
-export default FormInput
+export default FormInput;

@@ -9,7 +9,7 @@ const Label = styled.div`
     color: rgba(255,255,255,0.2);
     font-size: 11px;
     width: 100px;
-`
+`;
 
 const Spinner = (props) => (
   <div>

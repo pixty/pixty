@@ -1,7 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import User from './User'
-import _ from 'lodash'
+import React from 'react';
+import PropTypes from 'prop-types';
+import User from './User';
+import _ from 'lodash';
 
 
 const Users = ({ users, onUserClick }) => ( 
@@ -16,7 +16,7 @@ const Users = ({ users, onUserClick }) => (
       )}    
     </ul>
   </div>
-)
+);
 
 Users.propTypes = {
   users: PropTypes.arrayOf(PropTypes.shape({
@@ -25,10 +25,10 @@ Users.propTypes = {
     selected: PropTypes.object.isRequired
   }).isRequired).isRequired,
   onUserClick: PropTypes.func.isRequired
-}
+};
 
 Users.propTypes = {
   onUserClick: PropTypes.func.isRequired
-}
+};
 
-export default Users
+export default Users;

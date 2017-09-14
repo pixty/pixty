@@ -1,15 +1,15 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { push } from 'react-router-redux'
-import { withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { CurrentUser } from '../api'
-import { Button } from './styled/Button'
-import Link from './styled/Link'
-import logo from '../../public/images/logo.svg'
-import FormInput from './FormInput'
-import Modals from '../containers/Modals'
-import { openModal } from '../actions'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { push } from 'react-router-redux';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { CurrentUser, postSession } from '../api';
+import { Button } from './styled/Button';
+import Link from './styled/Link';
+import logo from '../../public/images/logo.svg';
+import FormInput from './FormInput';
+import Modals from '../containers/Modals';
+import { openModal } from '../actions';
 
 const base64 = require('base-64');
 
@@ -22,28 +22,16 @@ class LoginPage extends React.Component {
   }
 
   signIn() {
+    postSession(this.state.login, this.state.password).then(response => {
+      let sessionId = response.sessionId;
 
-    fetch('https://api.pixty.io/sessions', {
-      method: 'POST',
-      credentials: "include",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      //'Authorization' : 'Basic ' + base64.encode(user + ":" + password)
-      body: JSON.stringify({login: this.state.login, password: this.state.password})
-    }).then(
-      response => {
-        if (!response.ok) {
-          return Promise.reject(response)
-        }
+      this.currentUser.signIn(this.state.login);
+      this.props.store.dispatch(push('/'));
+      window.location.reload();
 
-        this.currentUser.signIn(this.state.login)
-        this.props.store.dispatch(push('/'));
-        window.location.reload();
-      }
-    ).catch(error => {
+    }, error => {
       this.props.openModalDialog('login', <div style={{padding: '10px'}}>Invalid username or password.</div>);
-    })
+    });
   }
 
   onChange() {
@@ -82,22 +70,22 @@ class LoginPage extends React.Component {
         </div>
       </div>
       </div>
-    )
+    );
   }
 }
 
 LoginPage.propTypes = {
   store: PropTypes.object.isRequired
-}
+};
 
 const mapStateToProps = (state, ownProps) => ({
-})
+});
 
 const mapDispatchToProps = {
   openModalDialog: openModal
-}
+};
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(LoginPage)
+)(LoginPage);

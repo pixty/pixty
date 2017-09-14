@@ -1,6 +1,6 @@
-import React from 'react'
-import styled, { css } from 'styled-components'
-import PropTypes from 'prop-types'
+import React from 'react';
+import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
 
 class Picture extends React.PureComponent {
 
@@ -19,7 +19,7 @@ class Picture extends React.PureComponent {
   }
 
   setLoaded = loaded => {
-    this.setState({ loaded: true })
+    this.setState({ loaded: true });
   }
 
 
@@ -29,7 +29,7 @@ class Picture extends React.PureComponent {
       src,
       alt,
       ...props
-    } = this.props
+    } = this.props;
 
     return (
       <div style={{width: '320px', height: '180px', float: 'left'}}>
@@ -39,10 +39,10 @@ class Picture extends React.PureComponent {
         </div> }
           <img src={src} alt={alt} style={{width: '320px', height: '180px', opacity: this.state.loaded ? 1 : 0}} onLoad={() => this.setLoaded(true)} />
       </div>
-    )
+    );
   }
 }
 
 
 
-export default Picture
+export default Picture;

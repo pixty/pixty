@@ -1,34 +1,34 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import _ from 'lodash'
-import SelectedPerson from '../containers/SelectedPerson'
-import ImageButton from './styled/ImageButton'
-import PersonLi from './styled/PersonLi'
-import TimeAgo from 'react-timeago'
-import { mainColor } from '../components/styled/Colors'
-import styled from 'styled-components'
-import Picture from '../components/Picture'
-import Spinner from './Spinner'
+import React from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
+import SelectedPerson from '../containers/SelectedPerson';
+import ImageButton from './styled/ImageButton';
+import PersonLi from './styled/PersonLi';
+import TimeAgo from 'react-timeago';
+import { mainColor } from '../components/styled/Colors';
+import styled from 'styled-components';
+import Picture from '../components/Picture';
+import Spinner from './Spinner';
 
-let lastX = 1
+let lastX = 1;
 
 class Person extends React.Component {
 
   constructor(props) {
-    super(props)
-    this.state = { currentFaceSrc: this.props.pictures[0].url, currentPictureSrc: this.props.pictures[0].picURL, pictureIndex: 0, pictureCount:this.props.pictures.length  }
+    super(props);
+    this.state = { currentFaceSrc: this.props.pictures[0].url, currentPictureSrc: this.props.pictures[0].picURL, pictureIndex: 0, pictureCount:this.props.pictures.length  };
   }
 
   componentWillMount() {
-    this.props.getProfile()
+    this.props.getProfile();
   }
 
   changePic(event) {
-    let offset =  Math.abs(event.nativeEvent.offsetX - lastX)
+    let offset =  Math.abs(event.nativeEvent.offsetX - lastX);
     if (offset > 640/this.state.pictureCount/2) {
-      lastX = event.nativeEvent.offsetX
-      let index = this.state.pictureIndex < this.state.pictureCount - 1 ? this.state.pictureIndex + 1 : 0
-      this.setState( { currentFaceSrc: this.props.pictures[index].url, currentPictureSrc: this.props.pictures[index].picURL, pictureIndex:index })
+      lastX = event.nativeEvent.offsetX;
+      let index = this.state.pictureIndex < this.state.pictureCount - 1 ? this.state.pictureIndex + 1 : 0;
+      this.setState( { currentFaceSrc: this.props.pictures[index].url, currentPictureSrc: this.props.pictures[index].picURL, pictureIndex:index });
     }
 
   }
@@ -80,7 +80,7 @@ class Person extends React.Component {
           </div>
         </PersonLi>
 
-    )
+    );
   }
 }
 
@@ -89,6 +89,6 @@ Person.propTypes = {
   id: PropTypes.string.isRequired,
   getProfile: PropTypes.func.isRequired,
   selectedPerson: PropTypes.object.isRequired
-}
+};
 
-export default Person
+export default Person;

@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { mainColor } from './Colors'
+import styled from 'styled-components';
+import { mainColor } from './Colors';
 
 const DropDown = styled.div`
   position: absolute;
@@ -68,6 +68,6 @@ const DropDown = styled.div`
       }
     }
   }
-`
+`;
 
-export default DropDown
+export default DropDown;

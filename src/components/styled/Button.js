@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { mainColor } from './Colors'
+import styled from 'styled-components';
+import { mainColor } from './Colors';
 
 export const Button = styled.button`
   display: block;
@@ -24,7 +24,7 @@ export const Button = styled.button`
     border-right: 1px solid rgba(255, 255, 255, 0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
-`
+`;
 export const RegularButton = styled.button`
   background: ${props => props.primary ? 'white' : 'none'};
   color: ${props => props.primary ? 'black' : 'white'};
