@@ -18,7 +18,7 @@ import rootSaga from './sagas';
 import { loadScene, getOrgs } from './actions';
 import selectedPersonReducer from './reducers/selectedPerson';
 import LoginPage from './components/LoginPage';
-import { CurrentUser } from './api';
+import { CurrentUser, postSession } from './api';
 import Modals from './containers/Modals';
 
 // const preloadedState = window.__PRELOADED_STATE__
