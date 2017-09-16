@@ -28,16 +28,17 @@ class Picture extends React.PureComponent {
       placeholder,
       src,
       alt,
+      width,
       ...props
     } = this.props;
 
     return (
-      <div style={{width: '320px', height: '320px', float: 'left'}}>
+      <div style={{width: width + 'px', float: 'left'}}>
         { !this.state.loaded &&
-        <div style={{marginLeft: '156px', marginTop: '90px'}}>
+        <div style={{marginLeft: width/2 + 'px', marginTop: '90px'}}>
           {placeholder }
         </div> }
-          <img src={src} alt={alt} style={{width: '320px', height: '320px', opacity: this.state.loaded ? 1 : 0}} onLoad={() => this.setLoaded(true)} />
+          <img src={src} alt={alt} style={{width: width + 'px', opacity: this.state.loaded ? 1 : 0}} onLoad={() => this.setLoaded(true)} />
       </div>
     );
   }

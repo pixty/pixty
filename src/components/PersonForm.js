@@ -96,7 +96,6 @@ class PersonForm extends React.PureComponent {
         <div>
           <img src={this.props.person.avatarUrl} style={{width: "280px"}} />
           id: {person.id}<br/>
-          No profile
           <RegularButton onClick={() => alert('Create')}>Create</RegularButton>
         </div>
       );
@@ -104,9 +103,6 @@ class PersonForm extends React.PureComponent {
     return (
         <div>
           <img src={this.props.person.avatarUrl} style={{width: "280px"}} />
-          <div style={{lineHeight: '150%', margin: '10px 0px', color: '#555', fontSize: '11px'}}>
-          {person.id}
-          </div>
 
           { _.keys(this.state.attributes).map( key => (
             <FormInput key={key} label={key} onChange={this.onChange(key)} value={this.state.attributes[key]} />

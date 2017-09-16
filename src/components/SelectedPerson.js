@@ -6,7 +6,7 @@ import TimeAgo from 'react-timeago';
 
 
 const currentPerson = (person, profile) => (
-    <div style={{color: '#ddd', fontSize: '12px'}}>
+    <div style={{opacity: 0.3, fontSize: '12px', marginTop: '15px'}}>
       { _.isEmpty(profile) ?
         <div>
           <img src={logo} className="App-logo" alt="logo" />
@@ -17,8 +17,7 @@ const currentPerson = (person, profile) => (
       }
 
       <div>
-        Id: {person.id}<br/>
-        lastSeenAt: <TimeAgo date={person.lastSeenAt} /><br/>
+        {person.id}<br/>
       </div>
     </div>
   );

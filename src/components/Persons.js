@@ -37,7 +37,7 @@ class Persons extends React.Component {
                   background: '', overflow: 'hidden', position: 'absolute', top: '50px', bottom: '0px', justifyContent: 'center',
                   display: 'flex',
                 }}>
-        <div style={{overflowX: 'auto', overflowScrolling: "touch",
+        <div style={{overflowX: 'auto', overflowScrolling: "touch", height: '100%',
         WebkitOverflowScrolling: "touch", overflowY: 'hidden', margin: '0px',
         flexShrink: 1, padding: '0px'}}>
           <ul style={{height: '98%', width: div_width + 5 + 'px'}}>
