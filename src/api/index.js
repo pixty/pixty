@@ -97,15 +97,17 @@ function pixtyApiCall(endpoint, method = 'GET', data = null) {
   return fetch(fullUrl, {
       method: method,
       credentials: 'include',
-      //mode: 'no-cors',
       headers: {
-        //'Accept': 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: body,
+      body: body
     })
     .then(response => {
-      return response.json().then(json => ({ json, response }));
+        if (method === 'DELETE') {
+          let json = { status: 'delete' };
+          return Promise.resolve().then(() => ({json, response}));
+        }
+        return response.json().then(json => ({ json, response }));
       }
     ).then(({ json, response }) => {
 
@@ -127,6 +129,7 @@ function pixtyApiCall(endpoint, method = 'GET', data = null) {
 
 
 export const postSession = (login, password) => pixtyApiCall('sessions', 'POST', { login: login, password: password });
+export const deleteSession = (id) => pixtyApiCall(`sessions/${id}`, 'DELETE', { sessId: id });
 
 //export const fetchScene = camId => apiCall(`cameras/${camId}/timeline`, schema.scene)
 export const fetchScene = camId => pixtyApiCall(`cameras/${camId}/timeline`);

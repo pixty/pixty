@@ -57,10 +57,10 @@ class Person extends React.Component {
           color: selectedId === this.props.id ? 'black' : 'white'
         }}>
 
-          <div onClick={this.props.onClick} style={{cursor: 'pointer', overflowX: 'scroll', overflowY: 'hidden', height: '180px'}}>
+          <div onClick={this.props.onClick} style={{cursor: 'pointer', overflowX: 'scroll', overflowY: 'hidden', height: '320px'}}>
             <div style={{overflowScrolling: "touch",
-        WebkitOverflowScrolling: "touch", width: 320 * this.props.pictures.length + 'px', height: '180px'}}>
-              { this.props.pictures.map((pic)=> <Picture key={pic.id} placeholder={<Spinner noLabel />} src={pic.picURL} /> )}
+        WebkitOverflowScrolling: "touch", width: 320 * this.props.pictures.length + 'px', height: '320px'}}>
+              { this.props.pictures.map((pic)=> <Picture key={pic.id} placeholder={<Spinner noLabel />} src={pic.url} /> )}
             </div>
           </div>
 
@@ -73,7 +73,7 @@ class Person extends React.Component {
             <div><TimeAgo date={this.props.lastSeenAt} /></div>
 
             <div style={{marginTop: '10px', fontSize: '25px', fontWeight: 'normal', lineHeight: '140%', wordWrap: 'break-word'}}>
-              { this.props.profile && this.props.profile.attributes.map((attr) => <div>{attr.value}</div>) }
+              { this.props.profile && this.props.profile.attributes.map((attr) => <div key={attr.value}>{attr.value}</div>) }
             </div>
 
             { selectedId === this.props.id ? <SelectedPerson {...this.props} /> : selectedId }

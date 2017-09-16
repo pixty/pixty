@@ -18,7 +18,7 @@ import rootSaga from './sagas';
 import { loadScene, getOrgs } from './actions';
 import selectedPersonReducer from './reducers/selectedPerson';
 import LoginPage from './components/LoginPage';
-import { CurrentUser, postSession } from './api';
+import { CurrentUser, postSession, deleteSession } from './api';
 import Modals from './containers/Modals';
 
 // const preloadedState = window.__PRELOADED_STATE__
@@ -79,8 +79,17 @@ const NotFount = () => (<div>
 );
 
 const Logout = () => {
-	currentUser.logOut();
-	window.location.reload();
+	const session_id = currentUser.getToken();
+
+	deleteSession(session_id).then((resolve) => {
+		currentUser.logOut();
+		window.location.reload();
+	}).catch((error) => {
+		console.log(error);
+		currentUser.logOut();
+		window.location.reload();
+	});
+
 	return null;
 };
 

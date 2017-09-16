@@ -40,7 +40,7 @@ class PersonForm extends React.PureComponent {
               attrs[a.name] = a.value;
             });
 
-            setTimeout(() => this.setState({ attributes: attrs, profileId: profile.id}), 200);
+            setTimeout(() => this.setState({ attributes: attrs, all_attrs: response.response.attributes, profileId: profile.id}), 200);
           }
         );
       }
@@ -51,7 +51,8 @@ class PersonForm extends React.PureComponent {
 
   onChange(key) {
     return el => {
-      this.setState( { attributes: { ...this.state.attributes, ...{ [key] : el.target.value }}});
+      let new_attrs = this.state.all_attrs.map( (a) => (a.name === key ? {...a, value: el.target.value } : a));
+      this.setState( { all_attrs: new_attrs, attributes: { ...this.state.attributes, ...{ [key] : el.target.value }}});
     };
   }
 
@@ -62,7 +63,7 @@ class PersonForm extends React.PureComponent {
         return meta_key.fieldName;
       }
 
-      if(this.state.attributes[meta_key.fieldName] || this.state.attributes[meta_key.fieldName] == '') {
+      if(this.state.attributes[meta_key.fieldName] || this.state.attributes[meta_key.fieldName] === '') {
         return null;
       } else {
         return meta_key.fieldName;
@@ -80,7 +81,7 @@ class PersonForm extends React.PureComponent {
   }
 
   onClickUpdate() {
-    this.props.update({orgId:1, id: this.PROFILE.id, ...this.state.attributes});
+    this.props.update({orgId: this.props.orgId, id: this.PROFILE.id, Attributes: this.state.all_attrs});
   }
 
   render() {
@@ -127,6 +128,7 @@ class PersonForm extends React.PureComponent {
 const mapStateToProps = (state, ownProps) => ({
   scene: state.entities.scene,
   metaInfo: state.entities.orgs[0].metaInfo,
+  orgId: state.entities.orgs[0].id
 });
 
 const mapDispatchToProps = {

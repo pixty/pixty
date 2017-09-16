@@ -23,11 +23,15 @@ class LoginPage extends React.Component {
 
   signIn() {
     postSession(this.state.login, this.state.password).then(response => {
-      let sessionId = response.sessionId;
+      let sessionId = response.response.sessionId;
 
-      this.currentUser.signIn(this.state.login);
-      this.props.store.dispatch(push('/'));
-      window.location.reload();
+      if (sessionId) {
+        this.currentUser.signIn(sessionId);
+        this.props.store.dispatch(push('/'));
+        window.location.reload();
+      } else {
+        return Promise.reject();
+      }
 
     }, error => {
       this.props.openModalDialog('login', <div style={{padding: '10px'}}>Invalid username or password.</div>);

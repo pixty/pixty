@@ -58,27 +58,32 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc at laoreet est. Ma
 
     return (
       <div style={{margin: '0px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-        <div style={{margin: '0px 15px', width: 'auto', flexGrow: 0}}>
-          <div style={{float: 'left'}}>
+        <div style={{margin: '0px 15px', width: 'auto', flexGrow: 0, display: 'flex'}}>
+          <div>
             <img src="http://www.gravatar.com/avatar/6604f6e418d8db645955aa2626f7b309?s=60&d=identicon" style={{width: "30px", borderRadius: "30px", marginTop: "10px"}} />
           </div>
-          <div style={{float: 'left', color: '#ccc', marginTop: '15px', marginLeft: '10px', fontSize: '14px', fontWeight: 'bold'}}>{this.props.org.name}</div>
+          <div style={{color: '#ccc', marginTop: '15px', marginLeft: '10px', fontSize: '14px', fontWeight: 'bold'}}>{this.props.org.name}</div>
         </div>
-        <div style={{margin: '0px 15px', width: 'auto', flexGrow: 1}}>
-          <div style={{float: 'left', marginLeft: '15px'}}>
+
+        <div style={{margin: '0px 15px', width: 'auto', flex: 1, display: 'flex'}}>
+          <div>
             <DropDownMenu ref='camera_select' font_size="13px" icon_url='/images/camera.svg'>
               <ul>
                 { options.map( opt => <li onClick={this.selectCamera.bind(this, opt.id)} key={opt.id}>{ this.state.selected === opt.id ? '✔ ' : ''}{opt.label}</li>)}
               </ul>
             </DropDownMenu>
           </div>
-          <div style={{float: 'left', marginBottom: '7px', marginLeft: '10px'}}>
-            <span style={{color: '#888', fontSize: '13px', fontWeight: '200'}}>
-              {this.state.selected && options[this.state.selected-1].label}
-            </span>
+          <div style={{marginTop: '4px', marginLeft: '10px', color: '#888', flex: 7,
+          whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', minWidth: '10px',
+          fontSize: '13px', fontWeight: '200'}}>
+            {this.state.selected && options[this.state.selected-1].label}
           </div>
 
-          <div style={{float: 'left', marginLeft: '15px'}}>
+          <div style={{flex: 1}}>
+            &nbsp;
+          </div>
+
+          <div>
             <ImageButton width="25px" type="image" src="/images/eye.svg" />
           </div>
         </div>

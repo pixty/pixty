@@ -48,6 +48,7 @@ function* pollData() {
         }
         yield call(delay, 1000);
     } catch (error) {
+        CurrentUser.setCamera(null);
         return;
     }
 }
