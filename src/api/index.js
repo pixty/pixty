@@ -103,8 +103,9 @@ function pixtyApiCall(endpoint, method = 'GET', data = null) {
       body: body
     })
     .then(response => {
-        if (method === 'DELETE') {
-          let json = { status: 'delete' };
+
+        if (method === 'DELETE' || method === 'PUT') {
+          let json = { method: method };
           return Promise.resolve().then(() => ({json, response}));
         }
         return response.json().then(json => ({ json, response }));
@@ -138,5 +139,7 @@ export const fetchTimeline = camId => pixtyApiCall(`cameras/${camId}/timeline`);
 export const fetchOrgs = id => pixtyApiCall(`orgs`);
 export const fetchProfile = id => pixtyApiCall(`profiles/${id}`);
 
-export const postProfile = profile => apiCall(`profiles/${profile.id}`, schema.scene, 'put', profile);
+export const postProfile = profile => pixtyApiCall(`profiles/${profile.id}`, 'PUT', profile);
+
+//export const postProfile = profile => apiCall(`profiles/${profile.id}`, schema.scene, 'put', profile);
 

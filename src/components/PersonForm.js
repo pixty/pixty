@@ -40,7 +40,10 @@ class PersonForm extends React.PureComponent {
               attrs[a.name] = a.value;
             });
 
-            setTimeout(() => this.setState({ attributes: attrs, all_attrs: response.response.attributes, profileId: profile.id}), 200);
+            const all_attr = this.props.metaInfo.map((field) => ({fieldId: field.id, name: field.fieldName, value: attrs[field.fieldName]}));
+            console.log(all_attr);
+
+            setTimeout(() => this.setState({ attributes: attrs, all_attrs: all_attr, profileId: profile.id}), 200);
           }
         );
       }
@@ -50,6 +53,7 @@ class PersonForm extends React.PureComponent {
   }
 
   onChange(key) {
+    console.log(this.state);
     return el => {
       let new_attrs = this.state.all_attrs.map( (a) => (a.name === key ? {...a, value: el.target.value } : a));
       this.setState( { all_attrs: new_attrs, attributes: { ...this.state.attributes, ...{ [key] : el.target.value }}});

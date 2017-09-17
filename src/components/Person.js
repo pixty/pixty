@@ -11,7 +11,7 @@ import Picture from '../components/Picture';
 import Spinner from './Spinner';
 
 let lastX = 1;
-const PERSON_WIDTH = 300;
+export const PERSON_WIDTH = 300;
 
 class Person extends React.Component {
 

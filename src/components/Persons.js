@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import Person from './Person';
 import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
+import { PERSON_WIDTH } from './Person';
 
 const SortableItem = SortableElement(({value}) =>
   <li>{value}</li>
@@ -30,7 +31,7 @@ class Persons extends React.Component {
   render() {
     const { scene, onClick, selectedPerson, getProfile } = this.props;
     const persons = scene.persons;
-    const div_width = _.size(persons) * 330;
+    const div_width = _.size(persons) * (PERSON_WIDTH + 10);
 
     return (
       <div style={{margin: '0px', padding: '0px', right: '0px', left: '0px',
