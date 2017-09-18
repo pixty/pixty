@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import Person from './Person';
 import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
-import { PERSON_WIDTH } from './Person';
+import { PERSON_WIDTH } from './Constants';
 
 const SortableItem = SortableElement(({value}) =>
   <li>{value}</li>
@@ -44,10 +44,11 @@ class Persons extends React.Component {
           <ul style={{height: '98%', width: div_width + 5 + 'px'}}>
             { _.map(persons, person =>
               <Person key={person.id}
-                {...person}
+                id={person.id}
                 selectedPerson={selectedPerson}
                 onClick={() => onClick({ id: person.id, selected: person})}
                 getProfile={() => getProfile(person.id) }
+                {...person}
               />
             )}
           </ul>

@@ -35,13 +35,14 @@ class PersonForm extends React.PureComponent {
 
         fetchProfile(profile.id).then((response) => {
 
+            //console.log('fetchProfile', response.response);
+
             let attrs = {};
             response.response.attributes.map((a) => {
               attrs[a.name] = a.value;
             });
 
             const all_attr = this.props.metaInfo.map((field) => ({fieldId: field.id, name: field.fieldName, value: attrs[field.fieldName]}));
-            console.log(all_attr);
 
             setTimeout(() => this.setState({ attributes: attrs, all_attrs: all_attr, profileId: profile.id}), 200);
           }
@@ -53,7 +54,7 @@ class PersonForm extends React.PureComponent {
   }
 
   onChange(key) {
-    console.log(this.state);
+    //console.log(this.state);
     return el => {
       let new_attrs = this.state.all_attrs.map( (a) => (a.name === key ? {...a, value: el.target.value } : a));
       this.setState( { all_attrs: new_attrs, attributes: { ...this.state.attributes, ...{ [key] : el.target.value }}});
@@ -73,7 +74,7 @@ class PersonForm extends React.PureComponent {
         return meta_key.fieldName;
       }
     });
-    console.log(keys);
+
     return _.compact(keys)[0];
   }
 
@@ -85,7 +86,7 @@ class PersonForm extends React.PureComponent {
   }
 
   onClickUpdate() {
-    this.props.update({orgId: this.props.orgId, id: this.PROFILE.id, Attributes: this.state.all_attrs});
+    this.props.update({orgId: this.props.orgId, id: this.PROFILE.id, Attributes: this.state.all_attrs, mappedFields: {"custom1" : "test"}});
   }
 
   render() {

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+//import { withRouter } from 'react-router-dom';
 import { clickPerson, getProfile } from '../actions';
 import Persons from '../components/Persons';
 
@@ -13,7 +13,7 @@ const mapDispatchToProps = {
   getProfile: getProfile
 };
 
-export default withRouter(connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Persons));
+)(Persons);
