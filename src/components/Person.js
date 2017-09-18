@@ -66,7 +66,7 @@ class Person extends React.Component {
           color: selectedId === this.props.id ? 'black' : 'black'
         }}>
 
-          <div onClick={this.props.onClick} style={{cursor: 'pointer', overflowX: 'scroll', overflowY: 'hidden'}}>
+          <div onClick={this.props.onClick} style={{cursor: 'pointer', overflowX: 'scroll', overflowY: 'hidden', position: '', zIndex: 1, top: 0}}>
             <div style={{overflowScrolling: "touch",
         WebkitOverflowScrolling: "touch", width: PERSON_WIDTH * this.props.pictures.length + 'px'}}>
               { this.props.pictures.map((pic)=> <Picture key={pic.id} width={PERSON_WIDTH} placeholder={<Spinner noLabel />} src={pic[this.state.pictureField]} /> )}
@@ -76,9 +76,9 @@ class Person extends React.Component {
           <div style={{padding: '10px 20px', fontSize: '14px', fontWeight: 'normal', lineHeight: '150%', wordWrap: 'break-word'}}>
             <div style={{float:'right', textAlign: 'right'}}>
               <div style={{fontSize: '11px', opacity: 0.5}}>Visit Count: 1</div>
-              <div><button onClick={this.toggleImageSource} style={{border: '1px solid rgba(0,0,0,0.3)', borderRadius: '2px', background: 'none', padding: '2px 5px'}}>
-                { this.state.pictureField == 'url' ? 'scene' : 'face' }
-              </button></div>
+              <div style={{float: 'right'}}>
+                <ImageButton type='image' onClick={this.toggleImageSource} src={ this.state.pictureField == 'url' ? '/images/scene.svg' : '/images/face.svg'} width='20px' />
+              </div>
             </div>
             <div style={{fontSize: '11px', opacity: 0.5}}>Last seen at</div>
             <div><TimeAgo date={this.props.lastSeenAt} /></div>

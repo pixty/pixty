@@ -5,6 +5,7 @@ import styled from 'styled-components';
 const Input = styled.input`
   border: none;
   background: none;
+  -webkit-appearance: none;
   font-size: medium;
   border-bottom: 1px solid rgba(0, 0, 0, 0.4);
   color: white;

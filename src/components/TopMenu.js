@@ -39,11 +39,11 @@ class TopMenu extends React.Component {
     this.props.openModalDialog('about', <div>
       Pixty Face Recognition.<br/><br/>
       <span style={{fontSize: '13px'}}>
-      build v.0.1.9.<br/>
+      build v.0.1.10<br/>
       © 2017 Pixty Inc. All rights reserved.
       </span>
       <br/>
-      <div onClick={this.props.closeModalDialog.bind(this, 'about')} style={{float: 'right', marginBottom: '15px'}}>
+      <div onClick={this.props.closeModalDialog.bind(this, 'about')} style={{display: 'flex', width: '100%', justifyContent: 'center'}}>
         <RegularButton>OK</RegularButton>
       </div>
       </div>);

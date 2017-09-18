@@ -4,12 +4,12 @@ import { push } from 'react-router-redux';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { CurrentUser, postSession } from '../api';
-import { Button } from './styled/Button';
+import { Button, RegularButton } from './styled/Button';
 import Link from './styled/Link';
 import logo from '../../public/images/logo.svg';
 import FormInput from './FormInput';
 import Modals from '../containers/Modals';
-import { openModal } from '../actions';
+import { openModal, closeModal } from '../actions';
 import Spinner from './Spinner';
 
 const base64 = require('base-64');
@@ -39,7 +39,12 @@ class LoginPage extends React.Component {
 
     }, error => {
       this.setState(() => ({ loggin: false }));
-      this.props.openModalDialog('login', <div style={{padding: '10px'}}>Invalid username or password.</div>);
+      this.props.openModalDialog('login', <div style={{padding: '10px', paddingBottom: '0px'}}>
+        Invalid username or password.<br/>
+        <div onClick={this.props.closeModalDialog.bind(this, 'login')} style={{display: 'flex', width: '100%', justifyContent: 'center'}}>
+          <RegularButton>OK</RegularButton>
+        </div>
+      </div>);
     });
   }
 
@@ -95,7 +100,8 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = {
-  openModalDialog: openModal
+  openModalDialog: openModal,
+  closeModalDialog: closeModal
 };
 
 export default connect(
