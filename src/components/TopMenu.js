@@ -86,9 +86,14 @@ class TopMenu extends React.Component {
             &nbsp;
           </div>
 
-          <div>
-            <ImageButton width="25px" type="image" src="/images/eye.svg" />
-          </div>
+          <DropDownMenu ref='eye_down' font_size="13px" float='right' icon_url='/images/eye.svg'>
+            <ul>
+              <li>Hide preview</li>
+              <hr/>
+              <li>✔ Small size</li>
+              <li>Medium size</li>
+            </ul>
+          </DropDownMenu>
         </div>
 
         <div style={{width: '25px', marginRight: '15px'}}>

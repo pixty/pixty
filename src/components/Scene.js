@@ -12,9 +12,6 @@ import TopMenu from './TopMenu';
 import Draggable from 'react-draggable';
 import { backroundColor } from './styled/Colors';
 import Spinner from './Spinner';
-import injectTapEventPlugin from "react-tap-event-plugin";
-injectTapEventPlugin();
-import isDblTouchTap from "../helpers/isDblTouchTap";
 
 const Main = styled.div.attrs({
   //marginRight: props => props.right || '0px',
@@ -94,7 +91,7 @@ class Scene extends React.Component {
         <Modals />
 
         <Draggable defaultPosition={{x:100, y:100}}>
-          <CameraPreview onTouchTap={(e) => { if (this.isDblTouchTap(e)) { this.zoomCamera(); }}} onDoubleClick={this.zoomCamera} style={{transition: 'width 0.5s ease, height 0.5s ease', position: 'absolute', width: this.state.previewWidth + 'px', height: this.state.previewHeight + 'px', borderRadius: '6px'}}>
+          <CameraPreview onDoubleClick={this.zoomCamera} style={{transition: 'width 0.5s ease, height 0.5s ease', position: 'absolute', width: this.state.previewWidth + 'px', height: this.state.previewHeight + 'px', borderRadius: '6px'}}>
             <img alt="Face" onDragStart={(event)=>{ event.preventDefault(); return false;}}   src={scene.frame && scene.frame['picURL'] || snapshot_url}
             style={{transition: 'width 0.5s ease, height 0.5s ease', borderRadius: '5px', width: this.state.previewWidth + 'px', height: this.state.previewHeight + 'px'}}  />
           </CameraPreview>
