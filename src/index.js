@@ -22,7 +22,7 @@ import { CurrentUser, postSession, deleteSession } from './api';
 import Modals from './containers/Modals';
 
 // const preloadedState = window.__PRELOADED_STATE__
-const preloadedState = { entities: { orgs: { 0: { cameras: [{id: 0, label: 'loading...', orgId: 1, hasSecretKey: true}] }}}};
+const preloadedState = { entities: { settings: { showPreview: true, zoomLevel: 1 }, orgs: { 0: { cameras: [{id: 0, label: 'loading...', orgId: 1, hasSecretKey: true}] }}}};
 // Allow the passed state to be garbage-collected
 delete window.__PRELOADED_STATE__;
 

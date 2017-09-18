@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import '../../__less__/select.css';
-import { openModal, closeModal } from '../actions';
+import { openModal, closeModal, setSettings } from '../actions';
 import { CurrentUser } from '../api';
 import _ from 'lodash';
 
@@ -50,6 +50,16 @@ class TopMenu extends React.Component {
     this.refs.drop_down.setState(() => ({open: false}));
   }
 
+  togglePreview = () => {
+    this.refs.eye_down.setState(() => ({open: false}));
+    this.props.setUserSettings({showPreview: !this.props.settings.showPreview});
+  }
+
+  setZoom = (level) => {
+    this.refs.eye_down.setState(() => ({open: false}));
+    this.props.setUserSettings({zoomLevel: level});
+  }
+
   selectCamera(id) {
     CurrentUser.setCamera(id);
     this.setState({ selected: id });
@@ -88,10 +98,10 @@ class TopMenu extends React.Component {
 
           <DropDownMenu ref='eye_down' font_size="13px" float='right' icon_url='/images/eye.svg'>
             <ul>
-              <li>Hide preview</li>
+              <li onClick={this.togglePreview}>{this.props.settings.showPreview ? 'Hide preview' : 'Show preview'}</li>
               <hr/>
-              <li>✔ Small size</li>
-              <li>Medium size</li>
+              <li onClick={this.setZoom.bind(this, 1)}>{ this.props.settings.zoomLevel == 1 && '✔' } Small size</li>
+              <li onClick={this.setZoom.bind(this, 2)}>{ this.props.settings.zoomLevel == 2 && '✔' } Medium size</li>
             </ul>
           </DropDownMenu>
         </div>
@@ -112,12 +122,14 @@ class TopMenu extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  org: state.entities.orgs[0]
+  org: state.entities.orgs[0],
+  settings: state.entities.settings
 });
 
 const mapDispatchToProps = {
   openModalDialog: openModal,
-  closeModalDialog: closeModal
+  closeModalDialog: closeModal,
+  setUserSettings: setSettings
 };
 
 export default withRouter(connect(

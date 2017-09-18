@@ -8,6 +8,7 @@ export const GET_PROFILE = 'GET_PROFILE';
 export const OPEN_MODAL = 'OPEN_MODAL';
 export const CLOSE_MODAL = 'CLOSE_MODAL';
 export const GET_ORGS = 'GET_ORGS';
+export const SET_SETTINGS = 'SET_SETTINGS';
 
 const REQUEST = 'REQUEST';
 const SUCCESS = 'SUCCESS';
@@ -76,6 +77,8 @@ export const orgs = {
   failure: (id, error) => action(ORGS.FAILURE, {id, error}),
 };
 
+
+export const setSettings = (payload) => action(SET_SETTINGS, {payload});
 
 export const loadUserPage = (login, requiredFields = []) => action(LOAD_USER_PAGE, {login, requiredFields});
 export const loadScene = (login, requiredFields = []) => action(LOAD_SCENE, {login, requiredFields});

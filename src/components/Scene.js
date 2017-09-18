@@ -48,7 +48,9 @@ const RightBar = styled.div.attrs({
 class Scene extends React.Component {
 
   static propTypes = {
-    scene: PropTypes.object.isRequired
+    scene: PropTypes.object.isRequired,
+    settings: PropTypes.object.isRequired,
+    setUserSettings: PropTypes.func.isRequired
   }
 
   constructor() {
@@ -62,14 +64,25 @@ class Scene extends React.Component {
     } else {
       this.setState({ width: 0, opacity: 0, margin: 0 });
     }
+
+    if (nextProps.settings.zoomLevel !== this.props.settings.zoomLevel) {
+      const w = this.props.settings.zoomLevel == 2 ? 142 : 142 * 2, h = this.props.settings.zoomLevel == 2 ? 80 : 80 * 2;
+      this.setState(() => ({ previewWidth: w, previewHeight: h }));
+    }
   }
 
-  zoomCamera = () => {
-    if (this.state.previewWidth === 142) {
+  zoomCamera() {
+    if (this.props.settings.zoomLevel === 1) {
+      this.props.setUserSettings({zoomLevel: 2});
+    } else {
+      this.props.setUserSettings({zoomLevel: 1});
+    }
+
+    /*if (this.state.previewWidth === 142) {
       this.setState( { previewWidth: this.state.previewWidth * 2, previewHeight: this.state.previewHeight * 2 });
     } else {
       this.setState( { previewWidth: 142, previewHeight: 80 });
-    }
+    }*/
   }
 
   pad(num, size) {
@@ -91,7 +104,7 @@ class Scene extends React.Component {
         <Modals />
 
         <Draggable defaultPosition={{x:100, y:100}}>
-          <CameraPreview onDoubleClick={this.zoomCamera} style={{transition: 'border 0.5s ease, width 0.5s ease, height 0.5s ease', position: 'absolute', width: this.state.previewWidth + 'px', height: this.state.previewHeight + 'px', borderRadius: '6px'}}>
+          <CameraPreview onDoubleClick={this.zoomCamera.bind(this)} style={{display: this.props.settings.showPreview ? 'block' : 'none', transition: 'border 0.5s ease, width 0.5s ease, height 0.5s ease', position: 'absolute', width: this.state.previewWidth + 'px', height: this.state.previewHeight + 'px', borderRadius: '6px'}}>
             <img alt="Face" onDragStart={(event)=>{ event.preventDefault(); return false;}}   src={scene.frame && scene.frame['picURL'] || snapshot_url}
             style={{transition: 'width 0.5s ease, height 0.5s ease', borderRadius: '5px', width: this.state.previewWidth + 'px', height: this.state.previewHeight + 'px'}}  />
           </CameraPreview>
