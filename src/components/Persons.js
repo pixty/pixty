@@ -41,7 +41,7 @@ class Persons extends React.Component {
         <div style={{overflowX: 'auto', overflowScrolling: "touch", height: '100%',
         WebkitOverflowScrolling: "touch", overflowY: 'hidden', margin: '0px',
         flexShrink: 1, padding: '0px'}}>
-          <ul style={{height: '98%', width: div_width + 5 + 'px'}}>
+          <ul style={{height: '98%', width: div_width + 5 + 'px', display: 'flex', marginLeft: '10px'}}>
             { _.map(persons, person =>
               <Person key={person.id}
                 id={person.id}

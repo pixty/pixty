@@ -79,6 +79,7 @@ export const orgs = {
 
 export const loadUserPage = (login, requiredFields = []) => action(LOAD_USER_PAGE, {login, requiredFields});
 export const loadScene = (login, requiredFields = []) => action(LOAD_SCENE, {login, requiredFields});
+
 export const postProfile = (profile) => action(POST_PROFILE, {profile});
 
 export const getProfile = (id) => action(GET_PROFILE, {id});

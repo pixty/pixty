@@ -3,13 +3,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import * as api from '../api';
-import { postProfile } from '../actions';
+
+//import { postProfile } from '../actions';
+
 import _ from 'lodash';
 import FormInput from './FormInput';
+import Spinner from './Spinner';
 import styled from 'styled-components';
 import ImageButton from './styled/ImageButton';
-import { RegularButton } from './styled/Button';
-import { fetchProfile } from '../api';
+import { Button, RegularButton } from './styled/Button';
+import { fetchProfile, postProfile } from '../api';
 
 class PersonForm extends React.PureComponent {
   static propTypes = {
@@ -18,7 +21,7 @@ class PersonForm extends React.PureComponent {
 
   constructor(props) {
     super(props);
-    this.state = { attributes: {}, profileId: null};
+    this.state = { attributes: {}, profileId: null, loggin: false };
     this.findNextValue = this.findNextValue.bind(this);
   }
 
@@ -86,7 +89,15 @@ class PersonForm extends React.PureComponent {
   }
 
   onClickUpdate() {
-    this.props.update({orgId: this.props.orgId, id: this.PROFILE.id, Attributes: this.state.all_attrs, mappedFields: {"custom1" : "test"}});
+    //this.props.update({orgId: this.props.orgId, id: this.PROFILE.id, Attributes: this.state.all_attrs, mappedFields: {"custom1" : "test"}});
+    this.setState({loggin: true});
+    postProfile({orgId: this.props.orgId, id: this.PROFILE.id, Attributes: this.state.all_attrs, mappedFields: {"custom1" : "test"}})
+    .then(resolve => {
+      this.setState({loggin: false});
+    }, reject => {
+      alert('Something goes wrong!');
+      this.setState({loggin: false});
+    });
   }
 
   render() {
@@ -117,8 +128,12 @@ class PersonForm extends React.PureComponent {
             <div style={{float: 'left', marginTop: '10px'}}>
               <ImageButton onClick={this.newAttribute.bind(this)} width="25px" type="image" src="/images/plus.svg" />
             </div>
-            <div style={{float: 'right'}}>
-              <RegularButton onClick={this.onClickUpdate.bind(this)}>Save</RegularButton>
+            <div style={{float: 'right', marginTop: '10px'}}>
+              <Button onClick={this.onClickUpdate.bind(this)}>
+              { this.state.loggin ?
+            <div style={{transform: 'scale(0.3)', position: 'absolute', marginLeft: '-4px'}}><Spinner stroke={4} noLabel /></div> : null }
+            <div className="button__text" style={{marginLeft: this.state.loggin ? '19px' : '0px'}}>Save</div>
+              </Button>
             </div>
           </div>
         </div>
@@ -133,7 +148,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = {
-  update: postProfile
+  //update: postProfile
 };
 
 export default withRouter(connect(

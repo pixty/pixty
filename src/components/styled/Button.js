@@ -15,6 +15,11 @@ export const Button = styled.button`
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 16px;
   cursor: pointer;
+  & {
+    .button__text {
+      transition: 0.5s ease;
+    }
+  }
   &:hover {
     opacity: 0.8;
   }
@@ -25,6 +30,7 @@ export const Button = styled.button`
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 `;
+
 export const RegularButton = styled.button`
   background: ${props => props.primary ? 'white' : 'none'};
   color: ${props => props.primary ? 'black' : 'white'};

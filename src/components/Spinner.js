@@ -21,7 +21,7 @@ const Spinner = (props) => (
       cy="25"
       r="20"
       fill="none"
-      strokeWidth="1"
+      strokeWidth={props.stroke ? props.stroke : 1}
     />
   </StyledSpinner>
   </div>

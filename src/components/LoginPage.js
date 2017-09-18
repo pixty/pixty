@@ -10,6 +10,7 @@ import logo from '../../public/images/logo.svg';
 import FormInput from './FormInput';
 import Modals from '../containers/Modals';
 import { openModal } from '../actions';
+import Spinner from './Spinner';
 
 const base64 = require('base-64');
 
@@ -18,12 +19,15 @@ class LoginPage extends React.Component {
   constructor(props) {
     super(props);
     this.currentUser = new CurrentUser();
-    this.state = { token: this.currentUser.getToken(), login: null, password: null };
+    this.state = { token: this.currentUser.getToken(), login: null, password: null, loggin: false };
   }
 
   signIn() {
+    this.setState({ loggin: true });
     postSession(this.state.login, this.state.password).then(response => {
       let sessionId = response.response.sessionId;
+
+      this.setState(() => ({ loggin: false }));
 
       if (sessionId) {
         this.currentUser.signIn(sessionId);
@@ -34,6 +38,7 @@ class LoginPage extends React.Component {
       }
 
     }, error => {
+      this.setState(() => ({ loggin: false }));
       this.props.openModalDialog('login', <div style={{padding: '10px'}}>Invalid username or password.</div>);
     });
   }
@@ -52,7 +57,7 @@ class LoginPage extends React.Component {
     return (
       <div>
       <Modals />
-      <div style={{width: '100%', height: '100%', display: 'flex', position: 'absolute', justifyContent: 'center', alignItems: 'center'}}>
+      <div style={{width: '100%', minHeight: '450px', height: '100%', display: 'flex', position: 'absolute', justifyContent: 'center', alignItems: 'center'}}>
         <div>
           <img src={logo} style={{width: '130px'}}/>
           <form action='' onSubmit={(event) => event.preventDefault()}>
@@ -60,7 +65,11 @@ class LoginPage extends React.Component {
             <FormInput onChange={this.onChange.bind(this, 'login')} label="Login"></FormInput>
             <FormInput onChange={this.onChange.bind(this, 'password')} label="Password" password></FormInput>
           </div>
-          <Button type='submit' onClick={this.signIn.bind(this)}>Sign In</Button>
+          <Button type='submit' onClick={this.signIn.bind(this)}>
+            { this.state.loggin ?
+            <div style={{transform: 'scale(0.3)', position: 'absolute', marginLeft: '-4px'}}><Spinner stroke={4} noLabel /></div> : null }
+            <div className="button__text" style={{marginLeft: this.state.loggin ? '19px' : '0px'}}>Sign In</div>
+          </Button>
           </form>
 
           <div style={{paddingTop: '20px'}}>
