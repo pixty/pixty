@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import '../../__less__/select.css';
-import { openModal } from '../actions';
+import { openModal, closeModal } from '../actions';
 import { CurrentUser } from '../api';
 import _ from 'lodash';
 
@@ -36,14 +36,17 @@ class TopMenu extends React.Component {
   }
 
   openSettings = () => {
-    this.props.openModalDialog('settings', <div>
-      CurrentUser selected_camera_id: {CurrentUser.getCamera()}<br/>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc at laoreet est. Mauris ligula orci, auctor fringilla mollis ut, accumsan ac magna. Sed blandit dictum ex, a auctor est faucibus at. Aliquam mollis auctor nunc vitae lacinia. Ut et odio dui. Vivamus posuere lorem vitae magna mollis varius. Phasellus cursus dui non enim tincidunt pharetra. Vivamus ullamcorper eu dolor ac ornare. Maecenas mi turpis, consequat eget convallis quis, hendrerit id dui. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas non arcu sit amet libero euismod tincidunt ut eu velit. Proin tempor pulvinar pharetra.
-<br/><br/>
-<div style={{float: 'right', marginBottom: '15px'}}>
-  <RegularButton>Save</RegularButton>
-</div>
-</div>);
+    this.props.openModalDialog('about', <div>
+      Pixty Face Recognition.<br/><br/>
+      <span style={{fontSize: '13px'}}>
+      build v.0.1.9.<br/>
+      © 2017 Pixty Inc. All rights reserved.
+      </span>
+      <br/>
+      <div onClick={this.props.closeModalDialog.bind(this, 'about')} style={{float: 'right', marginBottom: '15px'}}>
+        <RegularButton>OK</RegularButton>
+      </div>
+      </div>);
     this.refs.drop_down.setState(() => ({open: false}));
   }
 
@@ -91,9 +94,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc at laoreet est. Ma
         <div style={{width: '25px', marginRight: '15px'}}>
           <DropDownMenu ref='drop_down' float='right' icon_url='/images/settings.svg'>
             <ul>
-              <li><Link to="/analytics">Analytics</Link></li>
+              <li onClick={this.openSettings}>About...</li>
               <hr/>
-              <li onClick={this.openSettings}>Settings</li>
               <li><Link to="/logout">Logout</Link></li>
             </ul>
           </DropDownMenu>
@@ -109,7 +111,8 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = {
-  openModalDialog: openModal
+  openModalDialog: openModal,
+  closeModalDialog: closeModal
 };
 
 export default withRouter(connect(
