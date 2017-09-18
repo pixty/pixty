@@ -53,7 +53,7 @@ class Scene extends React.Component {
 
   constructor() {
     super();
-    this.state = { width: 0, opacity: 0, margin: 0 };
+    this.state = { width: 0, opacity: 0, margin: 0, previewWidth: 142, previewHeight: 80 };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -61,6 +61,14 @@ class Scene extends React.Component {
       this.setState({ width: 300, opacity: 1, margin: 0 });
     } else {
       this.setState({ width: 0, opacity: 0, margin: 0 });
+    }
+  }
+
+  zoomCamera = () => {
+    if (this.state.previewWidth === 142) {
+      this.setState( { previewWidth: this.state.previewWidth * 2, previewHeight: this.state.previewHeight * 2 });
+    } else {
+      this.setState( { previewWidth: 142, previewHeight: 80 });
     }
   }
 
@@ -83,8 +91,9 @@ class Scene extends React.Component {
         <Modals />
 
         <Draggable defaultPosition={{x:100, y:100}}>
-          <CameraPreview style={{position: 'absolute', width: '142px', height: '80px', borderRadius: '6px'}}>
-            <img alt="Face" onDragStart={(event)=>{ event.preventDefault(); return false;}}   src={scene.frame && scene.frame['picURL'] || snapshot_url} style={{borderRadius: '5px'}} className="Scene--size" />
+          <CameraPreview onDoubleClick={this.zoomCamera} style={{transition: 'width 0.5s ease, height 0.5s ease', position: 'absolute', width: this.state.previewWidth + 'px', height: this.state.previewHeight + 'px', borderRadius: '6px'}}>
+            <img alt="Face" onDragStart={(event)=>{ event.preventDefault(); return false;}}   src={scene.frame && scene.frame['picURL'] || snapshot_url}
+            style={{transition: 'width 0.5s ease, height 0.5s ease', borderRadius: '5px', width: this.state.previewWidth + 'px', height: this.state.previewHeight + 'px'}}  />
           </CameraPreview>
         </Draggable>
 

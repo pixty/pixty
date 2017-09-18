@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
-class Picture extends React.PureComponent {
+class Picture extends React.Component {
 
   static propTypes = {
     src: PropTypes.string.isRequired,
@@ -16,10 +16,18 @@ class Picture extends React.PureComponent {
 
   state = {
     loaded: false,
+    offsetTop: 90,
+    divHeight: 180
   }
 
-  setLoaded = loaded => {
-    this.setState({ loaded: true });
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.src != this.props.src) {
+      this.setState({loaded: false});
+    }
+  }
+
+  setLoaded = el => {
+    this.setState({ loaded: true, offsetTop: el.target.offsetHeight/2, divHeight: el.target.offsetHeight });
   }
 
 
@@ -33,12 +41,12 @@ class Picture extends React.PureComponent {
     } = this.props;
 
     return (
-      <div style={{width: width + 'px', float: 'left'}}>
+      <div style={{width: width + 'px', float: 'left', height: this.state.divHeight + 'px', transition: '0.2s ease'}}>
         { !this.state.loaded &&
-        <div style={{marginLeft: width/2 + 'px', marginTop: '90px'}}>
-          {placeholder }
+        <div style={{marginLeft: width/2 + 'px', marginTop: this.state.offsetTop + 'px'}}>
+          {placeholder}
         </div> }
-          <img src={src} alt={alt} style={{width: width + 'px', opacity: this.state.loaded ? 1 : 0}} onLoad={() => this.setLoaded(true)} />
+        <img src={src} alt={alt} style={{width: width + 'px', opacity: this.state.loaded ? 1 : 0}} onLoad={(el) => this.setLoaded(el)} />
       </div>
     );
   }

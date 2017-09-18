@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { mainColor } from './Colors';
 
 const CameraPreview = styled.div`
   background: 'white';
@@ -6,6 +7,9 @@ const CameraPreview = styled.div`
   border: 1px solid rgba(0,0,0,0.2);
   z-index: 99;
   cursor: move;
+  &:hover {
+    border-color: ${mainColor};
+  }
 `;
 
 export default CameraPreview;

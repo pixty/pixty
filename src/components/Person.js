@@ -17,7 +17,8 @@ class Person extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { mount: false, currentFaceSrc: this.props.pictures[0].url, currentPictureSrc: this.props.pictures[0].picURL, pictureIndex: 0, pictureCount:this.props.pictures.length  };
+    this.state = { mount: false, currentFaceSrc: this.props.pictures[0].url, pictureField: 'url',
+      currentPictureSrc: this.props.pictures[0].picURL, pictureIndex: 0, pictureCount:this.props.pictures.length  };
   }
 
   componentDidMount() {
@@ -32,6 +33,10 @@ class Person extends React.Component {
       this.setState( { currentFaceSrc: this.props.pictures[index].url, currentPictureSrc: this.props.pictures[index].picURL, pictureIndex:index });
     }
 
+  }
+
+  toggleImageSource = el => {
+    this.setState({ pictureField: this.state.pictureField == 'url' ? 'picURL' : 'url'});
   }
 
   render() {
@@ -64,14 +69,16 @@ class Person extends React.Component {
           <div onClick={this.props.onClick} style={{cursor: 'pointer', overflowX: 'scroll', overflowY: 'hidden'}}>
             <div style={{overflowScrolling: "touch",
         WebkitOverflowScrolling: "touch", width: PERSON_WIDTH * this.props.pictures.length + 'px'}}>
-              { this.props.pictures.map((pic)=> <Picture key={pic.id} width={PERSON_WIDTH} placeholder={<Spinner noLabel />} src={pic.picURL} /> )}
+              { this.props.pictures.map((pic)=> <Picture key={pic.id} width={PERSON_WIDTH} placeholder={<Spinner noLabel />} src={pic[this.state.pictureField]} /> )}
             </div>
           </div>
 
           <div style={{padding: '10px 20px', fontSize: '14px', fontWeight: 'normal', lineHeight: '150%', wordWrap: 'break-word'}}>
             <div style={{float:'right', textAlign: 'right'}}>
-              <div style={{fontSize: '11px', opacity: 0.5}}>Visit Count</div>
-              <div>1</div>
+              <div style={{fontSize: '11px', opacity: 0.5}}>Visit Count: 1</div>
+              <div><button onClick={this.toggleImageSource} style={{border: '1px solid rgba(0,0,0,0.3)', borderRadius: '2px', background: 'none', padding: '2px 5px'}}>
+                { this.state.pictureField == 'url' ? 'scene' : 'face' }
+              </button></div>
             </div>
             <div style={{fontSize: '11px', opacity: 0.5}}>Last seen at</div>
             <div><TimeAgo date={this.props.lastSeenAt} /></div>
