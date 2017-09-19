@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import logo from '../logo.svg';
-import TimeAgo from 'react-timeago';
-
 
 const currentPerson = (person, profile) => (
     <div style={{opacity: 0.3, fontSize: '12px', marginTop: '15px'}}>
@@ -23,6 +21,11 @@ const currentPerson = (person, profile) => (
   );
 
 class SelectedPerson extends React.Component {
+
+  static propTypes = {
+    selectedPerson: PropTypes.object.isRequired
+  };
+
   render() {
     let person, profile;
 
@@ -38,9 +41,5 @@ class SelectedPerson extends React.Component {
     );
   }
 }
-
-SelectedPerson.propTypes = {
-  //id: PropTypes.string.isRequired
-};
 
 export default SelectedPerson;

@@ -1,8 +1,7 @@
 /* eslint-disable no-constant-condition */
-import { take, put, call, fork, select } from 'redux-saga/effects';
+import { take, put, call, fork } from 'redux-saga/effects';
 import * as api from '../api';
 import * as actions from '../actions';
-import { getUser } from '../reducers/selectors';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import { browserHistory } from 'react-router';
 import { CurrentUser } from '../api';
@@ -32,7 +31,7 @@ function* fetchEntity(entity, apiFn, id, url) {
   yield put(hideLoading());
 }
 
-// yeah! we can also bind Generators
+// Bind Generators
 export const fetchUser        = fetchEntity.bind(null, user, api.fetchUser);
 export const fetchScene       = fetchEntity.bind(null, scene, api.fetchScene);
 export const postProfile      = fetchEntity.bind(null, profile, api.postProfile);
@@ -53,14 +52,6 @@ function* pollData() {
     }
 }
 
-// load user unless it is cached
-function* loadUser(login, requiredFields) {
-  const user = yield select(getUser, login);
-  if (!user || requiredFields.some(key => !user.hasOwnProperty(key))) {
-    yield call(fetchUser, login);
-  }
-}
-
 function* watchGetOrgs() {
   while(true) {
     const {id} = yield take(actions.GET_ORGS);
@@ -71,14 +62,7 @@ function* watchGetOrgs() {
 function* watchGetProfile() {
   while(true) {
     const {id} = yield take(actions.GET_PROFILE);
-    yield call(fetchProfile, 1); //1 for test, need id var
-  }
-}
-
-function* watchLoadScene() {
-  while(true) {
-    const {login, requiredFields = []} = yield take(actions.LOAD_SCENE);
-    yield call(fetchScene, login);
+    yield call(fetchProfile, id);
   }
 }
 

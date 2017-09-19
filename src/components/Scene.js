@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import PersonList from '../containers/PersonList';
-//import SelectedPerson from '../containers/SelectedPerson'
 import _ from 'lodash';
 import styled from 'styled-components';
-import SelectedPerson from './SelectedPerson';
 import CameraPreview from './styled/CameraPreview';
 import PersonForm from './PersonForm';
 import Modals from '../containers/Modals';
@@ -66,7 +64,7 @@ class Scene extends React.Component {
     }
 
     if (nextProps.settings.zoomLevel !== this.props.settings.zoomLevel) {
-      const w = this.props.settings.zoomLevel == 2 ? 142 : 142 * 2, h = this.props.settings.zoomLevel == 2 ? 80 : 80 * 2;
+      const w = this.props.settings.zoomLevel === 2 ? 142 : 142 * 2, h = this.props.settings.zoomLevel === 2 ? 80 : 80 * 2;
       this.setState(() => ({ previewWidth: w, previewHeight: h }));
     }
   }
@@ -77,12 +75,6 @@ class Scene extends React.Component {
     } else {
       this.props.setUserSettings({zoomLevel: 1});
     }
-
-    /*if (this.state.previewWidth === 142) {
-      this.setState( { previewWidth: this.state.previewWidth * 2, previewHeight: this.state.previewHeight * 2 });
-    } else {
-      this.setState( { previewWidth: 142, previewHeight: 80 });
-    }*/
   }
 
   pad(num, size) {
@@ -105,7 +97,7 @@ class Scene extends React.Component {
 
         <Draggable defaultPosition={{x:100, y:100}}>
           <CameraPreview onDoubleClick={this.zoomCamera.bind(this)} style={{display: this.props.settings.showPreview ? 'block' : 'none', transition: 'border 0.5s ease, width 0.5s ease, height 0.5s ease', position: 'absolute', width: this.state.previewWidth + 'px', height: this.state.previewHeight + 'px', borderRadius: '6px'}}>
-            <img alt="Face" onDragStart={(event)=>{ event.preventDefault(); return false;}}   src={scene.frame && scene.frame['picURL'] || snapshot_url}
+            <img alt="Face" onDragStart={(event)=>{ event.preventDefault(); return false;}}   src={(scene.frame && scene.frame['picURL']) || snapshot_url}
             style={{transition: 'width 0.5s ease, height 0.5s ease', borderRadius: '5px', width: this.state.previewWidth + 'px', height: this.state.previewHeight + 'px'}}  />
           </CameraPreview>
         </Draggable>
@@ -113,7 +105,7 @@ class Scene extends React.Component {
         <Main right={this.state.width + 'px'} margin={this.state.margin + 'px'}>
           <TopMenu />
 
-          { scene.persons && scene.persons.length ? <PersonList /> : <div style={{position: 'absolute', top: '50%', left: '50%'}}>
+          { (scene.persons && scene.persons.length) ? <PersonList /> : <div style={{position: 'absolute', top: '50%', left: '50%'}}>
             <Spinner opacity={0.5} />
           </div>
           }

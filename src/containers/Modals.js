@@ -2,10 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import * as api from '../api';
 import _ from 'lodash';
-import styled from 'styled-components';
-import { closeModal } from '../actions';
+//import { closeModal } from '../actions';
 import Dialog from './Dialog';
 
 class Modals extends React.PureComponent {

@@ -5,6 +5,11 @@ import DropDown from './styled/DropDown';
 
 class DropDownMenu extends React.Component {
 
+  static PropTypes = {
+    icon_url: PropTypes.string,
+    open: PropTypes.boolean
+  }
+
   constructor(props) {
     super(props);
     this.state = { open: this.props.open || false, left_offset: 0 };

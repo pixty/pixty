@@ -15,11 +15,10 @@ import reducers from './reducers';
 import { loadingBarReducer, loadingBarMiddleware } from 'react-redux-loading-bar';
 import createSagaMiddleware, { END } from 'redux-saga';
 import rootSaga from './sagas';
-import { loadScene, getOrgs } from './actions';
+import { getOrgs } from './actions';
 import selectedPersonReducer from './reducers/selectedPerson';
 import LoginPage from './components/LoginPage';
-import { CurrentUser, postSession, deleteSession } from './api';
-import Modals from './containers/Modals';
+import { CurrentUser, deleteSession } from './api';
 
 // const preloadedState = window.__PRELOADED_STATE__
 const preloadedState = { entities: { settings: { showPreview: true, zoomLevel: 1 }, orgs: { 0: { cameras: [{id: 0, label: 'loading...', orgId: 1, hasSecretKey: true}] }}}};
@@ -59,18 +58,13 @@ if (module.hot) {
 store.runSaga = sagaMiddleware.run;
 store.close = () => store.dispatch(END);
 
+/*
 store.subscribe(() =>
 	console.log('Store', store.getState())
 );
+*/
 
 setTimeout(() => store.dispatch(loadAll()), 0);
-
-const Welcome = () => (<div>
-	<Modals />
-	<h2 style={{padding: '20px', color: 'white'}}>Analytics</h2>
-	<Link style={{padding: '20px', color: 'white'}} to="/">Home</Link>
-</div>
-);
 
 const NotFount = () => (<div>
 	<h2 style={{padding: '20px', color: 'white'}}>Route not found</h2>
@@ -130,8 +124,6 @@ ReactDOM.render(
 			<UserAuth>
 				<Switch>
 					<Route exact path="/" component={App}/>
-					<Route path="/analytics" component={Welcome}/>
-					<Route path="/cameras" component={App}/>
 					<Route exact path="/logout" component={Logout}/>
 					<Route component={NotFount}/>
 				</Switch>
@@ -144,6 +136,5 @@ ReactDOM.render(
 function loadAll () {
 	return function (dispatch) {
 		dispatch(getOrgs());
-		// dispatch(loadScene('fp-123'))
 	};
 }

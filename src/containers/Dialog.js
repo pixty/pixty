@@ -25,6 +25,12 @@ const dialogStyle = {
 
 class Dialog extends React.PureComponent {
 
+  static PropTypes = {
+    id: PropTypes.string.isRequired,
+    context: PropTypes.object.isRequired,
+    closeDialog: PropTypes.func.isRequired
+  }
+
   constructor(props) {
     super(props);
     this.state = { x: 0, y: 0, width: 0, height: 0, opacity: 0 };
@@ -49,8 +55,6 @@ class Dialog extends React.PureComponent {
 
   render() {
     const { id, context, closeDialog } = this.props;
-
-    console.log(this.props);
 
     return (
       <Draggable handle='.drag_header' position={{x: this.state.x, y: this.state.y}} onStop={this.dragStop}>

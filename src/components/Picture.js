@@ -1,5 +1,4 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
 class Picture extends React.Component {
@@ -21,7 +20,7 @@ class Picture extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.src != this.props.src) {
+    if (nextProps.src !== this.props.src) {
       this.setState({loaded: false});
     }
   }
@@ -30,14 +29,12 @@ class Picture extends React.Component {
     this.setState({ loaded: true, offsetTop: el.target.offsetHeight/2, divHeight: el.target.offsetHeight });
   }
 
-
   render() {
     const {
       placeholder,
       src,
       alt,
-      width,
-      ...props
+      width
     } = this.props;
 
     return (
@@ -51,7 +48,5 @@ class Picture extends React.Component {
     );
   }
 }
-
-
 
 export default Picture;

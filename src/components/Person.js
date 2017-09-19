@@ -6,7 +6,6 @@ import ImageButton from './styled/ImageButton';
 import PersonLi from './styled/PersonLi';
 import TimeAgo from 'react-timeago';
 import { mainColor } from '../components/styled/Colors';
-import styled from 'styled-components';
 import Picture from '../components/Picture';
 import Spinner from './Spinner';
 import { PERSON_WIDTH } from './Constants';
@@ -36,7 +35,7 @@ class Person extends React.Component {
   }
 
   toggleImageSource = el => {
-    this.setState({ pictureField: this.state.pictureField == 'url' ? 'picURL' : 'url'});
+    this.setState({ pictureField: this.state.pictureField === 'url' ? 'picURL' : 'url'});
   }
 
   render() {
@@ -77,7 +76,7 @@ class Person extends React.Component {
             <div style={{float:'right', textAlign: 'right'}}>
               <div style={{fontSize: '11px', opacity: 0.5}}>Visit Count: 1</div>
               <div style={{float: 'right'}}>
-                <ImageButton type='image' onClick={this.toggleImageSource} src={ this.state.pictureField == 'url' ? '/images/scene.svg' : '/images/face.svg'} width='20px' />
+                <ImageButton type='image' onClick={this.toggleImageSource} src={ this.state.pictureField === 'url' ? '/images/scene.svg' : '/images/face.svg'} width='20px' />
               </div>
             </div>
             <div style={{fontSize: '11px', opacity: 0.5}}>Last seen at</div>
@@ -86,7 +85,7 @@ class Person extends React.Component {
             <div style={{marginTop: '10px', fontWeight: 'normal', wordWrap: 'break-word'}}>
               { this.props.profile && this.props.profile.attributes.map((attr) => <div key={attr.value}>
                 <div style={{fontSize: '12px', color: '#ccc'}}>{attr.name}</div>
-                <div style={{lineHeight: '100%', fontSize: startSize+'px' }}>{(startSize = startSize - 5) && attr.value }</div>
+                <div style={{lineHeight: '100%', fontSize: startSize+'px' }}>{(startSize -= 5) && attr.value }</div>
                 </div>) }
             </div>
 

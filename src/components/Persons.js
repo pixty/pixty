@@ -2,32 +2,45 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import Person from './Person';
-import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
+//import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
 import { PERSON_WIDTH } from './Constants';
 
-const SortableItem = SortableElement(({value}) =>
-  <li>{value}</li>
-);
+/*
 
-const SortableList = SortableContainer(({items}) => {
-  return (
-    <ul>
-      {items.map((value, index) => (
-        <SortableItem key={`item-${index}`} index={index} value={value} />
-      ))}
-    </ul>
+  TBD:
+
+  const SortableItem = SortableElement(({value}) =>
+    <li>{value}</li>
   );
-});
+
+  const SortableList = SortableContainer(({items}) => {
+    return (
+      <ul>
+        {items.map((value, index) => (
+          <SortableItem key={`item-${index}`} index={index} value={value} />
+        ))}
+      </ul>
+    );
+  });
+
+*/
 
 class Persons extends React.Component {
-//const Persons = ({ persons, pictures, profiles, onClick, selectedPerson }) => {
 
+  /*
   onSortEnd = ({oldIndex, newIndex}) => {
     this.setState({
       items: arrayMove(this.state.items, oldIndex, newIndex),
     });
-  }
-  // <SortableList items={this.state.items} onSortEnd={this.onSortEnd} />
+  }*/
+
+  static  propTypes = {
+    onClick: PropTypes.func.isRequired,
+    getProfile: PropTypes.func.isRequired,
+    scene: PropTypes.object.isRequired,
+    selectedPerson: PropTypes.object
+  };
+
   render() {
     const { scene, onClick, selectedPerson, getProfile } = this.props;
     const persons = scene.persons;
@@ -57,10 +70,5 @@ class Persons extends React.Component {
     );
     }
 }
-
-Persons.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  getProfile: PropTypes.func.isRequired
-};
 
 export default Persons;

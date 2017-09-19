@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SelectedPerson from '../containers/SelectedPerson';
 import DropDownMenu from './DropDownMenu';
-import ImageButton from './styled/ImageButton';
 import { RegularButton } from './styled/Button';
-import Select from 'react-select';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -73,7 +70,7 @@ class TopMenu extends React.Component {
       <div style={{margin: '0px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
         <div style={{margin: '0px 15px', width: 'auto', flexGrow: 0, display: 'flex'}}>
           <div>
-            <img src="http://www.gravatar.com/avatar/6604f6e418d8db645955aa2626f7b309?s=60&d=identicon" style={{width: "30px", borderRadius: "30px", marginTop: "10px"}} />
+            <img alt="User" src="http://www.gravatar.com/avatar/6604f6e418d8db645955aa2626f7b309?s=60&d=identicon" style={{width: "30px", borderRadius: "30px", marginTop: "10px"}} />
           </div>
           <div style={{color: '#ccc', marginTop: '15px', marginLeft: '10px', fontSize: '14px', fontWeight: 'bold'}}>{this.props.org.name}</div>
         </div>
@@ -100,8 +97,8 @@ class TopMenu extends React.Component {
             <ul>
               <li onClick={this.togglePreview}>{this.props.settings.showPreview ? 'Hide preview' : 'Show preview'}</li>
               <hr/>
-              <li onClick={this.setZoom.bind(this, 1)}>{ this.props.settings.zoomLevel == 1 && '✔' } Small size</li>
-              <li onClick={this.setZoom.bind(this, 2)}>{ this.props.settings.zoomLevel == 2 && '✔' } Medium size</li>
+              <li onClick={this.setZoom.bind(this, 1)}>{ this.props.settings.zoomLevel === 1 && '✔' } Small size</li>
+              <li onClick={this.setZoom.bind(this, 2)}>{ this.props.settings.zoomLevel === 2 && '✔' } Medium size</li>
             </ul>
           </DropDownMenu>
         </div>

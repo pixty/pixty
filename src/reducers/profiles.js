@@ -5,7 +5,6 @@ export default function reducer(state = {}, action) {
   switch (action.type) {
 
     case PROFILE.FAILURE:
-      alert('POST PROFILE.FAILURE');
       return state;
 
     case PROFILE.SUCCESS:

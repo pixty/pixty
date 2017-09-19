@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { push } from 'react-router-redux';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { CurrentUser, postSession } from '../api';
 import { Button, RegularButton } from './styled/Button';
@@ -12,7 +11,6 @@ import Modals from '../containers/Modals';
 import { openModal, closeModal } from '../actions';
 import Spinner from './Spinner';
 
-const base64 = require('base-64');
 
 class LoginPage extends React.Component {
 
@@ -64,7 +62,7 @@ class LoginPage extends React.Component {
       <Modals />
       <div style={{width: '100%', minHeight: '450px', height: '100%', display: 'flex', position: 'absolute', justifyContent: 'center', alignItems: 'center'}}>
         <div>
-          <img src={logo} style={{width: '130px'}}/>
+          <img src={logo} alt='Pixty' style={{width: '130px'}}/>
           <form action='' onSubmit={(event) => event.preventDefault()}>
           <div style={{paddingBottom: '40px'}}>
             <FormInput onChange={this.onChange.bind(this, 'login')} label="Login"></FormInput>

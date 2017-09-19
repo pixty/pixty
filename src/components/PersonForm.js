@@ -2,14 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import * as api from '../api';
-
-//import { postProfile } from '../actions';
-
 import _ from 'lodash';
 import FormInput from './FormInput';
 import Spinner from './Spinner';
-import styled from 'styled-components';
 import ImageButton from './styled/ImageButton';
 import { Button, RegularButton } from './styled/Button';
 import { fetchProfile, postProfile } from '../api';
@@ -33,16 +28,13 @@ class PersonForm extends React.PureComponent {
 
     if (profile) {
       if (this.state.profileId !== profile.id) {
-        //this.setState({ attributes: profile.attributes, profileId: profile.id})
-        //this.setState({profileId: profile.id})
 
         fetchProfile(profile.id).then((response) => {
-
-            //console.log('fetchProfile', response.response);
 
             let attrs = {};
             response.response.attributes.map((a) => {
               attrs[a.name] = a.value;
+              return null;
             });
 
             const all_attr = this.props.metaInfo.map((field) => ({fieldId: field.id, name: field.fieldName, value: attrs[field.fieldName]}));
@@ -110,7 +102,7 @@ class PersonForm extends React.PureComponent {
     if (!profile)
       return (
         <div>
-          <img src={this.props.person.avatarUrl} style={{width: "280px"}} />
+          <img alt='Avatar' src={this.props.person.avatarUrl} style={{width: "280px"}} />
           id: {person.id}<br/>
           <RegularButton onClick={() => alert('Create')}>Create</RegularButton>
         </div>
@@ -118,7 +110,7 @@ class PersonForm extends React.PureComponent {
 
     return (
         <div>
-          <img src={this.props.person.avatarUrl} style={{width: "280px"}} />
+          <img alt='Avatar' src={this.props.person.avatarUrl} style={{width: "280px"}} />
 
           { _.keys(this.state.attributes).map( key => (
             <FormInput key={key} label={key} onChange={this.onChange(key)} value={this.state.attributes[key]} />
