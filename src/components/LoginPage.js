@@ -23,12 +23,14 @@ class LoginPage extends React.Component {
   signIn() {
     this.setState({ loggin: true });
     postSession(this.state.login, this.state.password).then(response => {
-      let sessionId = response.response.sessionId;
+      const sessionId = response.response.sessionId;
+      const user = response.response.user;
 
       this.setState(() => ({ loggin: false }));
 
       if (sessionId) {
         this.currentUser.signIn(sessionId);
+        CurrentUser.setUser(user);
         this.props.store.dispatch(push('/'));
         window.location.reload();
       } else {

@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import DropDownMenu from './DropDownMenu';
 import { RegularButton } from './styled/Button';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import '../../__less__/select.css';
 import { openModal, closeModal, setSettings } from '../actions';
 import { CurrentUser } from '../api';
 import _ from 'lodash';
+import md5 from 'md5';
 
 class TopMenu extends React.Component {
 
@@ -44,40 +45,42 @@ class TopMenu extends React.Component {
         <RegularButton>OK</RegularButton>
       </div>
       </div>);
-    this.refs.drop_down.setState(() => ({open: false}));
   }
 
   togglePreview = () => {
-    this.refs.eye_down.setState(() => ({open: false}));
     this.props.setUserSettings({showPreview: !this.props.settings.showPreview});
   }
 
   setZoom = (level) => {
-    this.refs.eye_down.setState(() => ({open: false}));
     this.props.setUserSettings({zoomLevel: level});
+  }
+
+  logOut = () => {
+    window.location = '/logout';
   }
 
   selectCamera(id) {
     CurrentUser.setCamera(id);
     this.setState({ selected: id });
-    this.refs.camera_select.setState(() => ({open: false}));
   }
 
   render() {
     const options = this.state.options;
+    const user = CurrentUser.getUser();
+    let gravatar_id = user && user.email ? user.email : (user && user.login) || 'notset';
 
     return (
       <div style={{margin: '0px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
         <div style={{margin: '0px 15px', width: 'auto', flexGrow: 0, display: 'flex'}}>
           <div>
-            <img alt="User" src="http://www.gravatar.com/avatar/6604f6e418d8db645955aa2626f7b309?s=60&d=identicon" style={{width: "30px", borderRadius: "30px", marginTop: "10px"}} />
+            <img alt="User" src={`http://www.gravatar.com/avatar/${md5(gravatar_id)}?s=60&d=identicon&email=${gravatar_id}`} style={{width: "30px", borderRadius: "30px", marginTop: "10px"}} />
           </div>
           <div style={{color: '#ccc', marginTop: '15px', marginLeft: '10px', fontSize: '14px', fontWeight: 'bold'}}>{this.props.org.name}</div>
         </div>
 
         <div style={{margin: '0px 15px', width: 'auto', flex: 1, display: 'flex'}}>
           <div>
-            <DropDownMenu ref='camera_select' font_size="13px" icon_url='/images/camera.svg'>
+            <DropDownMenu closeOnClick font_size="13px" icon_url='/images/camera.svg'>
               <ul>
                 { options.map( opt => <li onClick={this.selectCamera.bind(this, opt.id)} key={opt.id}>{ this.state.selected === opt.id ? '✔ ' : ''}{opt.label}</li>)}
               </ul>
@@ -93,7 +96,7 @@ class TopMenu extends React.Component {
             &nbsp;
           </div>
 
-          <DropDownMenu ref='eye_down' font_size="13px" float='right' icon_url='/images/eye.svg'>
+          <DropDownMenu closeOnClick ref='eye_down' font_size="13px" float='right' icon_url='/images/eye.svg'>
             <ul>
               <li onClick={this.togglePreview}>{this.props.settings.showPreview ? 'Hide preview' : 'Show preview'}</li>
               <hr/>
@@ -104,11 +107,11 @@ class TopMenu extends React.Component {
         </div>
 
         <div style={{width: '25px', marginRight: '15px'}}>
-          <DropDownMenu ref='drop_down' float='right' icon_url='/images/settings.svg'>
+          <DropDownMenu closeOnClick float='right' icon_url='/images/settings.svg'>
             <ul>
               <li onClick={this.openSettings}>About...</li>
               <hr/>
-              <li><Link to="/logout">Logout</Link></li>
+              <li onClick={this.logOut}>Logout</li>
             </ul>
           </DropDownMenu>
         </div>
@@ -120,7 +123,7 @@ class TopMenu extends React.Component {
 
 const mapStateToProps = (state, ownProps) => ({
   org: state.entities.orgs[0],
-  settings: state.entities.settings
+  settings: state.entities.settings,
 });
 
 const mapDispatchToProps = {

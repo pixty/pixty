@@ -9,6 +9,7 @@ export const history = browserHistory;
 
 // each entity defines 3 creators { request, success, failure }
 const { user, scene, profile, get_profile, orgs } = actions;
+const SCAN_DELAY = 1000;
 
 // Utility function to delay effects
 function delay(millis) {
@@ -17,7 +18,6 @@ function delay(millis) {
     });
     return promise;
 }
-
 
 function* fetchEntity(entity, apiFn, id, url) {
 
@@ -38,14 +38,14 @@ export const postProfile      = fetchEntity.bind(null, profile, api.postProfile)
 export const fetchProfile     = fetchEntity.bind(null, get_profile, api.fetchProfile);
 export const fetchOrgs        = fetchEntity.bind(null, orgs, api.fetchOrgs);
 
-// Fetch data every N seconds
+// Fetch data every SCAN_DELAY seconds
 function* pollData() {
     try {
         const camera_id = CurrentUser.getCamera();
         if (camera_id) {
           yield call(fetchScene, camera_id);
         }
-        yield call(delay, 1000);
+        yield call(delay, SCAN_DELAY);
     } catch (error) {
         CurrentUser.setCamera(null);
         return;
@@ -53,9 +53,19 @@ function* pollData() {
 }
 
 function* watchGetOrgs() {
-  while(true) {
-    const {id} = yield take(actions.GET_ORGS);
-    yield call(fetchOrgs, id);
+
+  try {
+    while(true) {
+      yield take(actions.GET_ORGS);
+      yield call(fetchOrgs, {});
+    }
+  } catch(error) {
+
+    if (error.status === 401) {
+      CurrentUser.logOut();
+      window.location.reaload();
+    }
+    return;
   }
 }
 

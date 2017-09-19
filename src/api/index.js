@@ -4,7 +4,8 @@ import Cookies from 'universal-cookie';
 import 'whatwg-fetch';
 
 const PIXTY_API_ROOT = 'https://api.pixty.io/',
-      SESSION_NAME = 'pixty_session';
+      SESSION_NAME = 'pixty_session',
+      SESSION_USER = 'pixty_user';
 
 function CurrentUser() {
   CurrentUser.cookies = new Cookies();
@@ -20,6 +21,10 @@ function CurrentUser() {
   };
 }
 
+CurrentUser.logOut = () => {
+  CurrentUser.cookies.remove(SESSION_NAME);
+};
+
 CurrentUser.loggedIn = () => {
   return CurrentUser.cookies.get(SESSION_NAME) !== undefined;
 };
@@ -30,6 +35,14 @@ CurrentUser.setCamera = (id) => {
 
 CurrentUser.getCamera = () => {
   return CurrentUser.selectedCamera;
+};
+
+CurrentUser.setUser = (user) => {
+  CurrentUser.cookies.set(SESSION_USER, user, { maxAge: 60*60 });
+};
+
+CurrentUser.getUser = () => {
+  return CurrentUser.cookies.get(SESSION_USER);
 };
 
 export { CurrentUser };
@@ -98,6 +111,10 @@ function pixtyApiCall(endpoint, method = 'GET', data = null) {
     })
     .then(response => {
 
+        if (!response.ok) {
+          return Promise.reject({ statusText: response.statusText, status: response.status });
+        }
+
         if (method === 'DELETE' || method === 'PUT') {
           let json = { method: method };
           return Promise.resolve().then(() => ({json, response}));
@@ -118,7 +135,9 @@ function pixtyApiCall(endpoint, method = 'GET', data = null) {
     })
     .then(
       response => ({ response }),
-      error => Promise.reject(error)
+      error => {
+        return Promise.reject(error);
+      }
     );
 }
 
