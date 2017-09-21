@@ -10,6 +10,7 @@ import { openModal, closeModal, setSettings } from '../actions';
 import { CurrentUser } from '../api';
 import _ from 'lodash';
 import md5 from 'md5';
+import pack from '../../package.json';
 
 class TopMenu extends React.Component {
 
@@ -37,7 +38,7 @@ class TopMenu extends React.Component {
     this.props.openModalDialog('about', <div>
       Pixty Face Recognition.<br/><br/>
       <span style={{fontSize: '13px'}}>
-      build v.0.1.10<br/>
+      build v.{pack.version}<br/>
       © 2017 Pixty Inc. All rights reserved.
       </span>
       <br/>

@@ -1,0 +1,14 @@
+[ignore]
+.*/node_modules/react-timeago/*
+.*/node_modules/styled-components/*
+
+[include]
+./src/**
+
+[libs]
+./node_modules/fbjs/flow/lib
+./flow-typed/*
+
+[lints]
+
+[options]

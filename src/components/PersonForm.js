@@ -1,35 +1,56 @@
+// @flow
 import React from 'react';
-import PropTypes from 'prop-types';
+//import * as React from 'react';
+//import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import _ from 'lodash';
-import FormInput from './FormInput';
+//import FormInput from './FormInput';
+import FormAreaInput from './FormAreaInput';
 import Spinner from './Spinner';
 import ImageButton from './styled/ImageButton';
 import { Button, RegularButton } from './styled/Button';
 import { fetchProfile, postProfile } from '../api';
 
-class PersonForm extends React.PureComponent {
-  static propTypes = {
-    person: PropTypes.object.isRequired
+type Props = {
+  +person: {
+    avatarUrl: string,
+    +profile: { id: string }
+  },
+  scene: {},
+  metaInfo: Array<any>,
+  orgId: string
+};
+
+type State = {
+  attributes: {},
+  all_attrs: Array<any>,
+  profileId?: string,
+  loggin: boolean,
+}
+
+class PersonForm extends React.PureComponent<Props, State> {
+
+  person: {} | { id: string };
+  profile: { id: string };
+
+  static defaultProps = {
   }
 
   constructor(props) {
     super(props);
-    this.state = { attributes: {}, profileId: null, loggin: false };
-    this.findNextValue = this.findNextValue.bind(this);
+    this.state = { attributes: {}, profileId: undefined, loggin: false, all_attrs: [] };
+    //this.findNextValue = this.findNextValue.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    const person = nextProps.person;
-    const profile = person.profile;
-    Object.defineProperty( this, "PERSON", { value: person, writable: false, enumerable: true, configurable: true });
-    Object.defineProperty( this, "PROFILE", { value: profile, writable: false, enumerable: true, configurable: true });
+    this.person = nextProps.person;
+    this.profile = this.person && this.person.profile;
 
-    if (profile) {
-      if (this.state.profileId !== profile.id) {
+    if (this.profile) {
+      if (this.state.profileId !== this.profile.id) {
 
-        fetchProfile(profile.id).then((response) => {
+        fetchProfile(this.profile.id).then((response) => {
 
             let attrs = {};
             response.response.attributes.map((a) => {
@@ -39,24 +60,23 @@ class PersonForm extends React.PureComponent {
 
             const all_attr = this.props.metaInfo.map((field) => ({fieldId: field.id, name: field.fieldName, value: attrs[field.fieldName]}));
 
-            setTimeout(() => this.setState({ attributes: attrs, all_attrs: all_attr, profileId: profile.id}), 200);
+            setTimeout(() => this.setState({ attributes: attrs, all_attrs: all_attr, profileId: this.profile.id}), 200);
           }
         );
       }
     } else {
-      this.setState({ attributes: {}, profileId: null});
+      this.setState({ attributes: {}, profileId: undefined});
     }
   }
 
   onChange(key) {
-    //console.log(this.state);
     return el => {
       let new_attrs = this.state.all_attrs.map( (a) => (a.name === key ? {...a, value: el.target.value } : a));
       this.setState( { all_attrs: new_attrs, attributes: { ...this.state.attributes, ...{ [key] : el.target.value }}});
     };
   }
 
-  findNextValue() {
+  findNextValue = () => {
 
     const keys = this.props.metaInfo.map((meta_key) => {
       if (!this.state.attributes) {
@@ -81,9 +101,8 @@ class PersonForm extends React.PureComponent {
   }
 
   onClickUpdate() {
-    //this.props.update({orgId: this.props.orgId, id: this.PROFILE.id, Attributes: this.state.all_attrs, mappedFields: {"custom1" : "test"}});
     this.setState({loggin: true});
-    postProfile({orgId: this.props.orgId, id: this.PROFILE.id, Attributes: this.state.all_attrs, mappedFields: {"custom1" : "test"}})
+    postProfile({orgId: this.props.orgId, id: this.profile.id, Attributes: this.state.all_attrs, mappedFields: {"custom1" : "test"}})
     .then(resolve => {
       this.setState({loggin: false});
     }, reject => {
@@ -93,8 +112,8 @@ class PersonForm extends React.PureComponent {
   }
 
   render() {
-    const person = this.PERSON;
-    const profile = this.PROFILE;
+    const person = this.person;
+    const profile = this.profile;
 
     if (!person)
       return null;
@@ -103,7 +122,6 @@ class PersonForm extends React.PureComponent {
       return (
         <div>
           <img alt='Avatar' src={this.props.person.avatarUrl} style={{width: "280px"}} />
-          id: {person.id}<br/>
           <RegularButton onClick={() => alert('Create')}>Create</RegularButton>
         </div>
       );
@@ -113,7 +131,7 @@ class PersonForm extends React.PureComponent {
           <img alt='Avatar' src={this.props.person.avatarUrl} style={{width: "280px"}} />
 
           { _.keys(this.state.attributes).map( key => (
-            <FormInput key={key} label={key} onChange={this.onChange(key)} value={this.state.attributes[key]} />
+            <FormAreaInput key={key} label={key} onChange={this.onChange(key)} value={this.state.attributes[key]} />
           ))
           }
           <div>
@@ -128,6 +146,7 @@ class PersonForm extends React.PureComponent {
               </Button>
             </div>
           </div>
+          <div style={{clear:'both'}}>&nbsp;</div>
         </div>
     );
   }
