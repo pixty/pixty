@@ -12,11 +12,11 @@ import { PERSON_WIDTH } from './Constants';
 
 let lastX = 1;
 
-class Person extends React.Component {
+class Person extends React.PureComponent {
 
   constructor(props) {
     super(props);
-    this.state = { mount: false, currentFaceSrc: this.props.pictures[0].url, pictureField: 'url',
+    this.state = { mount: false, currentFaceSrc: this.props.pictures[0].url, pictureField: 'picURL',
       currentPictureSrc: this.props.pictures[0].picURL, pictureIndex: 0, pictureCount:this.props.pictures.length  };
   }
 
@@ -60,19 +60,22 @@ class Person extends React.Component {
           transform: this.state.mount ? 'scale(1.0)' : 'scale(0.8)',
           opacity: this.state.mount ? 1.0 : 0.0,
           boxShadow: selectedId === this.props.id ? '4px 4px 6px rgba(0,0,0,0.2)' : '2px 2px 2px rgba(0,0,0,0.2)',
-          background: selectedId === this.props.id ? '#fff' : '#cecece',
+          background: selectedId === this.props.id ? '#fff' : '#eee',
           borderRadius: '2px',
           color: selectedId === this.props.id ? 'black' : 'black'
         }}>
 
-          <div onClick={this.props.onClick} style={{cursor: 'pointer', overflowX: 'scroll', overflowY: 'hidden', position: '', zIndex: 1, top: 0}}>
-            <div style={{overflowScrolling: "touch",
+          <div onClick={this.props.onClick} style={{cursor: 'pointer', overflowX: 'scroll', overflowY: 'hidden'}}>
+            <div style={{overflowScrolling: "touch", display: 'flex',
         WebkitOverflowScrolling: "touch", width: PERSON_WIDTH * this.props.pictures.length + 'px'}}>
-              { this.props.pictures.map((pic)=> <Picture key={pic.id} width={PERSON_WIDTH} placeholder={<Spinner noLabel />} src={pic[this.state.pictureField]} /> )}
+              { this.props.pictures.map((pic, index)=> <Picture index={index} leftTop={pic.rect.leftTop}
+                containerWidth={PERSON_WIDTH} pictureField={this.state.pictureField}
+                rightBottom={pic.rect.rightBottom} key={pic.id} width={PERSON_WIDTH}
+                placeholder={<Spinner noLabel />} src={pic[this.state.pictureField]} /> )}
             </div>
           </div>
 
-          <div style={{padding: '10px 20px', fontSize: '14px', fontWeight: 'normal', lineHeight: '150%', wordWrap: 'break-word'}}>
+          <div style={{padding: '10px 20px', fontSize: '14px', fontWeight: 'normal', background: '#fff', borderBottom: `1px solid rgba(0,0,0,0.1)`}}>
             <div style={{float:'right', textAlign: 'right'}}>
               <div style={{fontSize: '11px', opacity: 0.5}}>Visit Count: 1</div>
               <div style={{float: 'right'}}>
@@ -81,11 +84,14 @@ class Person extends React.Component {
             </div>
             <div style={{fontSize: '11px', opacity: 0.5}}>Last seen at</div>
             <div><TimeAgo date={this.props.lastSeenAt} /></div>
+          </div>
+
+          <div style={{padding: '0px 20px', fontSize: '14px', fontWeight: 'normal', lineHeight: '150%', wordWrap: 'break-word'}}>
 
             <div style={{marginTop: '10px', fontWeight: 'normal', wordWrap: 'break-word'}}>
               { this.props.profile && this.props.profile.attributes.map((attr) => <div key={attr.value}>
                 <div style={{fontSize: '12px', color: '#ccc'}}>{attr.name}</div>
-                <div style={{lineHeight: '100%', fontSize: startSize+'px' }}>{(startSize -= 5) && attr.value }</div>
+                <div style={{lineHeight: '100%', fontSize: startSize+'px', whiteSpace: 'pre-line' }}>{(startSize -= 5) && attr.value }</div>
                 </div>) }
             </div>
 

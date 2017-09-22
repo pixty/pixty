@@ -1,14 +1,20 @@
+// @flow
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import _ from 'lodash';
-//import { closeModal } from '../actions';
 import Dialog from './Dialog';
 
-class Modals extends React.PureComponent {
-  static propTypes = {
-    modals: PropTypes.object.isRequired
+type Props = {
+  modals: {}
+};
+
+type State = {
+  modals: {}
+};
+
+class Modals extends React.PureComponent<Props, State> {
+  static defaultProps = {
   }
 
   constructor(props) {
