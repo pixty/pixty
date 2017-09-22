@@ -1,1 +1,1 @@
-export const PERSON_WIDTH = 280;
+export const PERSON_WIDTH = 360;

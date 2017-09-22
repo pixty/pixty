@@ -63,16 +63,25 @@ function* watchGetOrgs() {
 
     if (error.status === 401) {
       CurrentUser.logOut();
-      window.location.reaload();
+      window.location.reload();
     }
     return;
   }
 }
 
 function* watchGetProfile() {
-  while(true) {
-    const {id} = yield take(actions.GET_PROFILE);
-    yield call(fetchProfile, id);
+  try {
+    while(true) {
+      const {id} = yield take(actions.GET_PROFILE);
+      yield call(fetchProfile, id);
+    }
+  } catch(error) {
+
+    if (error.status === 401) {
+      CurrentUser.logOut();
+      window.location.reload();
+    }
+    return;
   }
 }
 

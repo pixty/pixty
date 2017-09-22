@@ -72,6 +72,13 @@ const NotFount = () => (<div>
 </div>
 );
 
+class Root extends React.Component {
+	componentDidMount() {
+		store.dispatch(push('/'));
+	}
+	render = () => (null);
+}
+
 const Logout = () => {
 	const session_id = currentUser.getToken();
 
@@ -125,6 +132,7 @@ ReactDOM.render(
 				<Switch>
 					<Route exact path="/" component={App}/>
 					<Route exact path="/logout" component={Logout}/>
+					<Route exact path="/login" component={Root}/>
 					<Route component={NotFount}/>
 				</Switch>
 			</UserAuth>

@@ -11,11 +11,11 @@ const Input = styled.textarea`
   color: white;
   outline: none;
   width: 100%;
-  resize: vertical;
+  resize: none;
   overflow: hidden;
   height: ${props => props.show ? props.height : 0};
   font-family: 'Source Sans Pro', sans-serif;
-  transition: all 0.2s ease-out 0.06s;
+  transition: all ease-out 0.4s;
   padding: 5px 0px;
   &:focus {
     border-color: rgba(255, 255, 255, 0.2);
@@ -27,7 +27,6 @@ const Wrapper = styled.div`
   opacity: ${props => props.show ? 1.0 : 0.0};
   height: ${props => props.show ? 'auto' : 0};
   display: block;
-  transition: all 0.5s ease-out;
 `;
 
 class FormAreaInput extends React.Component {
