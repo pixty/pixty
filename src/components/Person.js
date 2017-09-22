@@ -65,7 +65,7 @@ class Person extends React.PureComponent {
           color: selectedId === this.props.id ? 'black' : 'black'
         }}>
 
-          <div onClick={this.props.onClick} style={{cursor: 'pointer', overflowX: 'scroll', overflowY: 'hidden'}}>
+          <div onClick={this.props.onClick} style={{cursor: 'pointer', background:'#ccc', overflowX: 'scroll', overflowY: 'hidden'}}>
             <div style={{overflowScrolling: "touch", display: 'flex',
         WebkitOverflowScrolling: "touch", width: PERSON_WIDTH * this.props.pictures.length + 'px'}}>
               { this.props.pictures.map((pic, index)=> <Picture index={index} leftTop={pic.rect.leftTop}
@@ -79,7 +79,7 @@ class Person extends React.PureComponent {
             <div style={{float:'right', textAlign: 'right'}}>
               <div style={{fontSize: '11px', opacity: 0.5}}>Visit Count: 1</div>
               <div style={{float: 'right'}}>
-                <ImageButton type='image' onClick={this.toggleImageSource} src={ this.state.pictureField === 'url' ? '/images/scene.svg' : '/images/face.svg'} width='20px' />
+                <ImageButton type='image' onClick={this.toggleImageSource} src={ this.state.pictureField === 'url' ? '/images/switch_left.svg' : '/images/switch_right.svg'} width='30px' />
               </div>
             </div>
             <div style={{fontSize: '11px', opacity: 0.5}}>Last seen at</div>

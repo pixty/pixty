@@ -19,6 +19,10 @@ ul, li {
   list-style: none;
 }
 
+input {
+  -webkit-appearance: none;
+}
+
 ::-webkit-resizer {
   display: none;
 }
