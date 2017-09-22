@@ -23,15 +23,17 @@ class Picture extends React.PureComponent {
     offsetTop: 90,
     divHeight: 180,
     divWidth: 320,
-    faceLeft: 0,
-    faceTop: 0,
+    faceLeft: this.props.container/2,
+    faceTop: 100,
     faceWidth: 0,
     faceHeight: 0
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.src !== this.props.src) {
-      this.setState({loaded: false});
+      this.setState({loaded: false,
+      faceLeft: this.props.container/2, faceTop: 100, faceWidth: 0, faceHeight: 0,
+      });
     }
   }
 
@@ -68,7 +70,6 @@ class Picture extends React.PureComponent {
         divHeight: event.target.offsetHeight, divWidth: event.target.offsetWidth});
     } else {
       this.setState({ loaded: true, offsetTop: event.target.offsetHeight/2,
-        faceLeft: 0, faceTop: 0, faceWidth: 0, faceHeight: 0,
         divHeight: event.target.offsetHeight, divWidth: event.target.offsetWidth});
     }
   }
@@ -89,7 +90,7 @@ class Picture extends React.PureComponent {
     return (
       <div style={{position: 'relative'}}>
         { pictureField === 'picURL' &&
-          <div style={{left: this.state.faceLeft, top: this.state.faceTop, position: 'absolute', transition: '0.5s ease',
+          <div style={{left: this.state.faceLeft, top: this.state.faceTop, position: 'absolute', transition: '0.3s ease',
           width: this.state.faceWidth, height: this.state.faceHeight,
           border: `1px solid ${mainColor}`, borderRadius: '2px', boxShadow: '0px 0px 20px rgba(255, 255, 255, 0.6), inset 0px 0px 0px 1px rgba(0,0,0,0.1)'}}>
               &nbsp;
