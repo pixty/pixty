@@ -12,6 +12,9 @@ const Input = styled.input`
   width: 100%;
   font-family: 'Source Sans Pro', sans-serif;
   transition: all 0.3s ease-out 0.06s;
+  border-radius: 0px;
+  -moz-appearance: none;
+  -webkit-appearance: none;
   padding: 5px 0px;
   &:focus {
     border-color: rgba(255, 255, 255, 0.2);
@@ -47,7 +50,8 @@ class FormInput extends React.Component {
       <Wrapper show={this.state.show}>
         <label style={{color: 'rgba(255,255,255,0.4)', fontSize: 'small'}}>
           {this.props.label}<br/>
-          <Input type={inputType} spellCheck="false" autoCorrect="off" autoCapitalize="off" value={this.props.value} onChange={this.props.onChange} />
+          <Input type={inputType} spellCheck="false" autoCorrect="off" autoCapitalize="off" value={this.props.value}
+          onChange={this.props.onChange} />
         </label>
       </Wrapper>
     );

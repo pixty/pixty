@@ -15,6 +15,9 @@ const Input = styled.textarea`
   height: ${props => props.show ? props.height : 0};
   font-family: 'Source Sans Pro', sans-serif;
   transition: all ease-out 0.4s;
+  border-radius: 0px;
+  -moz-appearance: none;
+  -webkit-appearance: none;
   padding: 5px 0px;
   &:focus {
     border-color: rgba(255, 255, 255, 0.2);
@@ -59,7 +62,10 @@ class FormAreaInput extends React.Component {
       <Wrapper show={this.state.show} >
         <label style={{color: 'rgba(255,255,255,0.4)', fontSize: 'small'}}>
           {this.props.label}<br/>
-          <Input innerRef={(input) => { this.textInput = input; }} show={this.state.show} type={inputType} height={this.state.height+'px'} spellCheck="false" autoCorrect="off" autoCapitalize="off" value={this.props.value} onChange={this.onChange} />
+          <Input innerRef={(input) => { this.textInput = input; }} show={this.state.show} type={inputType}
+          height={this.state.height+'px'} spellCheck="false" autoCorrect="off" autoCapitalize="off"
+          style={{WebkitAppearance:' none'}}
+          value={this.props.value} onChange={this.onChange} />
         </label>
       </Wrapper>
     );
