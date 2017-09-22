@@ -28,6 +28,8 @@ const RightBar = styled.div.attrs({
   opacity: props => props.opacity || 0,
 })`
   position: absolute;
+  overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch;
   background: ${backroundColor};
   opacity: ${props => props.opacity};
   right: 0px;

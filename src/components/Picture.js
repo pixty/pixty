@@ -68,6 +68,7 @@ class Picture extends React.PureComponent {
         divHeight: event.target.offsetHeight, divWidth: event.target.offsetWidth});
     } else {
       this.setState({ loaded: true, offsetTop: event.target.offsetHeight/2,
+        faceLeft: 0, faceTop: 0, faceWidth: 0, faceHeight: 0,
         divHeight: event.target.offsetHeight, divWidth: event.target.offsetWidth});
     }
   }
@@ -94,11 +95,13 @@ class Picture extends React.PureComponent {
               &nbsp;
           </div>
         }
-        <div style={{width: width + 'px', height: this.state.divHeight + 'px', transition: '0.2s ease'}}>
-          { !this.state.loaded &&
-          <div style={{marginLeft: width/2 + 'px', marginTop: this.state.offsetTop + 'px'}}>
+        { !this.state.loaded &&
+          <div style={{position: 'absolute', zIndex: 1, left: width/2 + 'px', top: this.state.offsetTop + 'px'}}>
             {placeholder}
-          </div> }
+          </div>
+        }
+
+        <div style={{width: width + 'px', height: this.state.divHeight + 'px', transition: '0.2s ease'}}>
           <img src={src} alt={alt} style={{width: width + 'px', opacity: this.state.loaded ? 1 : 0}} onLoad={(event) => this.setLoaded(event)} />
         </div>
       </div>

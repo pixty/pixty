@@ -5,7 +5,6 @@ import styled from 'styled-components';
 const Input = styled.textarea`
   border: none;
   background: none;
-  -webkit-appearance: none;
   font-size: medium;
   border-bottom: 1px solid rgba(0, 0, 0, 0.4);
   color: white;
@@ -46,9 +45,9 @@ class FormAreaInput extends React.Component {
 
   onChange = (event) => {
 
-    if (this.state.height !== event.target.scrollHeight - 10) {
-      //this.setState(() => ({ height: 0 }));
-      setTimeout(() => this.setState(() => ({ height: this.textInput.scrollHeight - 10 })), 0);
+    if (this.state.height < event.target.scrollHeight - 10) {
+      this.setState({ height: this.textInput.scrollHeight - 10 });
+      console.log(event.target);
     }
     this.props.onChange.call(this, event);
   }
