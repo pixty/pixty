@@ -18,7 +18,10 @@ import rootSaga from './sagas';
 import { getOrgs } from './actions';
 import selectedPersonReducer from './reducers/selectedPerson';
 import LoginPage from './components/LoginPage';
+import ForgotPassword from './components/ForgotPassword';
+import SignUpPage from './components/SignUpPage';
 import { CurrentUser, deleteSession } from './api';
+import { TermsOfService, PrivacyTerms } from './legal';
 
 // const preloadedState = window.__PRELOADED_STATE__
 const preloadedState = { entities: { settings: { showPreview: true, zoomLevel: 1 }, orgs: { 0: { cameras: [{id: 0, label: 'loading...', orgId: 1, hasSecretKey: true}] }}}};
@@ -72,9 +75,42 @@ const NotFount = () => (<div>
 </div>
 );
 
+const Terms = () => (<div style={{padding: '20px', color: 'white'}}>
+	<h2>Terms of Service</h2>
+	<div style={{whiteSpace: 'pre-line', fontWeight: 'light', maxWidth: '800px', fontSize: 'small',
+	boxShadow: '5px 5px 10px rgba(0,0,0,0.2)',
+	padding: '10px 20px', background: 'white', color: 'black'}}>
+		{TermsOfService.data}
+	</div>
+	<div style={{marginTop: '20px'}}>
+		<Link style={{color: 'white'}} to="/">Home</Link>
+	</div>
+</div>
+);
+
+const Privacy = () => (<div style={{padding: '20px', color: 'white'}}>
+	<h2>Privacy</h2>
+	<div style={{whiteSpace: 'pre-line', fontWeight: 'light', maxWidth: '800px', fontSize: 'small',
+	boxShadow: '5px 5px 10px rgba(0,0,0,0.2)',
+	padding: '10px 20px', background: 'white', color: 'black'}}>
+		{PrivacyTerms.data}
+	</div>
+	<div style={{marginTop: '20px'}}>
+		<Link style={{color: 'white'}} to="/">Home</Link>
+	</div>
+</div>
+);
+
 class Root extends React.Component {
 	componentDidMount() {
 		store.dispatch(push('/'));
+	}
+	render = () => (null);
+}
+
+class PushLogin extends React.Component {
+	componentDidMount() {
+		store.dispatch(push('/login'));
 	}
 	render = () => (null);
 }
@@ -100,10 +136,18 @@ class UserAuth extends React.Component {
 		this.state = {userToken: currentUser.getToken()};
 	}
 
+	componentWillReceiveProps(nextProps) {
+
+		if (currentUser.getToken()) {
+			store.runSaga(rootSaga);
+			store.dispatch(getOrgs());
+		}
+
+		this.setState({userToken: currentUser.getToken()});
+	}
+
 	componentDidMount () {
-		if (!this.state.userToken) {
-			store.dispatch(push('/login'));
-		} else {
+		if (this.state.userToken) {
 			store.runSaga(rootSaga);
 		}
 	}
@@ -113,10 +157,25 @@ class UserAuth extends React.Component {
 			<LoginPage store={store} />
 		);
 
+		const ForgotPageWrapper = () => (
+			<ForgotPassword store={store} />
+		);
+
+		const SignUpPageWrapper = () => (
+			<SignUpPage store={store} />
+		);
+
+
 		return (
 			<div>
 				{this.state.userToken ? this.props.children : <Switch>
 					<Route exact path="/login" component={LoginPageWrapper}/>
+					<Route exact path="/signup" component={SignUpPageWrapper}/>
+					<Route exact path="/forgot" component={ForgotPageWrapper}/>
+					<Route exact path="/terms" component={Terms}/>
+					<Route exact path="/privacy" component={Privacy}/>
+					<Route exact path="/logout" component={Root}/>
+					<Route component={PushLogin}/>
 				</Switch>
 				}
 			</div>
@@ -128,7 +187,7 @@ ReactDOM.render(
 	<Provider store={store}>
 		{ /* ConnectedRouter will use the store from Provider automatically */ }
 		<ConnectedRouter history={history}>
-			<UserAuth>
+			<UserAuth history={history}>
 				<Switch>
 					<Route exact path="/" component={App}/>
 					<Route exact path="/logout" component={Logout}/>

@@ -26,13 +26,14 @@ class Picture extends React.PureComponent {
     faceLeft: this.props.container/2,
     faceTop: 100,
     faceWidth: 0,
-    faceHeight: 0
+    faceHeight: 0,
+    faceOpacity: 0
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.src !== this.props.src) {
       this.setState({loaded: false,
-      faceLeft: this.props.container/2, faceTop: 100, faceWidth: 0, faceHeight: 0,
+      faceLeft: this.props.containerWidth/2, faceTop: 100, faceWidth: 0, faceHeight: 0, faceOpacity: 0
       });
     }
   }
@@ -60,12 +61,13 @@ class Picture extends React.PureComponent {
     const faceWidth = naturalFaceWidth * aspectRatioX / 1.15;
     const faceHeight = naturalFacefHeight * aspectRatioY / 1.15;
 
-    console.log({faceLeft:faceLeft, faceTop:faceTop, naturalWidth:naturalWidth, naturalHeight:naturalHeight,
+    /*console.log({faceLeft:faceLeft, faceTop:faceTop, naturalWidth:naturalWidth, naturalHeight:naturalHeight,
      imageWidth:imageWidth, imageHeight:imageHeight, faceX:faceX, faceY:faceY, faceWidth:faceWidth, faceHeight:faceHeight,
-     aspectRatioX:aspectRatioX, aspectRatioY:aspectRatioY });
+     aspectRatioX:aspectRatioX, aspectRatioY:aspectRatioY });*/
 
     if (this.props.pictureField === 'picURL') {
       this.setState({ loaded: true, offsetTop: event.target.offsetHeight/2,
+        faceOpacity: 1,
         faceLeft: faceLeft, faceTop: faceTop, faceWidth: faceWidth * aspectRatioX, faceHeight: faceHeight * aspectRatioY,
         divHeight: event.target.offsetHeight, divWidth: event.target.offsetWidth});
     } else {
@@ -90,8 +92,8 @@ class Picture extends React.PureComponent {
     return (
       <div style={{position: 'relative'}}>
         { pictureField === 'picURL' &&
-          <div style={{left: this.state.faceLeft, top: this.state.faceTop, position: 'absolute', transition: '0.3s ease',
-          width: this.state.faceWidth, height: this.state.faceHeight,
+          <div style={{left: this.state.faceLeft, top: this.state.faceTop, position: 'absolute', transition: '0.5s ease',
+          width: this.state.faceWidth, height: this.state.faceHeight, opacity: this.state.faceOpacity,
           border: `1px solid ${mainColor}`, borderRadius: '2px', boxShadow: '0px 0px 20px rgba(255, 255, 255, 0.6), inset 0px 0px 0px 1px rgba(0,0,0,0.1)'}}>
               &nbsp;
           </div>

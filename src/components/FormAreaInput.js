@@ -64,7 +64,6 @@ class FormAreaInput extends React.Component {
           {this.props.label}<br/>
           <Input innerRef={(input) => { this.textInput = input; }} show={this.state.show} type={inputType}
           height={this.state.height+'px'} spellCheck="false" autoCorrect="off" autoCapitalize="off"
-          style={{WebkitAppearance:' none'}}
           value={this.props.value} onChange={this.onChange} />
         </label>
       </Wrapper>
