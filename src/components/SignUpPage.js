@@ -12,12 +12,16 @@ import { openModal, closeModal } from '../actions';
 import Spinner from './Spinner';
 
 
-class LoginPage extends React.Component {
+class SignUpPage extends React.Component {
+
+  static propTypes = {
+    store: PropTypes.object.isRequired
+  };
 
   constructor(props) {
     super(props);
     this.currentUser = new CurrentUser();
-    this.state = { token: this.currentUser.getToken(), login: null, password: null, loggin: false };
+    this.state = { token: this.currentUser.getToken(), login: null, password: null, password_confirmation: null, loggin: false };
   }
 
   signIn() {
@@ -28,19 +32,10 @@ class LoginPage extends React.Component {
 
       this.setState(() => ({ loggin: false }));
 
-      if (sessionId) {
-        this.currentUser.signIn(sessionId);
-        CurrentUser.setUser(user);
-        this.props.store.dispatch(push('/'));
-        //window.location.reload();
-      } else {
-        return Promise.reject();
-      }
-
     }, error => {
       this.setState(() => ({ loggin: false }));
       this.props.openModalDialog('login', <div style={{padding: '10px', paddingBottom: '0px'}}>
-        Invalid username or password.<br/>
+        Password to short, mast be at least 8 characters.<br/>
         <div onClick={this.props.closeModalDialog.bind(this, 'login')} style={{display: 'flex', width: '100%', justifyContent: 'center'}}>
           <RegularButton>OK</RegularButton>
         </div>
@@ -69,17 +64,18 @@ class LoginPage extends React.Component {
           <div style={{paddingBottom: '40px'}}>
             <FormInput onChange={this.onChange.bind(this, 'login')} label="Login"></FormInput>
             <FormInput onChange={this.onChange.bind(this, 'password')} label="Password" password></FormInput>
+            <FormInput onChange={this.onChange.bind(this, 'password_confirmation')} label="Confirm Password" password></FormInput>
           </div>
           <Button type='submit' onClick={this.signIn.bind(this)}>
             { this.state.loggin ?
             <div style={{transform: 'scale(0.3)', position: 'absolute', marginLeft: '-4px'}}><Spinner stroke={4} noLabel /></div> : null }
-            <div className="button__text" style={{marginLeft: this.state.loggin ? '19px' : '0px'}}>Sign In</div>
+            <div className="button__text" style={{marginLeft: this.state.loggin ? '19px' : '0px'}}>Create Account</div>
           </Button>
           </form>
 
           <div style={{paddingTop: '20px'}}>
             <Link to='/forgot'><span style={{color: '#aaa', marginRight: '8px'}}>Forgot your Password?</span> Restore</Link>
-            <Link to='/signup'><span style={{color: '#aaa', marginRight: '8px'}}>Create new Account</span> Sign Up</Link>
+            <Link to='/login'><span style={{color: '#aaa', marginRight: '8px'}}>Already has Account</span> Sign In</Link>
             <hr style={{border: 'none', borderBottom: '1px dotted #222', marginTop: '20px'}}/>
             <Link to='/terms'>Terms of Service</Link>
             <Link to='/privacy'>Privacy</Link>
@@ -92,10 +88,6 @@ class LoginPage extends React.Component {
   }
 }
 
-LoginPage.propTypes = {
-  store: PropTypes.object.isRequired
-};
-
 const mapStateToProps = (state, ownProps) => ({
 });
 
@@ -107,4 +99,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(LoginPage);
+)(SignUpPage);
