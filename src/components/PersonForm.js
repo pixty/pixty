@@ -152,7 +152,7 @@ class PersonForm extends React.PureComponent<Props, State> {
 
     return (
         <div>
-          <div style={{fontSize: 'small', color: '#777', fontWeight: 'normal', paddingBottom: '10px'}}>
+          <div style={{fontSize: 'small', color: '#777', fontWeight: 'normal', marginBottom: '12px'}}>
             Profile Pictures
             <div style={{float: 'right'}}>
               <CancelButton size="11px">Edit</CancelButton>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import DropDownMenu from './DropDownMenu';
 import { RegularButton } from './styled/Button';
 //import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router-dom';
+//import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import '../../__less__/select.css';
 import { openModal, closeModal, setSettings } from '../actions';
@@ -13,6 +13,7 @@ import md5 from 'md5';
 import pack from '../../package.json';
 import FormInput from './FormInput';
 import { Button, CancelButton } from './styled/Button';
+import { push } from 'react-router-redux';
 
 class TopMenu extends React.Component {
 
@@ -77,12 +78,16 @@ class TopMenu extends React.Component {
   }
 
   logOut = () => {
-    window.location = '/logout';
+    //window.location = '/logout';
   }
 
   selectCamera(id) {
     CurrentUser.setCamera(id);
     this.setState({ selected: id });
+  }
+
+  goTo(location) {
+    this.props.routerPush.call(this, location);
   }
 
   render() {
@@ -92,7 +97,7 @@ class TopMenu extends React.Component {
 
     return (
       <div style={{margin: '0px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-        <div style={{margin: '0px 15px', width: 'auto', flexGrow: 0, display: 'flex'}}>
+        <div style={{cursor: 'pointer', margin: '0px 15px', width: 'auto', flexGrow: 0, display: 'flex'}} onClick={this.goTo.bind(this, '/')}>
           <div>
             <img alt="User" src={`http://www.gravatar.com/avatar/${md5(gravatar_id)}?s=60&d=identicon&email=${gravatar_id}`} style={{width: "30px", borderRadius: "30px", marginTop: "10px"}} />
           </div>
@@ -133,12 +138,10 @@ class TopMenu extends React.Component {
               <li onClick={this.addCamera}>Attach Pixty Camera...</li>
               <li>Order New Pixty Kit</li>
               <hr/>
-              <li>Account Preferences</li>
-              <li>Plans and Billing</li>
-              <hr/>
+              <li onClick={this.goTo.bind(this, '/preferences/account')}>Account Preferences</li>
               <li onClick={this.openSettings}>About...</li>
               <hr/>
-              <li onClick={this.logOut}>Logout</li>
+              <li onClick={this.goTo.bind(this, '/logout')}>Logout</li>
             </ul>
           </DropDownMenu>
         </div>
@@ -156,10 +159,11 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = {
   openModalDialog: openModal,
   closeModalDialog: closeModal,
-  setUserSettings: setSettings
+  setUserSettings: setSettings,
+  routerPush: push
 };
 
-export default withRouter(connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TopMenu));
+)(TopMenu);
