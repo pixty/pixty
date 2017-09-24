@@ -133,6 +133,12 @@ class PersonForm extends React.PureComponent<Props, State> {
 
     return (
         <div>
+          <div style={{fontSize: 'small', color: '#777', fontWeight: 'normal', paddingBottom: '7px'}}>
+            Profile Pictures
+            <div style={{float: 'right'}}>
+              <ImageButton type='image' src='/images/write.svg' width='16px' />
+            </div>
+          </div>
           <div style={{overflowX: 'auto', overflowY: 'hidden'}}>
             <div style={{display: 'flex', width: this.props.person.pictures.length*PIC_SIZE + 'px'}}>
             { this.props.person.pictures.map((pic) => <img alt='Avatar' key={pic.id} src={pic.url} style={{width: PIC_SIZE+"px", height: PIC_SIZE+"px"}} />) }
@@ -148,8 +154,7 @@ class PersonForm extends React.PureComponent<Props, State> {
                 <ul>
                   { this.props.metaInfo.map( field => !this.state.attributes[field.fieldName] &&
                     <li onClick={this.newAttribute.bind(this, field.fieldName)} key={field.id}>{field.fieldName}</li>)}
-                  <hr/>
-                  <li key='custom'>Custom</li>
+                  <li key='custom'>Custom Attributes</li>
                 </ul>
               </DropDownMenu>
             </div>
