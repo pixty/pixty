@@ -21,7 +21,8 @@ class SignUpPage extends React.Component {
   constructor(props) {
     super(props);
     this.currentUser = new CurrentUser();
-    this.state = { token: this.currentUser.getToken(), login: null, password: null, password_confirmation: null, loggin: false };
+    this.state = { token: this.currentUser.getToken(), email: null, password: null, company: null,
+      accepted: false, password_confirmation: null, loggin: false };
   }
 
   signIn() {
@@ -34,13 +35,17 @@ class SignUpPage extends React.Component {
 
     }, error => {
       this.setState(() => ({ loggin: false }));
-      this.props.openModalDialog('login', <div style={{padding: '10px', paddingBottom: '0px'}}>
+      this.props.openModalDialog('error', <div style={{padding: '10px', paddingBottom: '0px'}}>
         Password to short, mast be at least 8 characters.<br/>
-        <div onClick={this.props.closeModalDialog.bind(this, 'login')} style={{display: 'flex', width: '100%', justifyContent: 'center'}}>
+        <div onClick={this.props.closeModalDialog.bind(this, 'error')} style={{display: 'flex', width: '100%', justifyContent: 'center'}}>
           <RegularButton>OK</RegularButton>
         </div>
       </div>);
     });
+  }
+
+  toggleCheckbox = () => {
+    this.setState({accepted: !this.state.accepted});
   }
 
   onChange() {
@@ -57,16 +62,27 @@ class SignUpPage extends React.Component {
     return (
       <div>
       <Modals />
-      <div style={{width: '100%', minHeight: '450px', height: '100%', display: 'flex', position: 'absolute', justifyContent: 'center', alignItems: 'center'}}>
+      <div style={{width: '100%', minHeight: '650px', height: '100%', display: 'flex', position: 'absolute', justifyContent: 'center', alignItems: 'center'}}>
         <div>
           <img src={logo} alt='Pixty' style={{width: '130px'}}/>
           <form action='' onSubmit={(event) => event.preventDefault()}>
-          <div style={{paddingBottom: '40px'}}>
-            <FormInput onChange={this.onChange.bind(this, 'login')} label="Login"></FormInput>
+          <div style={{paddingBottom: '0px'}}>
+            <FormInput onChange={this.onChange.bind(this, 'email')} label="Email"></FormInput>
             <FormInput onChange={this.onChange.bind(this, 'password')} label="Password" password></FormInput>
             <FormInput onChange={this.onChange.bind(this, 'password_confirmation')} label="Confirm Password" password></FormInput>
+            <div style={{paddingTop: '10px', paddingBottom: '0px', color: '#999', fontSize: '12px'}}>
+              On behalf of the company
+            </div>
+            <FormInput onChange={this.onChange.bind(this, 'company')} label="Company name"></FormInput>
           </div>
-          <Button type='submit' onClick={this.signIn.bind(this)}>
+
+          <div style={{paddingTop: '10px', paddingBottom: '30px', color: '#777', fontSize: '12px'}}>
+            <label><input onClick={this.toggleCheckbox} type='checkbox' checked={this.state.accepted ? true : false} />
+            Click here to indicate that you have read<br/>
+            and agree to the terms presented in the Terms<br/>
+            and Conditions agreement</label>
+          </div>
+          <Button type='submit' disabled={this.state.accepted ? false : true}  onClick={this.signIn.bind(this)}>
             { this.state.loggin ?
             <div style={{transform: 'scale(0.3)', position: 'absolute', marginLeft: '-4px'}}><Spinner stroke={4} noLabel /></div> : null }
             <div className="button__text" style={{marginLeft: this.state.loggin ? '19px' : '0px'}}>Create Account</div>

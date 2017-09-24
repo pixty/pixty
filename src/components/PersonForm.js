@@ -9,8 +9,10 @@ import _ from 'lodash';
 import FormAreaInput from './FormAreaInput';
 import Spinner from './Spinner';
 import ImageButton from './styled/ImageButton';
-import { Button, RegularButton } from './styled/Button';
+import { Button, CancelButton } from './styled/Button';
+import DropDownMenu from './DropDownMenu';
 import { fetchProfile, postProfile } from '../api';
+import { clickPerson } from '../actions';
 
 type Props = {
   +person: {
@@ -93,8 +95,8 @@ class PersonForm extends React.PureComponent<Props, State> {
     return _.compact(keys)[0];
   }
 
-  newAttribute() {
-    let key = this.findNextValue();
+  newAttribute = (fieldName) => {
+    let key = fieldName || this.findNextValue();
     if (key) {
       this.setState( { attributes: { ...this.state.attributes, ...{ [key] : '' }}});
     }
@@ -105,15 +107,20 @@ class PersonForm extends React.PureComponent<Props, State> {
     postProfile({orgId: this.props.orgId, id: this.profile.id, Attributes: this.state.all_attrs, mappedFields: {"custom1" : "test"}})
     .then(resolve => {
       this.setState({loggin: false});
+      //this.closeForm();
     }, reject => {
-      alert('Something goes wrong!');
       this.setState({loggin: false});
     });
+  }
+
+  closeForm = () => {
+    this.props.clickPerson({ id: this.props.person.id });
   }
 
   render() {
     const person = this.person;
     const profile = this.profile;
+    const PIC_SIZE = 140;
 
     if (!person)
       return null;
@@ -121,29 +128,43 @@ class PersonForm extends React.PureComponent<Props, State> {
     if (!profile)
       return (
         <div>
-          <img alt='Avatar' src={this.props.person.avatarUrl} style={{width: "280px"}} />
-          <RegularButton onClick={() => alert('Create')}>Create</RegularButton>
         </div>
       );
 
     return (
         <div>
-          <img alt='Avatar' src={this.props.person.avatarUrl} style={{width: "280px"}} />
-
+          <div style={{overflowX: 'auto', overflowY: 'hidden'}}>
+            <div style={{display: 'flex', width: this.props.person.pictures.length*PIC_SIZE + 'px'}}>
+            { this.props.person.pictures.map((pic) => <img alt='Avatar' key={pic.id} src={pic.url} style={{width: PIC_SIZE+"px", height: PIC_SIZE+"px"}} />) }
+            </div>
+          </div>
           { _.keys(this.state.attributes).map( key => (
             <FormAreaInput key={key} label={key} onChange={this.onChange(key)} value={this.state.attributes[key]} />
           ))
           }
           <div>
-            <div style={{float: 'left', marginTop: '10px'}}>
-              <ImageButton onClick={this.newAttribute.bind(this)} width="25px" type="image" src="/images/plus.svg" />
+            <div style={{float: 'left', marginTop: '10px', fontWeight: 'normal'}}>
+              <DropDownMenu float="right" closeOnClick font_size="13px" icon_url='/images/plus.svg'>
+                <ul>
+                  { this.props.metaInfo.map( field => !this.state.attributes[field.fieldName] &&
+                    <li onClick={this.newAttribute.bind(this, field.fieldName)} key={field.id}>{field.fieldName}</li>)}
+                  <hr/>
+                  <li key='custom'>Custom</li>
+                </ul>
+              </DropDownMenu>
             </div>
+
             <div style={{float: 'right', marginTop: '10px'}}>
-              <Button onClick={this.onClickUpdate.bind(this)}>
+              <Button size="14px" onClick={this.onClickUpdate.bind(this)}>
               { this.state.loggin ?
-            <div style={{transform: 'scale(0.3)', position: 'absolute', marginLeft: '-4px'}}><Spinner stroke={4} noLabel /></div> : null }
-            <div className="button__text" style={{marginLeft: this.state.loggin ? '19px' : '0px'}}>Save</div>
+                <div style={{transform: 'scale(0.3)', position: 'absolute', marginLeft: '-4px'}}><Spinner stroke={4} noLabel /></div> : null }
+                <div className="button__text" style={{marginLeft: this.state.loggin ? '19px' : '0px'}}>Save</div>
               </Button>
+            </div>
+            <div style={{float: 'right', marginTop: '10px', marginRight: '15px'}}>
+              <CancelButton size="14px" onClick={this.closeForm}>
+                Close
+              </CancelButton>
             </div>
           </div>
           <div style={{clear:'both'}}>&nbsp;</div>
@@ -159,7 +180,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = {
-  //update: postProfile
+  clickPerson: clickPerson
 };
 
 export default withRouter(connect(

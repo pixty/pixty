@@ -75,28 +75,34 @@ const NotFount = () => (<div>
 </div>
 );
 
-const Terms = () => (<div style={{padding: '20px', color: 'white'}}>
-	<h2>Terms of Service</h2>
-	<div style={{whiteSpace: 'pre-line', fontWeight: 'light', maxWidth: '800px', fontSize: 'small',
-	boxShadow: '5px 5px 10px rgba(0,0,0,0.2)',
-	padding: '10px 20px', background: 'white', color: 'black'}}>
-		{TermsOfService.data}
-	</div>
-	<div style={{marginTop: '20px'}}>
-		<Link style={{color: 'white'}} to="/">Home</Link>
+const Terms = () => (
+	<div style={{display: 'flex', alignContent: 'center', justifyContent: 'center'}}>
+	<div style={{padding: '20px', color: 'white'}}>
+		<h2>Terms of Service</h2>
+		<div style={{whiteSpace: 'pre-line', fontWeight: 'light', maxWidth: '800px', fontSize: 'small',
+		boxShadow: '5px 5px 10px rgba(0,0,0,0.2)',
+		padding: '10px 20px', background: 'white', color: 'black'}}>
+			{TermsOfService.data}
+		</div>
+		<div style={{marginTop: '20px'}}>
+			<Link style={{color: 'white'}} to="/">Home</Link>
+		</div>
 	</div>
 </div>
 );
 
-const Privacy = () => (<div style={{padding: '20px', color: 'white'}}>
-	<h2>Privacy</h2>
-	<div style={{whiteSpace: 'pre-line', fontWeight: 'light', maxWidth: '800px', fontSize: 'small',
-	boxShadow: '5px 5px 10px rgba(0,0,0,0.2)',
-	padding: '10px 20px', background: 'white', color: 'black'}}>
-		{PrivacyTerms.data}
-	</div>
-	<div style={{marginTop: '20px'}}>
-		<Link style={{color: 'white'}} to="/">Home</Link>
+const Privacy = () => (
+	<div style={{display: 'flex', alignContent: 'center', justifyContent: 'center'}}>
+		<div style={{padding: '20px', color: 'white'}}>
+		<h2>Privacy</h2>
+		<div style={{whiteSpace: 'pre-line', fontWeight: 'light', maxWidth: '800px', fontSize: 'small',
+		boxShadow: '5px 5px 10px rgba(0,0,0,0.2)',
+		padding: '10px 20px', background: 'white', color: 'black'}}>
+			{PrivacyTerms.data}
+		</div>
+		<div style={{marginTop: '20px'}}>
+			<Link style={{color: 'white'}} to="/">Home</Link>
+		</div>
 	</div>
 </div>
 );
