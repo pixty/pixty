@@ -11,6 +11,8 @@ import { CurrentUser } from '../api';
 import _ from 'lodash';
 import md5 from 'md5';
 import pack from '../../package.json';
+import FormInput from './FormInput';
+import { Button, CancelButton } from './styled/Button';
 
 class TopMenu extends React.Component {
 
@@ -22,7 +24,7 @@ class TopMenu extends React.Component {
     super(props);
     const cams = _.map(this.props.org.cameras, c => ({ id: c.id, label: c.name}));
 
-    this.state = { options: cams, selected: CurrentUser.getCamera() };
+    this.state = { options: cams, selected: CurrentUser.getCamera(), camera_serial: null };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -32,6 +34,24 @@ class TopMenu extends React.Component {
       this.setState({ options: cams, selected: CurrentUser.getCamera() });
     }
 
+  }
+
+  onChangeInput() {
+    this.setState({ [arguments[0]] : arguments[1].target.value });
+  }
+
+  addCamera = () => {
+    this.props.openModalDialog('add camera', <div style={{padding: '0px', paddingBottom: '0px', minWidth: '300px'}}>
+
+        <FormInput noAnimation onChange={this.onChangeInput.bind(this, 'camera_serial')} label="Enter Camera Serial Number"></FormInput>
+
+        <div onClick={this.props.closeModalDialog.bind(this, 'add camera')} style={{display: 'flex', width: '100%', marginTop: '30px', justifyContent: 'center'}}>
+          <CancelButton size="14px">Cancel</CancelButton>
+          <div style={{marginLeft: '15px'}}>
+            <Button size="14px">Add</Button>
+          </div>
+        </div>
+      </div>);
   }
 
   openSettings = () => {
@@ -108,8 +128,14 @@ class TopMenu extends React.Component {
         </div>
 
         <div style={{width: '25px', marginRight: '15px'}}>
-          <DropDownMenu closeOnClick float='right' icon_url='/images/settings.svg'>
+          <DropDownMenu font_size="14px" closeOnClick float='right' icon_url='/images/settings.svg'>
             <ul>
+              <li onClick={this.addCamera}>Attach Pixty Camera...</li>
+              <li>Order New Pixty Kit</li>
+              <hr/>
+              <li>Account Preferences</li>
+              <li>Plans and Billing</li>
+              <hr/>
               <li onClick={this.openSettings}>About...</li>
               <hr/>
               <li onClick={this.logOut}>Logout</li>

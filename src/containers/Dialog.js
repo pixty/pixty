@@ -11,7 +11,7 @@ const dialogStyle = {
       position: 'absolute',
       zIndex: 100,
       background: '#333',
-      borderRadius: '6px',
+      borderRadius: '3px',
       borderTop: '1px solid #444',
       borderLeft: '1px solid #444',
       borderBottom: '2px solid #222',

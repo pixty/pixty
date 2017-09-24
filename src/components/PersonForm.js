@@ -41,7 +41,7 @@ class PersonForm extends React.PureComponent<Props, State> {
 
   constructor(props) {
     super(props);
-    this.state = { attributes: {}, profileId: undefined, loggin: false, all_attrs: [] };
+    this.state = { attributes: {}, profileId: undefined, loggin: false, all_attrs: [], new_key: null, new_value: null };
     //this.findNextValue = this.findNextValue.bind(this);
   }
 
@@ -69,6 +69,10 @@ class PersonForm extends React.PureComponent<Props, State> {
     } else {
       this.setState({ attributes: {}, profileId: undefined});
     }
+  }
+
+  onChangeInput() {
+    this.setState({ [arguments[0]] : arguments[1].target.value });
   }
 
   onChange(key) {
@@ -118,13 +122,12 @@ class PersonForm extends React.PureComponent<Props, State> {
   }
 
   addCustom = () => {
-    const key = 'Key', value = 'Value';
-    this.props.openModalDialog('add attribute', <div style={{padding: '10px', paddingBottom: '0px', minWidth: '300px'}}>
+    this.props.openModalDialog('add attribute', <div style={{padding: '0px', paddingBottom: '0px', minWidth: '300px'}}>
 
-        <FormInput key={key} label={key} onChange={this.onChange(key)} value={this.state.attributes[key]} />
-        <FormAreaInput key={value} label={value} onChange={this.onChange(value)} value={this.state.attributes[value]} />
+        <FormInput noAnimation onChange={this.onChangeInput.bind(this, 'new_key')} label="Key"></FormInput>
+        <FormInput noAnimation onChange={this.onChangeInput.bind(this, 'new_value')} label="Value"></FormInput>
 
-        <div onClick={this.props.closeModalDialog.bind(this, 'add attribute')} style={{display: 'flex', width: '100%', marginTop: '15px', justifyContent: 'center'}}>
+        <div onClick={this.props.closeModalDialog.bind(this, 'add attribute')} style={{display: 'flex', width: '100%', marginTop: '30px', justifyContent: 'center'}}>
           <CancelButton size="14px">Cancel</CancelButton>
           <div style={{marginLeft: '15px'}}>
             <Button size="14px">Add</Button>
@@ -149,10 +152,10 @@ class PersonForm extends React.PureComponent<Props, State> {
 
     return (
         <div>
-          <div style={{fontSize: 'small', color: '#777', fontWeight: 'normal', paddingBottom: '7px'}}>
+          <div style={{fontSize: 'small', color: '#777', fontWeight: 'normal', paddingBottom: '10px'}}>
             Profile Pictures
             <div style={{float: 'right'}}>
-              <ImageButton type='image' src='/images/write.svg' width='20px' />
+              <CancelButton size="11px">Edit</CancelButton>
             </div>
           </div>
           <div style={{overflowX: 'auto', overflowY: 'hidden'}}>
