@@ -19,6 +19,7 @@ import { getOrgs } from './actions';
 import selectedPersonReducer from './reducers/selectedPerson';
 import LoginPage from './components/LoginPage';
 import ForgotPassword from './components/ForgotPassword';
+import Preferences from './components/Preferences';
 import SignUpPage from './components/SignUpPage';
 import { CurrentUser, deleteSession } from './api';
 import { TermsOfService, PrivacyTerms } from './legal';
@@ -72,7 +73,7 @@ store.subscribe(() =>
 setTimeout(() => store.dispatch(loadAll()), 0);
 
 const NotFount = () => (<div>
-	<h2 style={{padding: '20px', color: 'white'}}>Route not found</h2>
+	<h2 style={{padding: '20px', color: 'white'}}>404</h2>
 	<Link style={{padding: '20px', color: 'white'}} to="/">Home</Link>
 </div>
 );
@@ -177,13 +178,14 @@ class UserAuth extends React.Component {
 		return (
 			<div>
 				{this.state.userToken ? this.props.children : <Switch>
+					<Route exact path="/" component={LoginPageWrapper}/>
 					<Route exact path="/login" component={LoginPageWrapper}/>
 					<Route exact path="/signup" component={SignUpPageWrapper}/>
 					<Route exact path="/forgot" component={ForgotPageWrapper}/>
 					<Route exact path="/terms" component={Terms}/>
 					<Route exact path="/privacy" component={Privacy}/>
 					<Route exact path="/logout" component={Root}/>
-					<Route component={PushLogin}/>
+					<Route component={NotFount}/>
 				</Switch>
 				}
 			</div>
@@ -200,6 +202,7 @@ ReactDOM.render(
 					<Route exact path="/" component={App}/>
 					<Route exact path="/logout" component={Logout}/>
 					<Route exact path="/login" component={Root}/>
+					<Route path="/preferences/:prefName" component={Preferences}/>
 					<Route component={NotFount}/>
 				</Switch>
 			</UserAuth>

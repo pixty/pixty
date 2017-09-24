@@ -2,48 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PersonList from '../containers/PersonList';
 import _ from 'lodash';
-import styled from 'styled-components';
 import CameraPreview from './styled/CameraPreview';
 import PersonForm from './PersonForm';
 import Modals from '../containers/Modals';
 import TopMenu from './TopMenu';
 import Draggable from 'react-draggable';
-import { backroundColor } from './styled/Colors';
 import Spinner from './Spinner';
+import { Main, RightBar } from './styled/Main';
 
 const RIGHT_BAR_WIDTH = 360;
-
-const Main = styled.div.attrs({
-  //marginRight: props => props.right || '0px',
-})`
-  position: absolute;
-  right: ${props => props.right };
-  left: 0px;
-  top: 0px;
-  bottom: 0px;
-  margin-right: ${props => props.margin };
-  transition: all 0.5s ease;
-`;
-
-const RightBar = styled.div.attrs({
-  width: props => props.width || '0px',
-  opacity: props => props.opacity || 0,
-})`
-  position: absolute;
-  overflow-scrolling: touch;
-  -webkit-overflow-scrolling: touch;
-  background: ${backroundColor};
-  opacity: ${props => props.opacity};
-  right: 0px;
-  top: 0px;
-  padding: 0px;
-  font-weight: 300;
-  height: 100%;
-  z-index: 3;
-  transition: all 0.5s ease;
-  width: ${props => props.width};
-  border-left: 1px solid rgba(0,0,0,0.3);
-`;
 
 class Scene extends React.Component {
 

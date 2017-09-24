@@ -75,12 +75,9 @@ class Person extends React.PureComponent {
             </div>
           </div>
 
-          <div style={{padding: '10px 20px', fontSize: '14px', fontWeight: 'normal', background: '#fff', borderBottom: `1px solid rgba(0,0,0,0.1)`}}>
+          <div style={{padding: '10px 20px', paddingRight: '5px', fontSize: '14px', fontWeight: 'normal', background: '#fff', borderBottom: `1px solid rgba(0,0,0,0.1)`}}>
             <div style={{float:'right', textAlign: 'right'}}>
-              <div style={{fontSize: '11px', opacity: 0.5}}>Visit Count: 1</div>
-              <div style={{float: 'right'}}>
-                <ImageButton type='image' onClick={this.toggleImageSource} src={ this.state.pictureField === 'url' ? '/images/switch_left.svg' : '/images/switch_right.svg'} width='30px' />
-              </div>
+              <ImageButton type='image' onClick={this.toggleImageSource} src={ this.state.pictureField === 'url' ? '/images/switch_left.svg' : '/images/switch_right.svg'} width='60px' />
             </div>
             <div style={{fontSize: '11px', opacity: 0.5}}>Last seen at</div>
             <div><TimeAgo date={this.props.lastSeenAt} /></div>
