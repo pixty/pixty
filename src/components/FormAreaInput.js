@@ -14,7 +14,6 @@ const Input = styled.textarea`
   overflow: hidden;
   height: ${props => props.show ? props.height : 0};
   font-family: 'Source Sans Pro', sans-serif;
-  transition: all ease-out 0.4s;
   border-radius: 0px;
   -moz-appearance: none;
   -webkit-appearance: none;
@@ -28,6 +27,7 @@ const Wrapper = styled.div`
   line-height: 170%;
   opacity: ${props => props.show ? 1.0 : 0.0};
   height: ${props => props.show ? 'auto' : 0};
+  transition: all 0.5s ease-out;
   display: block;
 `;
 

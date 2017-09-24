@@ -39,8 +39,6 @@ const RightBar = styled.div.attrs({
   height: 100%;
   z-index: 3;
   transition: all 0.5s ease;
-  overflow-x: hidden;
-  overflow-y: auto;
   width: ${props => props.width};
   border-left: 1px solid rgba(0,0,0,0.3);
 `;

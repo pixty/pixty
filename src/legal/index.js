@@ -1,6 +1,5 @@
 export const TermsOfService = {
-  data: `
-    Updated September 23, 2017
+  data: `Updated September 23, 2017
 
 PIXTY END USER LICENSE AGREEMENT
 
@@ -85,9 +84,7 @@ PIXTY, Inc.
 
 
 export const PrivacyTerms = {
-  data: `
-
-  Updated September 23, 2017
+  data: `Updated September 23, 2017
 
     Your privacy is important to us. At PIXTY, we are committed to protecting your personal information with the highest level of integrity. This policy is intended to inform you of our privacy practices in association with the collection and use of your information obtained through our website (pixty.io), services, and applications. This Privacy Policy is incorporated into, and subject to the Terms of Service as well as our other security policies. The following comprises the terms of our policy:
 

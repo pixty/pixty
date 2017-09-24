@@ -13,8 +13,12 @@ export const Button = styled.button`
   border-bottom: 1px solid rgba(0, 0, 0, 0.4);
   color: white;
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 16px;
+  font-size: ${props => props.size ? props.size : '16px'};
   cursor: pointer;
+  transition: background ease-out 0.3s;
+  &:disabled {
+    background-color: #bbb;
+  }
   & {
     .button__text {
       transition: 0.5s ease;
@@ -29,6 +33,11 @@ export const Button = styled.button`
     border-right: 1px solid rgba(255, 255, 255, 0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
+`;
+
+export const CancelButton = styled(Button)`
+  color: #999;
+  background: none;
 `;
 
 export const RegularButton = styled.button`
