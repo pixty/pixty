@@ -13,7 +13,7 @@ class DropDownMenu extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { open: this.props.open || false, left_offset: 0 };
+    this.state = { open: this.props.open || false, left_offset: 0, menu_height: 0 };
     this.setMenu = this.setMenu.bind(this);
     this.handleClickOutside = this.handleClickOutside.bind(this);
     this.onClick = this.onClick.bind(this);
@@ -29,9 +29,11 @@ class DropDownMenu extends React.Component {
 
   onClick() {
     if (this.props.float && this.props.float === 'right') {
-      this.setState({ open: !this.state.open, left_offset: 30 - this.menu.querySelector('._drop_down').offsetWidth });
+      this.setState({ open: !this.state.open, left_offset: 30 - this.menu.querySelector('._drop_down').offsetWidth,
+        menu_height: this.menu.querySelector('._drop_down').offsetHeight
+       });
     } else {
-      this.setState({ open: !this.state.open, left_offset: -7 });
+      this.setState({ open: !this.state.open, left_offset: -7, menu_height: this.menu.querySelector('._drop_down').offsetHeight });
     }
   }
 
@@ -55,7 +57,7 @@ class DropDownMenu extends React.Component {
     return (
       <div ref={this.setMenu} style={{position:'relative'}}>
         <ImageButton width="25px" type="image" src={this.props.icon_url} onClick={this.onClick}/>
-        <DropDown {...this.props} onClick={this.onClickMenu} className='_drop_down' left={this.state.left_offset} style={{visibility: this.state.open ? 'visible' : 'hidden', opacity: this.state.open ? 1 : 0}}>
+        <DropDown {...this.props} onClick={this.onClickMenu} className='_drop_down' menu_height={this.state.menu_height} top={this.props.top} left={this.state.left_offset} style={{visibility: this.state.open ? 'visible' : 'hidden', opacity: this.state.open ? 1 : 0}}>
           {this.props.children}
         </DropDown>
       </div>

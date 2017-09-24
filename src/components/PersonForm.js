@@ -5,14 +5,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import _ from 'lodash';
-//import FormInput from './FormInput';
+import FormInput from './FormInput';
 import FormAreaInput from './FormAreaInput';
 import Spinner from './Spinner';
 import ImageButton from './styled/ImageButton';
 import { Button, CancelButton } from './styled/Button';
 import DropDownMenu from './DropDownMenu';
 import { fetchProfile, postProfile } from '../api';
-import { clickPerson } from '../actions';
+import { clickPerson, openModal, closeModal  } from '../actions';
 
 type Props = {
   +person: {
@@ -117,6 +117,22 @@ class PersonForm extends React.PureComponent<Props, State> {
     this.props.clickPerson({ id: this.props.person.id });
   }
 
+  addCustom = () => {
+    const key = 'Key', value = 'Value';
+    this.props.openModalDialog('add attribute', <div style={{padding: '10px', paddingBottom: '0px', minWidth: '300px'}}>
+
+        <FormInput key={key} label={key} onChange={this.onChange(key)} value={this.state.attributes[key]} />
+        <FormAreaInput key={value} label={value} onChange={this.onChange(value)} value={this.state.attributes[value]} />
+
+        <div onClick={this.props.closeModalDialog.bind(this, 'add attribute')} style={{display: 'flex', width: '100%', marginTop: '15px', justifyContent: 'center'}}>
+          <CancelButton size="14px">Cancel</CancelButton>
+          <div style={{marginLeft: '15px'}}>
+            <Button size="14px">Add</Button>
+          </div>
+        </div>
+      </div>);
+  }
+
   render() {
     const person = this.person;
     const profile = this.profile;
@@ -136,7 +152,7 @@ class PersonForm extends React.PureComponent<Props, State> {
           <div style={{fontSize: 'small', color: '#777', fontWeight: 'normal', paddingBottom: '7px'}}>
             Profile Pictures
             <div style={{float: 'right'}}>
-              <ImageButton type='image' src='/images/write.svg' width='16px' />
+              <ImageButton type='image' src='/images/write.svg' width='20px' />
             </div>
           </div>
           <div style={{overflowX: 'auto', overflowY: 'hidden'}}>
@@ -150,11 +166,11 @@ class PersonForm extends React.PureComponent<Props, State> {
           }
           <div>
             <div style={{float: 'left', marginTop: '10px', fontWeight: 'normal'}}>
-              <DropDownMenu float="right" closeOnClick font_size="13px" icon_url='/images/plus.svg'>
+              <DropDownMenu top float="right" closeOnClick font_size="13px" icon_url='/images/plus.svg'>
                 <ul>
                   { this.props.metaInfo.map( field => !this.state.attributes[field.fieldName] &&
                     <li onClick={this.newAttribute.bind(this, field.fieldName)} key={field.id}>{field.fieldName}</li>)}
-                  <li key='custom'>Custom Attributes</li>
+                  <li onClick={this.addCustom} key='custom'>Custom Attributes</li>
                 </ul>
               </DropDownMenu>
             </div>
@@ -185,7 +201,9 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = {
-  clickPerson: clickPerson
+  clickPerson: clickPerson,
+  openModalDialog: openModal,
+  closeModalDialog: closeModal
 };
 
 export default withRouter(connect(
