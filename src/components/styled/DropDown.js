@@ -3,7 +3,7 @@ import { mainColor } from './Colors';
 
 const DropDown = styled.div`
   position: absolute;
-  top: 40px;
+  top: ${props => props.top ? -props.menu_height - 15 + 'px' : '40px'};
   width: auto;
   left: ${props => props.left + 'px'};
   font-size: ${props => props.font_size || '16px' };
@@ -35,12 +35,15 @@ const DropDown = styled.div`
 
     &:first-child {
       border-radius: 2px 2px 0px 0px;
+
       &:hover:before {
         border-bottom: 10px solid ${mainColor};
       }
+
       &:before {
         position: absolute;
         ${props => props.float === 'right' ? 'right: 7px' : 'left: 7px'};
+        display: ${props => props.top ? 'none' : 'block' };
         top: -10px;
         width: 0;
         height: 0;
@@ -53,6 +56,23 @@ const DropDown = styled.div`
 
     &:last-child {
       border-radius: 0px 0px 2px 2px;
+
+      &:hover:after {
+        border-top: 10px solid ${mainColor};
+      }
+
+      &:after {
+        position: absolute;
+        ${props => props.float === 'right' ? 'right: 7px' : 'left: 7px'};
+        top: ${props => props.menu_height + 'px'};
+        display: ${props => props.top ? 'block' : 'none' };
+        width: 0;
+        height: 0;
+        content: '';
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 10px solid white;
+      }
     }
 
     &:only-child {
