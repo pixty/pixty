@@ -3,7 +3,7 @@ import { mainColor } from './Colors';
 
 export const Button = styled.button`
   display: block;
-  padding: 5px 10px;
+  padding: 4px 10px;
   outline: none;
   border-radius: 3px;
   background-color: ${mainColor};

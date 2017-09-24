@@ -61,6 +61,8 @@ if (module.hot) {
 store.runSaga = sagaMiddleware.run;
 store.close = () => store.dispatch(END);
 
+document.addEventListener("touchstart", ()=>{}, true);
+
 /*
 store.subscribe(() =>
 	console.log('Store', store.getState())

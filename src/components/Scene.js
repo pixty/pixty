@@ -11,6 +11,8 @@ import Draggable from 'react-draggable';
 import { backroundColor } from './styled/Colors';
 import Spinner from './Spinner';
 
+const RIGHT_BAR_WIDTH = 360;
+
 const Main = styled.div.attrs({
   //marginRight: props => props.right || '0px',
 })`
@@ -58,7 +60,7 @@ class Scene extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.selectedPerson.id) {
-      this.setState({ width: 300, opacity: 1, margin: 0 });
+      this.setState({ width: RIGHT_BAR_WIDTH, opacity: 1, margin: 0 });
     } else {
       this.setState({ width: 0, opacity: 0, margin: 0 });
     }

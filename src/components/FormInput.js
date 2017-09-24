@@ -36,7 +36,7 @@ class FormInput extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { show: false };
+    this.state = { show: this.props.noAnimation ? true : false };
   }
 
   componentDidMount() {
