@@ -10,7 +10,7 @@ import FormInput from './FormInput';
 import Modals from '../containers/Modals';
 import { openModal, closeModal } from '../actions';
 import Spinner from './Spinner';
-
+import { LoginFooter } from './LoginFooter';
 
 class LoginPage extends React.Component {
 
@@ -78,12 +78,8 @@ class LoginPage extends React.Component {
           </form>
 
           <div style={{paddingTop: '20px'}}>
-            <Link to='/forgot'><span style={{color: '#aaa', marginRight: '8px'}}>Forgot your Password?</span> Restore</Link>
             <Link to='/signup'><span style={{color: '#aaa', marginRight: '8px'}}>Create new Account</span> Sign Up</Link>
-            <hr style={{border: 'none', borderBottom: '1px dotted #222', marginTop: '20px'}}/>
-            <Link to='/terms'>Terms of Service</Link>
-            <Link to='/privacy'>Privacy</Link>
-            <div style={{color: '#555', marginTop: '20px', fontSize: '11px'}}>© 2017 Pixty Inc.</div>
+            <LoginFooter />
           </div>
         </div>
       </div>

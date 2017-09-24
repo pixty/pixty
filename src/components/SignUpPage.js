@@ -10,6 +10,7 @@ import FormInput from './FormInput';
 import Modals from '../containers/Modals';
 import { openModal, closeModal } from '../actions';
 import Spinner from './Spinner';
+import { LoginFooter } from './LoginFooter';
 
 
 class SignUpPage extends React.Component {
@@ -62,7 +63,7 @@ class SignUpPage extends React.Component {
     return (
       <div>
       <Modals />
-      <div style={{width: '100%', minHeight: '650px', height: '100%', display: 'flex', position: 'absolute', justifyContent: 'center', alignItems: 'center'}}>
+      <div style={{width: '100%', minHeight: '700px', height: '100%', display: 'flex', position: 'absolute', justifyContent: 'center', alignItems: 'center'}}>
         <div>
           <img src={logo} alt='Pixty' style={{width: '130px'}}/>
           <form action='' onSubmit={(event) => event.preventDefault()}>
@@ -77,7 +78,7 @@ class SignUpPage extends React.Component {
           </div>
 
           <div style={{paddingTop: '10px', paddingBottom: '30px', color: '#777', fontSize: '12px'}}>
-            <label><input onClick={this.toggleCheckbox} type='checkbox' checked={this.state.accepted ? true : false} />
+            <label><input onClick={this.toggleCheckbox} type='checkbox' style={{marginRight: '5px'}}checked={this.state.accepted ? true : false} />
             Click here to indicate that you have read<br/>
             and agree to the terms presented in the Terms<br/>
             and Conditions agreement</label>
@@ -90,12 +91,8 @@ class SignUpPage extends React.Component {
           </form>
 
           <div style={{paddingTop: '20px'}}>
-            <Link to='/forgot'><span style={{color: '#aaa', marginRight: '8px'}}>Forgot your Password?</span> Restore</Link>
             <Link to='/login'><span style={{color: '#aaa', marginRight: '8px'}}>Already has Account</span> Sign In</Link>
-            <hr style={{border: 'none', borderBottom: '1px dotted #222', marginTop: '20px'}}/>
-            <Link to='/terms'>Terms of Service</Link>
-            <Link to='/privacy'>Privacy</Link>
-            <div style={{color: '#555', marginTop: '20px', fontSize: '11px'}}>© 2017 Pixty Inc.</div>
+            <LoginFooter />
           </div>
         </div>
       </div>
