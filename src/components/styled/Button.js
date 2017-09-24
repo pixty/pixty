@@ -15,6 +15,7 @@ export const Button = styled.button`
   font-family: 'Source Sans Pro', sans-serif;
   font-size: ${props => props.size ? props.size : '16px'};
   cursor: pointer;
+  user-select: none;
   transition: background ease-out 0.3s;
   &:disabled {
     background-color: #bbb;
