@@ -8,7 +8,7 @@ import Modals from '../containers/Modals';
 import { TabMenu, TabItem } from './TabMenu';
 import { AccountSettings } from './Settings';
 
-const Unkown = () => <div style={{color: '#555', fontSize: '12px', marginTop: '15px'}}>Route not found</div>;
+const Unkown = () => <div style={{color: '#555', fontSize: '12px'}}>Route not found</div>;
 
 class Preferences extends React.Component {
 
@@ -44,8 +44,10 @@ class Preferences extends React.Component {
             </TabMenu>
           </div>
 
-          <div style={{paddingLeft: '15px'}}>
-            { this.renderSelectedComponent(this.props.match.params.prefName) }
+          <div style={{position: 'absolute', overflow: 'auto', top: '146px', left: 0, right: 0, bottom: 0}}>
+            <div style={{padding: '20px'}}>
+              { this.renderSelectedComponent(this.props.match.params.prefName) }
+            </div>
           </div>
 
         </Main>
