@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import SelectedPerson from '../containers/SelectedPerson';
 import ImageButton from './styled/ImageButton';
 import PersonLi from './styled/PersonLi';
 import TimeAgo from 'react-timeago';
@@ -57,10 +56,10 @@ class Person extends React.PureComponent {
           overflowX: 'hidden',
           overflowY: 'auto',
           padding: '0px',
-          transform: this.state.mount ? 'scale(1.0)' : 'scale(0.8)',
+          transform: this.state.mount ? 'scale(1.0)' : 'scale(0.7)',
           opacity: this.state.mount ? 1.0 : 0.0,
           boxShadow: selectedId === this.props.id ? '4px 4px 6px rgba(0,0,0,0.2)' : '2px 2px 2px rgba(0,0,0,0.2)',
-          background: selectedId === this.props.id ? '#fff' : '#eee',
+          background: selectedId === this.props.id ? '#fff' : '#444',
           borderRadius: '2px',
           color: selectedId === this.props.id ? 'black' : 'black'
         }}>
@@ -92,9 +91,6 @@ class Person extends React.PureComponent {
                 </div>) }
             </div>
 
-            <div>
-              { selectedId === this.props.id ? <SelectedPerson {...this.props} /> : selectedId }
-            </div>
           </div>
         </PersonLi>
 
