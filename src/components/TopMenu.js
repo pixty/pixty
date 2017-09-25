@@ -63,8 +63,8 @@ class TopMenu extends React.Component {
       © 2017 Pixty Inc. All rights reserved.
       </span>
       <br/>
-      <div onClick={this.props.closeModalDialog.bind(this, 'about')} style={{display: 'flex', width: '100%', justifyContent: 'center'}}>
-        <RegularButton>OK</RegularButton>
+      <div onClick={this.props.closeModalDialog.bind(this, 'about')} style={{display: 'flex', marginTop: '15px', width: '100%', justifyContent: 'center'}}>
+        <CancelButton size="14px">OK</CancelButton>
       </div>
       </div>);
   }
