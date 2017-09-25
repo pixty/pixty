@@ -8,8 +8,6 @@
 
 # production
 /build
-/build/images
-/build/static
 
 # misc
 .DS_Store
