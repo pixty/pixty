@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Main } from './styled/Main';
 import TopMenu from './TopMenu';
 import Modals from '../containers/Modals';
-import StyledLink from './styled/Link';
+import { TabMenu, TabItem } from './TabMenu';
 
 class Preferences extends React.Component {
 
@@ -18,18 +18,18 @@ class Preferences extends React.Component {
           <TopMenu />
 
           <div style={{paddingLeft: '15px', borderBottom: '1px solid #444'}}>
-          <h2>Preferences</h2>
+            <h2>Preferences</h2>
+
+            <TabMenu active={this.props.match.params.prefName}>
+              <TabItem name='Account' path="/preferences/account" id="account" />
+              <TabItem name='Security Concerns' path="/preferences/security" id="security" />
+              <TabItem name='Orgatization' path="/preferences/organization" id="organization" />
+              <TabItem name='Billing' path="/preferences/billing" id="billing" />
+            </TabMenu>
           </div>
 
           <div style={{paddingLeft: '15px'}}>
             <p>Selected: {this.props.match.params.prefName}</p>
-
-
-            <StyledLink to="/preferences/account">Account</StyledLink>
-            <StyledLink to="/preferences/security">Security</StyledLink>
-            <StyledLink to="/preferences/organization">Orgatization</StyledLink>
-            <StyledLink to="/preferences/billing">Billing</StyledLink>
-
           </div>
 
         </Main>

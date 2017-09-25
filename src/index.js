@@ -147,10 +147,10 @@ class UserAuth extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 
-		if (currentUser.getToken()) {
-			store.runSaga(rootSaga);
-			store.dispatch(getOrgs());
-		}
+		//if (currentUser.getToken()) {
+		//	store.runSaga(rootSaga);
+		//	store.dispatch(getOrgs());
+		//}
 
 		this.setState({userToken: currentUser.getToken()});
 	}
