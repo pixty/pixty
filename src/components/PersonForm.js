@@ -142,11 +142,17 @@ class PersonForm extends React.PureComponent<Props, State> {
     const PIC_SIZE = 140;
 
     if (!person)
-      return null;
+      return (
+        <div>
+        no person
+        </div>
+      );
 
     if (!profile)
       return (
-        <div>
+        <div style={{color: '#ccc', fontWeight: 'normal', fontSize: '14px'}}>
+        {person.id}<br/>
+        no profile
         </div>
       );
 
