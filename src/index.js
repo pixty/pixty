@@ -140,6 +140,9 @@ const Logout = () => {
 };
 
 class UserAuth extends React.Component {
+
+	static isSagaActive = false;
+
 	constructor (props) {
 		super(props);
 		this.state = {userToken: currentUser.getToken()};
@@ -147,10 +150,11 @@ class UserAuth extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 
-		//if (currentUser.getToken()) {
-		//	store.runSaga(rootSaga);
-		//	store.dispatch(getOrgs());
-		//}
+		if (currentUser.getToken() && !UserAuth.isSagaActive) {
+			UserAuth.isSagaActive = true;
+			store.runSaga(rootSaga);
+			store.dispatch(getOrgs());
+		}
 
 		this.setState({userToken: currentUser.getToken()});
 	}
@@ -158,6 +162,7 @@ class UserAuth extends React.Component {
 	componentDidMount () {
 		if (this.state.userToken) {
 			store.runSaga(rootSaga);
+			UserAuth.isSagaActive = true;
 		}
 	}
 

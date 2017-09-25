@@ -124,10 +124,11 @@ class TopMenu extends React.Component {
 
           <DropDownMenu closeOnClick ref='eye_down' font_size="13px" float='right' icon_url='/images/eye.svg'>
             <ul>
-              <li onClick={this.togglePreview}>{this.props.settings.showPreview ? 'Hide preview' : 'Show preview'}</li>
+              <li>Show Timeline</li>
+              <li onClick={this.togglePreview}>{this.props.settings.showPreview ? 'Hide Preview' : 'Show Preview'}</li>
               <hr/>
-              <li onClick={this.setZoom.bind(this, 1)}>{ this.props.settings.zoomLevel === 1 && '✔' } Small size</li>
-              <li onClick={this.setZoom.bind(this, 2)}>{ this.props.settings.zoomLevel === 2 && '✔' } Medium size</li>
+              <li onClick={this.setZoom.bind(this, 1)}>{ this.props.settings.zoomLevel === 1 && '✔' } Small Size</li>
+              <li onClick={this.setZoom.bind(this, 2)}>{ this.props.settings.zoomLevel === 2 && '✔' } Medium Size</li>
             </ul>
           </DropDownMenu>
         </div>

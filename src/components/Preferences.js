@@ -6,8 +6,24 @@ import { Main } from './styled/Main';
 import TopMenu from './TopMenu';
 import Modals from '../containers/Modals';
 import { TabMenu, TabItem } from './TabMenu';
+import { AccountSettings } from './Settings';
+
+const Unkown = () => <div style={{color: '#555', fontSize: '12px', marginTop: '15px'}}>Route not found</div>;
 
 class Preferences extends React.Component {
+
+
+  renderSelectedComponent = (active) => {
+    let Component;
+    switch(active) {
+      case 'account':
+        Component = <AccountSettings />;
+        break;
+      default:
+        Component = <Unkown />;
+    }
+    return Component;
+  }
 
   render() {
     return (
@@ -23,13 +39,13 @@ class Preferences extends React.Component {
             <TabMenu active={this.props.match.params.prefName}>
               <TabItem name='Account' path="/preferences/account" id="account" />
               <TabItem name='Security Concerns' path="/preferences/security" id="security" />
-              <TabItem name='Orgatization' path="/preferences/organization" id="organization" />
+              <TabItem name='Organization' path="/preferences/organization" id="organization" />
               <TabItem name='Billing' path="/preferences/billing" id="billing" />
             </TabMenu>
           </div>
 
           <div style={{paddingLeft: '15px'}}>
-            <p>Selected: {this.props.match.params.prefName}</p>
+            { this.renderSelectedComponent(this.props.match.params.prefName) }
           </div>
 
         </Main>

@@ -10,8 +10,6 @@ class TabMenu extends React.PureComponent {
 
   render() {
 
-    console.log(this.props.push);
-
     const childrenWithProps = React.Children.map(this.props.children,
      (child) => React.cloneElement(child, {
        active: this.props.active,

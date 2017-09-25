@@ -69,7 +69,6 @@ class Scene extends React.Component {
         <Draggable defaultPosition={{x:100, y:100}}>
           <CameraPreview onDoubleClick={this.zoomCamera.bind(this)} style={{display: this.props.settings.showPreview ? 'block' : 'none',
           transition: 'border 0.5s ease, width 0.5s ease, height 0.5s ease', position: 'absolute',
-          background: '#111',
           width: this.state.previewWidth + 'px', height: this.state.previewHeight + 'px', borderRadius: '6px'}}>
             {scene.frame && scene.frame['picURL'] &&
             <img alt="Face" onDragStart={(event)=>{ event.preventDefault(); return false;}}   src={scene.frame['picURL']}
