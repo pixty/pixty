@@ -46,18 +46,20 @@ class Scene extends React.Component {
     }
   }
 
+/*
   pad(num, size) {
     var s = num + "";
     while (s.length < size) s = "0" + s;
     return s;
   }
+*/
 
   render() {
     const scene = this.props.scene;
     const selectedPerson = this.props.selectedPerson;
 
-    let number = (Date.now() % 300) + 1;
-    let snapshot_url = `http://pixty.io/assets/snapshots/rest${this.pad(number, 4)}.png`;
+    //let number = (Date.now() % 300) + 1;
+    //let snapshot_url = `http://pixty.io/assets/snapshots/rest${this.pad(number, 4)}.png`;
 
     return (
       <div style={{position: 'absolute', top: 0, left: 0, right: 0, width: '100%', height: '100%', overflow: 'hidden'}}>
@@ -65,9 +67,16 @@ class Scene extends React.Component {
         <Modals />
 
         <Draggable defaultPosition={{x:100, y:100}}>
-          <CameraPreview onDoubleClick={this.zoomCamera.bind(this)} style={{display: this.props.settings.showPreview ? 'block' : 'none', transition: 'border 0.5s ease, width 0.5s ease, height 0.5s ease', position: 'absolute', width: this.state.previewWidth + 'px', height: this.state.previewHeight + 'px', borderRadius: '6px'}}>
-            <img alt="Face" onDragStart={(event)=>{ event.preventDefault(); return false;}}   src={(scene.frame && scene.frame['picURL']) || snapshot_url}
+          <CameraPreview onDoubleClick={this.zoomCamera.bind(this)} style={{display: this.props.settings.showPreview ? 'block' : 'none',
+          transition: 'border 0.5s ease, width 0.5s ease, height 0.5s ease', position: 'absolute',
+          background: '#111',
+          width: this.state.previewWidth + 'px', height: this.state.previewHeight + 'px', borderRadius: '6px'}}>
+            {scene.frame && scene.frame['picURL'] &&
+            <img alt="Face" onDragStart={(event)=>{ event.preventDefault(); return false;}}   src={scene.frame['picURL']}
             style={{transition: 'width 0.5s ease, height 0.5s ease', borderRadius: '5px', width: this.state.previewWidth + 'px', height: this.state.previewHeight + 'px'}}  />
+            || <div style={{transition: 'all 0.5s ease, height 0.5s ease', fontSize: '11px', fontWeight: 'bold', textAlign: 'center',   color: '#555', marginTop: this.state.previewHeight/2 - 5 + 'px'}}>
+              Camera not detected.
+            </div> }
           </CameraPreview>
         </Draggable>
 
