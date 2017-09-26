@@ -72,8 +72,12 @@ class ForgotPassword extends React.Component {
           </form>
 
           <div style={{paddingTop: '20px'}}>
-            <Link to='/login'><span style={{color: '#aaa', marginRight: '8px'}}>I remembered my password</span> Sign In</Link>
-            <Link to='/signup'><span style={{color: '#aaa', marginRight: '8px'}}>Create new Account</span> Sign Up</Link>
+            <Link to='/login'><span style={{color: '#aaa', marginRight: '8px'}}>I remembered my password</span>
+            <img src='/images/arrow-to-right.svg' style={{width: '10px', marginRight: '6px'}} />
+            Sign In</Link>
+            <Link to='/signup'><span style={{color: '#aaa', marginRight: '8px'}}>Create new Account</span>
+            <img src='/images/arrow-to-right.svg' style={{width: '10px', marginRight: '6px'}} />
+            Sign Up</Link>
             <hr style={{border: 'none', borderBottom: '0.5px solid #555', marginTop: '20px'}}/>
             <Link to='/terms'>Terms of Service</Link>
             <Link to='/privacy'>Privacy</Link>

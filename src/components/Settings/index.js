@@ -1,3 +1,4 @@
 import AccountSettings from './AccountSettings';
+import BillingSettings from './BillingSettings';
 
-export { AccountSettings };
+export { AccountSettings, BillingSettings };

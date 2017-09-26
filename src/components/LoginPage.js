@@ -78,7 +78,9 @@ class LoginPage extends React.Component {
           </form>
 
           <div style={{paddingTop: '20px'}}>
-            <Link to='/signup'><span style={{color: '#aaa', marginRight: '8px'}}>Create new Account</span> Sign Up</Link>
+            <Link to='/signup'><span style={{color: '#aaa', marginRight: '8px'}}>Create new Account</span>
+            <img src='/images/arrow-to-right.svg' style={{width: '10px', marginRight: '6px'}} />
+            Sign Up</Link>
             <LoginFooter />
           </div>
         </div>

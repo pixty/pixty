@@ -91,7 +91,9 @@ class SignUpPage extends React.Component {
           </form>
 
           <div style={{paddingTop: '20px'}}>
-            <Link to='/login'><span style={{color: '#aaa', marginRight: '8px'}}>Already has Account</span> Sign In</Link>
+            <Link to='/login'><span style={{color: '#aaa', marginRight: '8px'}}>Already has Account</span>
+            <img src='/images/arrow-to-right.svg' style={{width: '10px', marginRight: '6px'}} />
+            Sign In</Link>
             <LoginFooter />
           </div>
         </div>

@@ -6,7 +6,7 @@ import { Main } from './styled/Main';
 import TopMenu from './TopMenu';
 import Modals from '../containers/Modals';
 import { TabMenu, TabItem } from './TabMenu';
-import { AccountSettings } from './Settings';
+import { AccountSettings, BillingSettings } from './Settings';
 
 const Unkown = () => <div style={{color: '#555', fontSize: '12px'}}>Route not found</div>;
 
@@ -18,6 +18,9 @@ class Preferences extends React.Component {
     switch(active) {
       case 'account':
         Component = <AccountSettings />;
+        break;
+      case 'billing':
+        Component = <BillingSettings   />;
         break;
       default:
         Component = <Unkown />;
@@ -38,13 +41,15 @@ class Preferences extends React.Component {
 
             <TabMenu active={this.props.match.params.prefName}>
               <TabItem name='Account' path="/preferences/account" id="account" />
-              <TabItem name='Security Concerns' path="/preferences/security" id="security" />
-              <TabItem name='Organization' path="/preferences/organization" id="organization" />
               <TabItem name='Billing' path="/preferences/billing" id="billing" />
+              <TabItem name='Security' path="/preferences/security" id="security" />
+              <TabItem name='Organization' path="/preferences/organization" id="organization" />
             </TabMenu>
           </div>
 
-          <div style={{position: 'absolute', overflow: 'auto', top: '146px', left: 0, right: 0, bottom: 0}}>
+          <div style={{position: 'absolute', overflow: 'auto', top: '146px', left: 0,
+          overflowScrolling: "touch", WebkitOverflowScrolling: "touch",
+          right: 0, bottom: 0}}>
             <div style={{padding: '20px'}}>
               { this.renderSelectedComponent(this.props.match.params.prefName) }
             </div>

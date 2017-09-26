@@ -1,16 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
 import {Grid, Col, Row} from 'react-styled-flexboxgrid';
 import FormInput from '../FormInput';
 import { CancelButton, Button } from '../styled/Button';
-
-const Header = styled.div`
-  color: #555;
-  font-size: 12px;
-  font-weight: normal;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-`;
+import { CurrentUser } from '../../api';
+import { Header } from './Header';
 
 class AccountSettings extends React.Component {
 
@@ -24,6 +17,8 @@ class AccountSettings extends React.Component {
   }
 
   render() {
+    const user = CurrentUser.getUser();
+
     return(
         <div>
           <Header>Change password</Header>
@@ -48,16 +43,16 @@ class AccountSettings extends React.Component {
 
           <Row>
             <Col xs={12} md={3}>
-              <FormInput onChange={this.onChange.bind(this, 'email')} label="Primary Email"></FormInput>
+              <FormInput value={user.email} onChange={this.onChange.bind(this, 'email')} label="Primary Email" />
             </Col>
             <Col xs={12} md={3}>
-              <FormInput onChange={this.onChange.bind(this, 'email')} label="Secondary Email"></FormInput>
+              <FormInput onChange={this.onChange.bind(this, 'email')} label="Secondary Email" />
             </Col>
           </Row>
 
           <Row style={{paddingTop: '15px', paddingBottom: '30px'}}>
             <Col xs={12}>
-              <CancelButton size="14px">Save</CancelButton>
+              <Button size="14px">Save</Button>
             </Col>
           </Row>
       </div>
