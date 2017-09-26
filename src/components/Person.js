@@ -48,7 +48,7 @@ class Person extends React.PureComponent {
     return (
         <PersonLi alt={this.props.name}
           style={{
-          border: selectedId === this.props.id ? `1px solid ${mainColor}` : '1px solid #555',
+          border: selectedId === this.props.id ? `4px solid ${mainColor}` : '4px solid #555',
           height: '100%',
           width: `${PERSON_WIDTH}px`,
           margin: '0px',
@@ -56,10 +56,10 @@ class Person extends React.PureComponent {
           overflowX: 'hidden',
           overflowY: 'auto',
           padding: '0px',
-          transform: this.state.mount ? 'scale(1.0)' : 'scale(0.7)',
+          transform: this.state.mount ? 'scale(1.0)' : 'scale(0.5)',
           opacity: this.state.mount ? 1.0 : 0.0,
           boxShadow: selectedId === this.props.id ? '4px 4px 6px rgba(0,0,0,0.2)' : '2px 2px 2px rgba(0,0,0,0.2)',
-          background: selectedId === this.props.id ? '#fff' : '#444',
+          background: selectedId === this.props.id ? '#fff' : '#fff linear-gradient(to bottom, #fff 0%, #eee 100%)',
           borderRadius: '2px',
           color: selectedId === this.props.id ? 'black' : 'black'
         }}>

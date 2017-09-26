@@ -20,6 +20,7 @@ export const RightBar = styled.div.attrs({
   position: absolute;
   overflow-scrolling: touch;
   -webkit-overflow-scrolling: touch;
+  box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.3);
   background: ${backroundColor};
   opacity: ${props => props.opacity};
   right: 0px;
@@ -30,5 +31,5 @@ export const RightBar = styled.div.attrs({
   z-index: 3;
   transition: all 0.5s ease;
   width: ${props => props.width};
-  border-left: 1px solid rgba(0,0,0,0.3);
+  border-left: 1px solid rgba(0,0,0,0.1);
 `;

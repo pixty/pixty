@@ -190,7 +190,7 @@ class UserAuth extends React.Component {
 					<Route exact path="/terms" component={Terms}/>
 					<Route exact path="/privacy" component={Privacy}/>
 					<Route exact path="/logout" component={Root}/>
-					<Route component={NotFount}/>
+					<Route component={Root}/>
 				</Switch>
 				}
 			</div>

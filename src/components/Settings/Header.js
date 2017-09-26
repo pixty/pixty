@@ -8,3 +8,9 @@ export const Header = styled.div`
   margin-bottom: 16px;
   margin-top: 6px
 `;
+
+export const Info = styled.div`
+  color: #777;
+  font-size: 12px;
+  margin-bottom: 16px;
+`;

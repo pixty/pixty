@@ -6,7 +6,7 @@ import { Main } from './styled/Main';
 import TopMenu from './TopMenu';
 import Modals from '../containers/Modals';
 import { TabMenu, TabItem } from './TabMenu';
-import { AccountSettings, BillingSettings } from './Settings';
+import { AccountSettings, BillingSettings, SecuritySettings, CompanySettings } from './Settings';
 
 const Unkown = () => <div style={{color: '#555', fontSize: '12px'}}>Route not found</div>;
 
@@ -20,7 +20,13 @@ class Preferences extends React.Component {
         Component = <AccountSettings />;
         break;
       case 'billing':
-        Component = <BillingSettings   />;
+        Component = <BillingSettings />;
+        break;
+      case 'security':
+        Component = <SecuritySettings />;
+        break;
+      case 'organization':
+        Component = <CompanySettings />;
         break;
       default:
         Component = <Unkown />;
@@ -47,7 +53,7 @@ class Preferences extends React.Component {
             </TabMenu>
           </div>
 
-          <div style={{position: 'absolute', overflow: 'auto', top: '146px', left: 0,
+          <div style={{position: 'absolute', overflow: 'auto', top: '147px', left: 0,
           overflowScrolling: "touch", WebkitOverflowScrolling: "touch",
           right: 0, bottom: 0}}>
             <div style={{padding: '20px'}}>

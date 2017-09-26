@@ -10,7 +10,7 @@ import Draggable from 'react-draggable';
 import Spinner from './Spinner';
 import { Main, RightBar } from './styled/Main';
 
-const RIGHT_BAR_WIDTH = 360;
+const RIGHT_BAR_WIDTH = 320;
 
 class Scene extends React.Component {
 

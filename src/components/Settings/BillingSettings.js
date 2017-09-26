@@ -52,38 +52,41 @@ class BillingSettings extends React.Component {
           <Header>Payment History</Header>
 
           <Row>
-            <Col xs={1}>
+            <Col xs={12} md={false}>
+              <Header>ID, Date, Date, Payment method, Ammount, Receipt</Header>
+            </Col>
+            <Col xs={false} md={1}>
               <Header>ID</Header>
             </Col>
-            <Col xs={1}>
+            <Col xs={false} md={1}>
               <Header>Date</Header>
             </Col>
-            <Col xs={4}>
+            <Col xs={false} md={4}>
               <Header>Payment method</Header>
             </Col>
-            <Col xs={2}>
+            <Col xs={false} md={2}>
               <Header>Ammount</Header>
             </Col>
-            <Col xs={2}>
+            <Col xs={false} md={2}>
               <Header>Receipt</Header>
             </Col>
           </Row>
 
           <Row style={{fontSize: '14px', color: '#777'}}>
-            <Col xs={1}>
+            <Col xs={12} md={1}>
               JDKANX3C
             </Col>
-            <Col xs={1}>
+            <Col xs={12} md={1}>
               2017-09-24
             </Col>
-            <Col xs={4}>
+            <Col xs={12} md={4}>
               MasterCard ending in 2817
             </Col>
-            <Col xs={2}>
+            <Col xs={12} md={2}>
               $47.00
             </Col>
-            <Col xs={2}>
-              <img src='/images/download.svg' style={{width: '20px'}} />
+            <Col xs={12} md={2}>
+              <img src='/images/download.svg' style={{width: '18px'}} />
             </Col>
           </Row>
 

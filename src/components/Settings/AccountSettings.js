@@ -24,13 +24,13 @@ class AccountSettings extends React.Component {
           <Header>Change password</Header>
           <Row>
             <Col xs={12} md={3}>
-              <FormInput password onChange={this.onChange.bind(this, 'old_password')} label="Old Password"></FormInput>
+              <FormInput noAnimation password onChange={this.onChange.bind(this, 'old_password')} label="Old Password" />
             </Col>
             <Col xs={12} md={3}>
-              <FormInput password onChange={this.onChange.bind(this, 'new_password')} label="New Password"></FormInput>
+              <FormInput noAnimation password onChange={this.onChange.bind(this, 'new_password')} label="New Password" />
             </Col>
             <Col xs={12} md={3}>
-              <FormInput password onChange={this.onChange.bind(this, 'password_confirmation')} label="Password Confirmation"></FormInput>
+              <FormInput noAnimation password onChange={this.onChange.bind(this, 'password_confirmation')} label="Password Confirmation" />
             </Col>
           </Row>
           <Row style={{paddingTop: '15px', paddingBottom: '30px'}}>
@@ -43,10 +43,10 @@ class AccountSettings extends React.Component {
 
           <Row>
             <Col xs={12} md={3}>
-              <FormInput value={user.email} onChange={this.onChange.bind(this, 'email')} label="Primary Email" />
+              <FormInput noAnimation value={user.email} onChange={this.onChange.bind(this, 'email')} label="Primary Email" />
             </Col>
             <Col xs={12} md={3}>
-              <FormInput onChange={this.onChange.bind(this, 'email')} label="Secondary Email" />
+              <FormInput noAnimation onChange={this.onChange.bind(this, 'email')} label="Secondary Email" />
             </Col>
           </Row>
 
