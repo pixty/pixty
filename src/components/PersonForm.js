@@ -127,7 +127,8 @@ class PersonForm extends React.PureComponent<Props, State> {
         <FormInput noAnimation onChange={this.onChangeInput.bind(this, 'new_key')} label="Key"></FormInput>
         <FormInput noAnimation onChange={this.onChangeInput.bind(this, 'new_value')} label="Value"></FormInput>
 
-        <div onClick={this.props.closeModalDialog.bind(this, 'add attribute')} style={{display: 'flex', width: '100%', marginTop: '30px', justifyContent: 'center'}}>
+        <div onClick={this.props.closeModalDialog.bind(this, 'add attribute')}
+        style={{display: 'flex', width: '100%', marginTop: '30px', justifyContent: 'center'}}>
           <CancelButton size="14px">Cancel</CancelButton>
           <div style={{marginLeft: '15px'}}>
             <Button size="14px">Add</Button>
@@ -157,7 +158,7 @@ class PersonForm extends React.PureComponent<Props, State> {
       );
 
     return (
-        <div>
+        <div style={{padding: '10px'}}>
           <div style={{fontSize: 'small', color: '#777', fontWeight: 'normal', marginBottom: '12px'}}>
             Profile Pictures
             <div style={{float: 'right'}}>

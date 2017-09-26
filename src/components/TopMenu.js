@@ -124,7 +124,6 @@ class TopMenu extends React.Component {
 
           <DropDownMenu closeOnClick ref='eye_down' font_size="13px" float='right' icon_url='/images/eye.svg'>
             <ul>
-              <li>Show Timeline</li>
               <li onClick={this.togglePreview}>{this.props.settings.showPreview ? 'Hide Preview' : 'Show Preview'}</li>
               <hr/>
               <li onClick={this.setZoom.bind(this, 1)}>{ this.props.settings.zoomLevel === 1 && '✔' } Small Size</li>
@@ -137,7 +136,6 @@ class TopMenu extends React.Component {
           <DropDownMenu font_size="14px" closeOnClick float='right' icon_url='/images/settings.svg'>
             <ul>
               <li onClick={this.addCamera}>Attach Pixty Camera...</li>
-              <li>Order New Pixty Kit</li>
               <hr/>
               <li onClick={this.goTo.bind(this, '/preferences/account')}>Account Preferences</li>
               <li onClick={this.openSettings}>About...</li>
