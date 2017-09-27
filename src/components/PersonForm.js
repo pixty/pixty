@@ -158,7 +158,7 @@ class PersonForm extends React.PureComponent<Props, State> {
       );
 
     return (
-        <div style={{padding: '10px'}}>
+        <div style={{padding: '5px'}}>
           <div style={{fontSize: 'small', color: '#777', fontWeight: 'normal', marginBottom: '12px'}}>
             Profile Pictures
             <div style={{float: 'right'}}>

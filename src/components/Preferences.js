@@ -7,6 +7,7 @@ import TopMenu from './TopMenu';
 import Modals from '../containers/Modals';
 import { TabMenu, TabItem } from './TabMenu';
 import { AccountSettings, BillingSettings, SecuritySettings, CompanySettings } from './Settings';
+import Transition from './Transition';
 
 const Unkown = () => <div style={{color: '#555', fontSize: '12px'}}>Route not found</div>;
 
@@ -57,7 +58,7 @@ class Preferences extends React.Component {
           overflowScrolling: "touch", WebkitOverflowScrolling: "touch",
           right: 0, bottom: 0}}>
             <div style={{padding: '20px'}}>
-              { this.renderSelectedComponent(this.props.match.params.prefName) }
+              <Transition context={ this.renderSelectedComponent(this.props.match.params.prefName) } />
             </div>
           </div>
 
