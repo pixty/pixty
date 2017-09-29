@@ -31,8 +31,8 @@ const WindowHeader = styled.div`
   font-size: 13px;
   font-weight: bolder;
   -webkit-user-select: none;
-  color: #777;
-  text-shadow: 1px 1px rgba(0,0,0,0.2);
+  color: rgba(255,255,255,0.7);
+  text-shadow: 1px 1px rgba(0,0,0,0.1);
   position: absolute;
   top: 4px;
   left: 0;

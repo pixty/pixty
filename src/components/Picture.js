@@ -94,7 +94,7 @@ class Picture extends React.PureComponent {
         { pictureField === 'picURL' &&
           <div style={{left: this.state.faceLeft, top: this.state.faceTop, position: 'absolute', transition: '0.5s ease',
           width: this.state.faceWidth, height: this.state.faceHeight, opacity: this.state.faceOpacity,
-          border: `1px solid ${mainColor}`, borderRadius: '2px', boxShadow: '0px 0px 200px 100px rgba(0, 0, 0, 0.5), inset 0px 0px 0px 1px rgba(0,0,0,0.1)'}}>
+          border: `1px solid ${mainColor}`, borderRadius: '2px', boxShadow: '0px 0px 150px 60px rgba(0, 0, 0, 0.6), inset 0px 0px 0px 1px rgba(0,0,0,0.1)'}}>
               &nbsp;
           </div>
         }

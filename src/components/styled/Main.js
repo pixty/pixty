@@ -11,6 +11,7 @@ export const Main = styled.div.attrs({
   bottom: 0px;
   margin-right: ${props => props.margin };
   transition: all 0.5s ease;
+  background: rgba(0,0,0,0.3);
 `;
 
 export const RightBar = styled.div.attrs({
@@ -20,8 +21,7 @@ export const RightBar = styled.div.attrs({
   position: absolute;
   overflow-scrolling: touch;
   -webkit-overflow-scrolling: touch;
-  box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.3);
-  background: ${backroundColor};
+  background: none;
   opacity: ${props => props.opacity};
   right: 0px;
   top: 0px;
@@ -31,5 +31,5 @@ export const RightBar = styled.div.attrs({
   z-index: 3;
   transition: all 0.5s ease;
   width: ${props => props.width};
-  border-left: 1px solid rgba(0,0,0,0.1);
+  border-left: 1px solid rgba(0,0,0,0.5);
 `;

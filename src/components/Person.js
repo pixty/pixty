@@ -50,7 +50,7 @@ class Person extends React.PureComponent {
     return (
         <PersonLi alt={this.props.name}
           style={{
-          border: selectedId === this.props.id ? `2px solid ${mainColor}` : '2px solid #444',
+          border: selectedId === this.props.id ? `2px solid ${mainColor}` : '2px solid rgba(0,0,0,0.2)',
           height: '100%',
           width: `${PERSON_WIDTH}px`,
           margin: '0px',
@@ -63,7 +63,7 @@ class Person extends React.PureComponent {
           boxShadow: isSelected ? '4px 4px 6px rgba(0,0,0,0.2)' : '2px 2px 2px rgba(0,0,0,0.2)',
           background: isSelected ? '#fff' : '#555',
           borderRadius: '2px',
-          color: isSelected ? 'black' : 'black'
+          color: isSelected ? 'black' : 'white'
         }}>
 
           <div onClick={this.props.onClick} style={{cursor: 'pointer', background:'#777', overflowX: 'scroll', overflowY: 'hidden'}}>
