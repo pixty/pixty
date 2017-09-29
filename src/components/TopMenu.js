@@ -31,8 +31,9 @@ const WindowHeader = styled.div`
   font-size: 13px;
   font-weight: bolder;
   -webkit-user-select: none;
-  color: rgba(255,255,255,0.7);
+  color: #91DC5A;
   text-shadow: 1px 1px rgba(0,0,0,0.1);
+  border-bottom: 1px solid rgba(0,0,0,0.1);
   position: absolute;
   top: 4px;
   left: 0;
@@ -83,6 +84,7 @@ class TopMenu extends React.Component {
 
   openSettings = () => {
     this.props.openModalDialog('about', <div>
+
       Pixty Face Recognition.<br/><br/>
       <span style={{fontSize: '13px'}}>
       build v.{pack.version}<br/>
@@ -123,7 +125,9 @@ class TopMenu extends React.Component {
 
     return (
       <TopMenuBar isElectron={this.props.isElectron}>
-        {this.props.isElectron && <WindowHeader>Pixty</WindowHeader>}
+        {this.props.isElectron && <WindowHeader>
+          <img src='/images/lock.svg' style={{width: '11px', marginRight: '2px'}} /> Pixty Inc.
+        </WindowHeader>}
         <div style={{cursor: 'pointer', margin: '0px 15px', width: 'auto', flexGrow: 0, display: 'flex'}} onClick={this.goTo.bind(this, '/')}>
           <div>
             <img alt="User" src={`https://www.gravatar.com/avatar/${md5(gravatar_id)}?s=60&d=identicon&email=${gravatar_id}`} style={{width: "30px", borderRadius: "30px", marginTop: "10px"}} />

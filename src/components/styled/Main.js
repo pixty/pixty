@@ -11,7 +11,7 @@ export const Main = styled.div.attrs({
   bottom: 0px;
   margin-right: ${props => props.margin };
   transition: all 0.5s ease;
-  background: rgba(0,0,0,0.3);
+  background: ${props => props.trasparent ? 'none' : '#333'};
 `;
 
 export const RightBar = styled.div.attrs({
@@ -31,5 +31,5 @@ export const RightBar = styled.div.attrs({
   z-index: 3;
   transition: all 0.5s ease;
   width: ${props => props.width};
-  border-left: 1px solid rgba(0,0,0,0.5);
+  box-shadow: inset 7px 0 7px -7px rgba(0,0,0,0.5);
 `;

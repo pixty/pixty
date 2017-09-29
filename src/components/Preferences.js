@@ -45,10 +45,10 @@ class Preferences extends React.Component {
       <div style={{position: 'absolute', top: 0, left: 0, right: 0, width: '100%', height: '100%', overflow: 'hidden', color: 'white'}}>
         <Modals />
 
-        <Main right={'0px'} margin={'0px'}>
+        <Main right={'0px'} margin={'0px'} trasparent={this.state.isElectron} >
           <TopMenu isElectron={this.state.isElectron} />
 
-          <div style={{paddingLeft: '15px', borderBottom: '1px solid #444'}}>
+          <div style={{paddingLeft: '15px', borderBottom: '1px solid rgba(255,255,255,0.1)'}}>
             <h2>Preferences</h2>
 
             <TabMenu active={this.props.match.params.prefName}>

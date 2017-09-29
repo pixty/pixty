@@ -66,7 +66,7 @@ class Person extends React.PureComponent {
           color: isSelected ? 'black' : 'white'
         }}>
 
-          <div onClick={this.props.onClick} style={{cursor: 'pointer', background:'#777', overflowX: 'scroll', overflowY: 'hidden'}}>
+          <div onClick={this.props.onClick} style={{cursor: 'pointer', background:'none', overflowX: 'scroll', overflowY: 'hidden'}}>
             <div style={{overflowScrolling: "touch", display: 'flex',
         WebkitOverflowScrolling: "touch", width: PERSON_WIDTH * this.props.pictures.length + 'px'}}>
               { this.props.pictures.map((pic, index)=> <Picture index={index} leftTop={pic.rect.leftTop}

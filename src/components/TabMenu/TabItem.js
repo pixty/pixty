@@ -22,7 +22,7 @@ class TabItem extends React.PureComponent {
 
   render() {
     return(<li key={this.props.id} onClick={this.onClick} ref={(node) => {this.item = node;}} style={{fontWeight: 'normal',
-      color: this.props.active === this.props.id ? 'white' : '#777', transition: 'color 0.3s ease', whiteSpace: 'nowrap', fontSize: '15px', marginRight: '15px', cursor: 'pointer'}}>
+      color: this.props.active === this.props.id ? 'white' : 'rgba(255,255,255,0.4)', transition: 'color 0.3s ease', whiteSpace: 'nowrap', fontSize: '15px', marginRight: '15px', cursor: 'pointer'}}>
       {this.props.name}
     </li>);
   }
