@@ -50,7 +50,7 @@ class Person extends React.PureComponent {
     return (
         <PersonLi alt={this.props.name}
           style={{
-          border: selectedId === this.props.id ? `2px solid ${mainColor}` : '2px solid rgba(0,0,0,0.2)',
+          border: selectedId === this.props.id ? `1px solid ${mainColor}` : '1px solid rgba(255,255,255,0.1)',
           height: '100%',
           width: `${PERSON_WIDTH}px`,
           margin: '0px',
@@ -61,7 +61,7 @@ class Person extends React.PureComponent {
           transform: this.state.mount ? 'scale(1.0)' : 'scale(0.5)',
           opacity: this.state.mount ? 1.0 : 0.0,
           boxShadow: isSelected ? '4px 4px 6px rgba(0,0,0,0.2)' : '2px 2px 2px rgba(0,0,0,0.2)',
-          background: isSelected ? '#fff' : '#555',
+          background: isSelected ? '#fff' : 'rgba(255,255,255,.1)',
           borderRadius: '2px',
           color: isSelected ? 'black' : 'white'
         }}>
@@ -76,11 +76,11 @@ class Person extends React.PureComponent {
             </div>
           </div>
 
-          <div style={{padding: '10px 20px', paddingRight: '5px', fontSize: '14px', fontWeight: 'normal',
+          <div style={{padding: '10px 20px', paddingRight: '10px', fontSize: '14px', fontWeight: 'normal',
           color: isSelected ? '#444' : '#fff',
-          background: isSelected ? '#fff' : '#555', borderBottom: `1px solid rgba(0,0,0,0.2)`}}>
+          background: isSelected ? '#fff' : 'rgba(0,0,0,0.1)', borderBottom: `1px solid rgba(0,0,0,0.2)`}}>
             <div style={{float:'right', textAlign: 'right'}}>
-              <ImageButton type='image' onClick={this.toggleImageSource} src={ this.state.pictureField === 'url' ? '/images/switch_left.svg' : '/images/switch_right.svg'} width='60px' />
+              <ImageButton type='image' onClick={this.toggleImageSource} src={ this.state.pictureField === 'url' ? '/images/eye.svg' : '/images/eye.svg'} width='24px' />
             </div>
             <div style={{fontSize: '11px', opacity: 0.5}}>Last seen at</div>
             <div><TimeAgo date={this.props.lastSeenAt} /></div>
