@@ -48,7 +48,7 @@ class Persons extends React.Component {
 
     return (
       <div style={{margin: '0px', padding: '0px', right: '0px', left: '0px',
-                  background: '', overflow: 'hidden', position: 'absolute', top: '50px', bottom: '0px', justifyContent: 'center',
+                  background: '', overflow: 'hidden', position: 'absolute', top: this.props.isElectron ? '70px' : '50px', bottom: '0px', justifyContent: 'center',
                   display: 'flex',
                 }}>
         <div style={{overflowX: 'auto', overflowScrolling: "touch", height: '100%',

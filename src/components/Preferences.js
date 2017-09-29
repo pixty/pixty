@@ -13,6 +13,11 @@ const Unkown = () => <div style={{color: '#555', fontSize: '12px'}}>Route not fo
 
 class Preferences extends React.Component {
 
+  constructor() {
+    super();
+    const isElectron = window && window.process && window.process.type;
+    this.state = {isElectron: isElectron };
+  }
 
   renderSelectedComponent = (active) => {
     let Component;
@@ -41,7 +46,7 @@ class Preferences extends React.Component {
         <Modals />
 
         <Main right={'0px'} margin={'0px'}>
-          <TopMenu />
+          <TopMenu isElectron={this.state.isElectron} />
 
           <div style={{paddingLeft: '15px', borderBottom: '1px solid #444'}}>
             <h2>Preferences</h2>
@@ -54,7 +59,7 @@ class Preferences extends React.Component {
             </TabMenu>
           </div>
 
-          <div style={{position: 'absolute', overflow: 'auto', top: '147px', left: 0,
+          <div style={{position: 'absolute', overflow: 'auto', top: this.state.isElectron ? 146+16+'px' : '146px', left: 0,
           overflowScrolling: "touch", WebkitOverflowScrolling: "touch",
           right: 0, bottom: 0}}>
             <div style={{padding: '20px'}}>

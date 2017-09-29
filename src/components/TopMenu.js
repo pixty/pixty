@@ -14,6 +14,31 @@ import pack from '../../package.json';
 import FormInput from './FormInput';
 import { Button, CancelButton } from './styled/Button';
 import { push } from 'react-router-redux';
+import styled from 'styled-components';
+
+
+const TopMenuBar = styled.div`
+  margin: 0px;
+  padding-top: ${props => props.isElectron ? '16px' : '0px' };
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: ${props => props.isElectron ? 'none' : 'none' };
+  -webkit-app-region:drag;
+`;
+
+const WindowHeader = styled.div`
+  font-size: 13px;
+  font-weight: bolder;
+  -webkit-user-select: none;
+  color: #777;
+  text-shadow: 1px 1px rgba(0,0,0,0.2);
+  position: absolute;
+  top: 4px;
+  left: 0;
+  right: 0;
+  text-align: center;
+`;
 
 class TopMenu extends React.Component {
 
@@ -26,6 +51,7 @@ class TopMenu extends React.Component {
     const cams = _.map(this.props.org.cameras, c => ({ id: c.id, label: c.name}));
 
     this.state = { options: cams, selected: CurrentUser.getCamera(), camera_serial: null };
+
   }
 
   componentWillReceiveProps(nextProps) {
@@ -96,7 +122,8 @@ class TopMenu extends React.Component {
     let gravatar_id = user && user.email ? user.email : (user && user.login) || 'notset';
 
     return (
-      <div style={{margin: '0px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+      <TopMenuBar isElectron={this.props.isElectron}>
+        {this.props.isElectron && <WindowHeader>Pixty</WindowHeader>}
         <div style={{cursor: 'pointer', margin: '0px 15px', width: 'auto', flexGrow: 0, display: 'flex'}} onClick={this.goTo.bind(this, '/')}>
           <div>
             <img alt="User" src={`https://www.gravatar.com/avatar/${md5(gravatar_id)}?s=60&d=identicon&email=${gravatar_id}`} style={{width: "30px", borderRadius: "30px", marginTop: "10px"}} />
@@ -145,7 +172,7 @@ class TopMenu extends React.Component {
           </DropDownMenu>
         </div>
 
-      </div>
+      </TopMenuBar>
     );
   }
 }

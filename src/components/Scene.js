@@ -22,7 +22,8 @@ class Scene extends React.Component {
 
   constructor() {
     super();
-    this.state = { width: 0, opacity: 0, margin: 0, previewWidth: 142, previewHeight: 80 };
+    const isElectron = window && window.process && window.process.type;
+    this.state = { width: 0, opacity: 0, margin: 0, previewWidth: 142, previewHeight: 80, isElectron: isElectron };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -80,9 +81,9 @@ class Scene extends React.Component {
         </Draggable>
 
         <Main right={this.state.width + 'px'} margin={this.state.margin + 'px'}>
-          <TopMenu />
+          <TopMenu isElectron={this.state.isElectron} />
 
-          { (scene.persons && scene.persons.length) ? <PersonList /> : <div style={{position: 'absolute', top: '50%', left: '50%'}}>
+          { (scene.persons && scene.persons.length) ? <PersonList isElectron={this.state.isElectron} /> : <div style={{position: 'absolute', top: '50%', left: '50%'}}>
             <Spinner opacity={0.5} />
           </div>
           }
