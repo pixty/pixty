@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { CurrentUser, postSession } from '../api';
-import { Button, RegularButton } from './styled/Button';
+import { Button, RegularButton, CancelButton } from './styled/Button';
 import Link from './styled/Link';
 import logo from '../../public/images/logo.svg';
 import FormInput from './FormInput';
@@ -23,9 +23,18 @@ class LoginPage extends React.Component {
 
     if (this.isElectron) {
       const electron = window.require('electron');
-      const {dialog} = window.require('electron').remote;
-      this.dialog = dialog;
+      this.remote = window.require('electron').remote;
+      //const {dialog} = window.require('electron').remote;
+      //this.dialog = dialog;
     }
+  }
+
+  resizeElectronWindow = (width, height) => {
+    let win = this.remote.getCurrentWindow();
+    let left = (screen.width - width)/2, top = (screen.height - height)/2;
+
+    win.setPosition(left, top);
+    win.setSize(width, height);
   }
 
   signIn() {
@@ -37,6 +46,11 @@ class LoginPage extends React.Component {
       this.setState(() => ({ loggin: false }));
 
       if (sessionId) {
+
+        if (this.isElectron) {
+          this.resizeElectronWindow(screen.width - 70, screen.height - 100);
+        }
+
         this.currentUser.signIn(sessionId);
         CurrentUser.setUser(user);
         this.props.store.dispatch(push('/'));
@@ -48,16 +62,13 @@ class LoginPage extends React.Component {
     }, error => {
       this.setState(() => ({ loggin: false }));
 
-      if (this.isElectron) {
-        this.dialog.showErrorBox('Error', 'Invalid username or password.');
-      } else {
-        this.props.openModalDialog('login', <div style={{padding: '10px', paddingBottom: '0px'}}>
-          Invalid username or password.<br/>
-          <div onClick={this.props.closeModalDialog.bind(this, 'login')} style={{display: 'flex', width: '100%', justifyContent: 'center'}}>
-            <RegularButton>OK</RegularButton>
-          </div>
-        </div>);
-      }
+      this.props.openModalDialog('login', <div style={{padding: '10px', paddingBottom: '0px'}}>
+        Invalid username or password.<br/>
+        <div onClick={this.props.closeModalDialog.bind(this, 'login')} style={{display: 'flex', width: '100%', justifyContent: 'center', marginTop: '10px'}}>
+          <CancelButton size="14px">OK</CancelButton>
+        </div>
+      </div>);
+
     });
   }
 
@@ -66,16 +77,16 @@ class LoginPage extends React.Component {
   }
 
   componentDidMount() {
-    //if (this.state.token) {
-    //  this.props.store.dispatch(push('/'));
-    //}
+    if (this.isElectron) {
+      this.resizeElectronWindow(500, 700);
+    }
   }
 
   render() {
     return (
       <div>
       <Modals />
-      <div style={{width: '100%', minHeight: '450px', height: '100%', display: 'flex', background: this.isElectron ? 'none' : '#333', position: 'absolute', justifyContent: 'center', alignItems: 'center'}}>
+      <div style={{width: '100%', WebkitAppRegion: 'drag', minHeight: '450px', height: '100%', display: 'flex', background: this.isElectron ? 'none' : '#333', position: 'absolute', justifyContent: 'center', alignItems: 'center'}}>
         <div>
           <Link to="/"><img src={logo} alt='Pixty' style={{width: '130px'}}/></Link>
           <form action='' onSubmit={(event) => event.preventDefault()}>
