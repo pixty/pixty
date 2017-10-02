@@ -22,6 +22,7 @@ class SignUpPage extends React.Component {
   constructor(props) {
     super(props);
     this.currentUser = new CurrentUser();
+    this.isElectron = window && window.process && window.process.type;
     this.state = { token: this.currentUser.getToken(), email: null, password: null, company: null,
       accepted: false, password_confirmation: null, loggin: false };
   }
@@ -63,9 +64,11 @@ class SignUpPage extends React.Component {
     return (
       <div>
       <Modals />
-      <div style={{width: '100%', minHeight: '700px', height: '100%', display: 'flex', position: 'absolute', justifyContent: 'center', alignItems: 'center'}}>
+      <div style={{width: '100%', minHeight: '700px', height: '100%', display: 'flex',
+      background: this.isElectron ? 'none' : '#333',
+      position: 'absolute', justifyContent: 'center', alignItems: 'center'}}>
         <div>
-          <img src={logo} alt='Pixty' style={{width: '130px'}}/>
+          <Link to="/"><img src={logo} alt='Pixty' style={{width: '130px'}}/></Link>
           <form action='' onSubmit={(event) => event.preventDefault()}>
           <div style={{paddingBottom: '0px'}}>
             <FormInput onChange={this.onChange.bind(this, 'email')} label="Email"></FormInput>

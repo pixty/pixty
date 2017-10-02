@@ -37,8 +37,8 @@ export const Button = styled.button`
 `;
 
 export const CancelButton = styled(Button)`
-  color: #999;
-  background: none;
+  color: rgba(255,255,255,0.5);
+  background: rgba(0,0,0,0.2);
 `;
 
 export const RegularButton = styled.button`

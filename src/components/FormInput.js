@@ -50,7 +50,7 @@ class FormInput extends React.Component {
       <Wrapper show={this.state.show}>
         <label style={{color: 'rgba(255,255,255,0.4)', fontSize: 'small'}}>
           {this.props.label}<br/>
-          <Input type={inputType} spellCheck="false" autoCorrect="off" autoCapitalize="off" value={this.props.value}
+          <Input type={inputType} placeholder={this.props.placeholder} spellCheck="false" autoCorrect="off" autoCapitalize="off" value={this.props.value}
           onChange={this.props.onChange} />
         </label>
       </Wrapper>

@@ -21,7 +21,7 @@ export const RightBar = styled.div.attrs({
   position: absolute;
   overflow-scrolling: touch;
   -webkit-overflow-scrolling: touch;
-  background: none;
+  background: ${props => props.background || '#333'};
   opacity: ${props => props.opacity};
   right: 0px;
   top: 0px;

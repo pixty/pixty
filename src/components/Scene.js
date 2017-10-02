@@ -90,7 +90,7 @@ class Scene extends React.Component {
 
         </Main>
 
-        <RightBar width={this.state.width + 'px'}  opacity={this.state.opacity} >
+        <RightBar width={this.state.width + 'px'}  background={this.state.isElectron ? 'none' : '#333'} opacity={this.state.opacity} >
             <div style={{padding: '10px'}}>
             { selectedPerson && <PersonForm person={selectedPerson} /> }
             </div>

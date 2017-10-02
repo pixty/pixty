@@ -110,7 +110,7 @@ class PersonForm extends React.PureComponent<Props, State> {
     this.setState({loggin: true});
     postProfile({orgId: this.props.orgId, id: this.profile.id, Attributes: this.state.all_attrs, mappedFields: {"custom1" : "test"}})
     .then(resolve => {
-      this.setState({loggin: false});
+      setTimeout(() => this.setState({loggin: false}), 400);
       //this.closeForm();
     }, reject => {
       this.setState({loggin: false});
@@ -188,7 +188,7 @@ class PersonForm extends React.PureComponent<Props, State> {
             <div style={{float: 'right', marginTop: '10px'}}>
               <Button size="14px" onClick={this.onClickUpdate.bind(this)}>
               { this.state.loggin ?
-                <div style={{transform: 'scale(0.3)', position: 'absolute', marginLeft: '-4px'}}><Spinner stroke={4} noLabel /></div> : null }
+                <div style={{transform: 'scale(0.3)', position: 'absolute', marginTop: '-1px', marginLeft: '-4px'}}><Spinner stroke={4} noLabel /></div> : null }
                 <div className="button__text" style={{marginLeft: this.state.loggin ? '19px' : '0px'}}>Save</div>
               </Button>
             </div>

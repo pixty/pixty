@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { CurrentUser, postSession } from '../api';
-import { Button, RegularButton } from './styled/Button';
+import { Button, CancelButton } from './styled/Button';
 import Link from './styled/Link';
 import logo from '../../public/images/logo.svg';
 import FormInput from './FormInput';
@@ -21,6 +21,7 @@ class ForgotPassword extends React.Component {
   constructor(props) {
     super(props);
     this.currentUser = new CurrentUser();
+    this.isElectron = window && window.process && window.process.type;
     this.state = { token: this.currentUser.getToken(), email: null, loggin: false };
   }
 
@@ -37,7 +38,7 @@ class ForgotPassword extends React.Component {
       this.props.openModalDialog('login', <div style={{padding: '10px', paddingBottom: '0px'}}>
         Email don't belongs to any account.<br/>
         <div onClick={this.props.closeModalDialog.bind(this, 'login')} style={{display: 'flex', width: '100%', justifyContent: 'center'}}>
-          <RegularButton>OK</RegularButton>
+          <CancelButton style={{marginTop: '10px'}} size="14px">OK</CancelButton>
         </div>
       </div>);
     });
@@ -57,9 +58,11 @@ class ForgotPassword extends React.Component {
     return (
       <div>
       <Modals />
-      <div style={{width: '100%', minHeight: '450px', height: '100%', display: 'flex', position: 'absolute', justifyContent: 'center', alignItems: 'center'}}>
+      <div style={{width: '100%', minHeight: '450px', height: '100%', display: 'flex',
+      background: this.isElectron ? 'none' : '#333',
+      position: 'absolute', justifyContent: 'center', alignItems: 'center'}}>
         <div>
-          <img src={logo} alt='Pixty' style={{width: '130px'}}/>
+          <Link to="/"><img src={logo} alt='Pixty' style={{width: '130px'}}/></Link>
           <form action='' onSubmit={(event) => event.preventDefault()}>
           <div style={{paddingBottom: '40px'}}>
             <FormInput onChange={this.onChange.bind(this, 'email')} label="Email"></FormInput>

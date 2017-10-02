@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Header = styled.div`
-  color: #555;
+  color: rgba(255,255,255,.3);
   font-size: 12px;
   font-weight: normal;
   text-transform: uppercase;

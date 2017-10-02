@@ -71,7 +71,7 @@ class TopMenu extends React.Component {
   addCamera = () => {
     this.props.openModalDialog('add camera', <div style={{padding: '0px', paddingBottom: '0px', minWidth: '300px'}}>
 
-        <FormInput noAnimation onChange={this.onChangeInput.bind(this, 'camera_serial')} label="Enter Camera Serial Number"></FormInput>
+        <FormInput noAnimation placeholder="1234-5678-9012-3456" onChange={this.onChangeInput.bind(this, 'camera_serial')} label="Enter Camera Serial Number"></FormInput>
 
         <div onClick={this.props.closeModalDialog.bind(this, 'add camera')} style={{display: 'flex', width: '100%', marginTop: '30px', justifyContent: 'center'}}>
           <CancelButton size="14px">Cancel</CancelButton>

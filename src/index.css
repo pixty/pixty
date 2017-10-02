@@ -23,6 +23,19 @@ ul, li {
   display: none;
 }
 
+::-webkit-input-placeholder {
+  color: rgba(255,255,255,0.2);
+}
+::-moz-placeholder {
+  color: rgba(255,255,255,0.2);
+}
+:-ms-input-placeholder {
+  color: rgba(255,255,255,0.2);
+}
+:-moz-placeholder {
+  color: rgba(255,255,255,0.2);
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus

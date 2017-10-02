@@ -18,6 +18,14 @@ class LoginPage extends React.Component {
     super(props);
     this.currentUser = new CurrentUser();
     this.state = { token: this.currentUser.getToken(), login: null, password: null, loggin: false };
+
+    this.isElectron = window && window.process && window.process.type;
+
+    if (this.isElectron) {
+      const electron = window.require('electron');
+      const {dialog} = window.require('electron').remote;
+      this.dialog = dialog;
+    }
   }
 
   signIn() {
@@ -39,12 +47,17 @@ class LoginPage extends React.Component {
 
     }, error => {
       this.setState(() => ({ loggin: false }));
-      this.props.openModalDialog('login', <div style={{padding: '10px', paddingBottom: '0px'}}>
-        Invalid username or password.<br/>
-        <div onClick={this.props.closeModalDialog.bind(this, 'login')} style={{display: 'flex', width: '100%', justifyContent: 'center'}}>
-          <RegularButton>OK</RegularButton>
-        </div>
-      </div>);
+
+      if (this.isElectron) {
+        this.dialog.showErrorBox('Error', 'Invalid username or password.');
+      } else {
+        this.props.openModalDialog('login', <div style={{padding: '10px', paddingBottom: '0px'}}>
+          Invalid username or password.<br/>
+          <div onClick={this.props.closeModalDialog.bind(this, 'login')} style={{display: 'flex', width: '100%', justifyContent: 'center'}}>
+            <RegularButton>OK</RegularButton>
+          </div>
+        </div>);
+      }
     });
   }
 
@@ -62,9 +75,9 @@ class LoginPage extends React.Component {
     return (
       <div>
       <Modals />
-      <div style={{width: '100%', minHeight: '450px', height: '100%', display: 'flex', position: 'absolute', justifyContent: 'center', alignItems: 'center'}}>
+      <div style={{width: '100%', minHeight: '450px', height: '100%', display: 'flex', background: this.isElectron ? 'none' : '#333', position: 'absolute', justifyContent: 'center', alignItems: 'center'}}>
         <div>
-          <img src={logo} alt='Pixty' style={{width: '130px'}}/>
+          <Link to="/"><img src={logo} alt='Pixty' style={{width: '130px'}}/></Link>
           <form action='' onSubmit={(event) => event.preventDefault()}>
           <div style={{paddingBottom: '40px'}}>
             <FormInput onChange={this.onChange.bind(this, 'login')} label="Login"></FormInput>
