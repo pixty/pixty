@@ -94,7 +94,7 @@ class Person extends React.PureComponent {
                   Edit Profile
                 </CancelButton>
               </div>
-              { this.props.profile && this.props.profile.attributes.map((attr) => <div key={attr.value}>
+              { this.props.profile && this.props.profile.attributes && this.props.profile.attributes.map((attr) => <div key={attr.value}>
                 <div style={{fontSize: '12px', color: 'rgba(0,0,0,0.5)'}}>{attr.name}</div>
                 <div style={{lineHeight: '120%', fontSize: startSize+'px', whiteSpace: 'pre-line' }}>{(startSize -= 5) && attr.value }</div>
                 </div>) }

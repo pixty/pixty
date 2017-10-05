@@ -55,7 +55,7 @@ class PersonForm extends React.PureComponent<Props, State> {
         fetchProfile(this.profile.id).then((response) => {
 
             let attrs = {};
-            response.response.attributes.map((a) => {
+            response.response.attributes && response.response.attributes.map((a) => {
               attrs[a.name] = a.value;
               return null;
             });

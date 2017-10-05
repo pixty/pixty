@@ -18,16 +18,19 @@ class Picture extends React.PureComponent {
     rightBottom: PropTypes.object
   }
 
-  state = {
-    loaded: false,
-    offsetTop: 90,
-    divHeight: 180,
-    divWidth: 320,
-    faceLeft: this.props.container/2,
-    faceTop: 100,
-    faceWidth: 0,
-    faceHeight: 0,
-    faceOpacity: 0
+  constructor(props) {
+    super(props);
+    this.state = {
+      loaded: false,
+      offsetTop: 90,
+      divHeight: 180,
+      divWidth: 320,
+      faceLeft: this.props.container/2,
+      faceTop: 100,
+      faceWidth: 0,
+      faceHeight: 0,
+      faceOpacity: 0
+    };
   }
 
   componentWillReceiveProps(nextProps) {

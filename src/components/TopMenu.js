@@ -44,7 +44,12 @@ const WindowHeader = styled.div`
 class TopMenu extends React.Component {
 
   static propTypes = {
-    org: PropTypes.object.isRequired
+    org: PropTypes.object.isRequired,
+    settings: PropTypes.object.isRequired,
+    openModalDialog: PropTypes.func.isRequired,
+    closeModalDialog: PropTypes.func.isRequired,
+    setUserSettings: PropTypes.func.isRequired,
+    routerPush: PropTypes.func.isRequired
   }
 
   constructor(props) {
@@ -126,7 +131,7 @@ class TopMenu extends React.Component {
     return (
       <TopMenuBar isElectron={this.props.isElectron}>
         {this.props.isElectron && <WindowHeader>
-          <img src='/images/lock.svg' style={{width: '11px', marginRight: '2px'}} /> Pixty Inc.
+          <img alt='ssl' src='/images/lock.svg' style={{width: '11px', marginRight: '2px'}} /> Pixty Inc.
         </WindowHeader>}
         <div style={{cursor: 'pointer', margin: '0px 15px', width: 'auto', flexGrow: 0, display: 'flex'}} onClick={this.goTo.bind(this, '/')}>
           <div>

@@ -8,7 +8,6 @@ const PIXTY_API_ROOT = 'https://api.pixty.io/',
       SESSION_USER = 'pixty_user';
 
 function CurrentUser() {
-  CurrentUser.cookies = new Cookies();
 
   this.getToken = () => {
     return CurrentUser.cookies.get(SESSION_NAME);
@@ -20,6 +19,8 @@ function CurrentUser() {
     CurrentUser.cookies.set(SESSION_NAME, token, { maxAge: 60*60 });
   };
 }
+
+CurrentUser.cookies = new Cookies();
 
 CurrentUser.logOut = () => {
   CurrentUser.cookies.remove(SESSION_NAME);

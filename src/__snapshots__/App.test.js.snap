@@ -10,43 +10,39 @@ exports[`App renders without crashing 1`] = `
   >
     <div />
     <div
-      class="react-draggable sc-ifAKCX eyOSGJ"
-      style="touch-action:none;position:absolute;width:142px;height:80px;border-radius:6px;transform:translate(100px,100px);"
-    >
-      <img
-        alt="Face"
-        class="Scene--size"
-        src="http://pixty.io/assets/snapshots/rest0103.png"
-        style="border-radius:5px;"
-      />
-    </div>
-    <div
-      class="sc-iwsKbI cAHoiV"
+      class="react-draggable sc-gzVnrw jVXFKZ"
+      style="touch-action:none;display:block;transition:border 0.5s ease, width 0.5s ease, height 0.5s ease;position:absolute;width:142px;height:80px;border-radius:6px;transform:translate(100px,100px);"
     >
       <div
-        style="margin:0px;display:flex;align-items:center;justify-content:center;"
+        style="transition:all 0.5s ease, height 0.5s ease;font-size:11px;font-weight:bold;text-align:center;color:#555;margin-top:35px;"
+      >
+        Camera not detected.
+      </div>
+    </div>
+    <div
+      class="sc-fjdhpX cbpndd"
+    >
+      <div
+        class="sc-VigVT GUzOR"
       >
         <div
-          style="margin:0px 15px;width:auto;flex-grow:0;"
+          style="cursor:pointer;margin:0px 15px;width:auto;flex-grow:0;display:flex;"
         >
-          <div
-            style="float:left;"
-          >
+          <div>
             <img
-              src="http://www.gravatar.com/avatar/6604f6e418d8db645955aa2626f7b309?s=60&d=identicon"
+              alt="User"
+              src="https://www.gravatar.com/avatar/1e1cac92b7549c0a862ca9aef5e24c49?s=60&d=identicon&email=notset"
               style="width:30px;border-radius:30px;margin-top:10px;"
             />
           </div>
           <div
-            style="float:left;color:#ccc;margin-top:15px;margin-left:10px;font-size:14px;font-weight:bold;"
+            style="color:#ccc;margin-top:15px;margin-left:10px;font-size:14px;font-weight:bold;"
           />
         </div>
         <div
-          style="margin:0px 15px;width:auto;flex-grow:1;"
+          style="margin:0px 15px;width:auto;flex:1;display:flex;"
         >
-          <div
-            style="float:left;margin-left:15px;"
-          >
+          <div>
             <div
               style="position:relative;"
             >
@@ -57,7 +53,7 @@ exports[`App renders without crashing 1`] = `
                 width="25px"
               />
               <div
-                class="_drop_down sc-dnqmqq lhDpnN"
+                class="_drop_down sc-gqjmRU jrQuzf"
                 style="visibility:hidden;opacity:0;"
               >
                 <ul>
@@ -67,14 +63,15 @@ exports[`App renders without crashing 1`] = `
             </div>
           </div>
           <div
-            style="float:left;margin-bottom:7px;margin-left:10px;"
+            style="margin-top:4px;margin-left:10px;color:#888;flex:7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:10px;font-size:13px;font-weight:200;"
+          />
+          <div
+            style="flex:1;"
           >
-            <span
-              style="color:#888;font-size:13px;font-weight:200;"
-            />
+             
           </div>
           <div
-            style="float:left;margin-left:15px;"
+            style="position:relative;"
           >
             <input
               class="sc-bdVaJa jCnrIS"
@@ -82,6 +79,23 @@ exports[`App renders without crashing 1`] = `
               type="image"
               width="25px"
             />
+            <div
+              class="_drop_down sc-gqjmRU brYnXP"
+              style="visibility:hidden;opacity:0;"
+            >
+              <ul>
+                <li>
+                  Hide Preview
+                </li>
+                <hr />
+                <li>
+                  ✔ Small Size
+                </li>
+                <li>
+                   Medium Size
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
         <div
@@ -97,27 +111,23 @@ exports[`App renders without crashing 1`] = `
               width="25px"
             />
             <div
-              class="_drop_down sc-dnqmqq eZMwGw"
+              class="_drop_down sc-gqjmRU hisBMo"
               style="visibility:hidden;opacity:0;"
             >
               <ul>
                 <li>
-                  <a
-                    href="/analytics"
-                  >
-                    Analytics
-                  </a>
+                  Attach Pixty Camera...
                 </li>
                 <hr />
                 <li>
-                  Settings
+                  Account Preferences
                 </li>
                 <li>
-                  <a
-                    href="/logout"
-                  >
-                    Logout
-                  </a>
+                  About...
+                </li>
+                <hr />
+                <li>
+                  Logout
                 </li>
               </ul>
             </div>
@@ -129,12 +139,12 @@ exports[`App renders without crashing 1`] = `
       >
         <div>
           <div
-            class="sc-htpNat hhAasZ"
+            class="sc-EHOje jsDtzb"
           >
             identifying process
           </div>
           <svg
-            class="sc-bxivhb jecG"
+            class="sc-bZQynM bispcK"
             opacity="0.5"
             viewbox="0 0 50 50"
           >
@@ -151,13 +161,17 @@ exports[`App renders without crashing 1`] = `
       </div>
     </div>
     <div
-      class="sc-gZMcBi coPbFD"
+      class="sc-jzJRlG dkpAfc"
       opacity="0"
       width="0px"
     >
       <div
         style="padding:10px;"
-      />
+      >
+        <div>
+          no person
+        </div>
+      </div>
     </div>
   </div>
 </div>

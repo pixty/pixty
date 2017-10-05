@@ -14,7 +14,8 @@ it('App renders without crashing', () => {
     entities: {
       scene: {},
       modals: {},
-      orgs: { 0: { cameras: [{id: 0, label: 'loading...', orgId: 1, hasSecretKey: true}] }}
+      orgs: { 0: { cameras: [{id: 0, label: 'loading...', orgId: 1, hasSecretKey: true}] }},
+      settings: { showPreview: true, zoomLevel: 1 }
     },
     router: {},
     loadingBar: 0,
