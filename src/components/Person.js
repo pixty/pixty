@@ -89,6 +89,14 @@ class Person extends React.PureComponent {
           <div style={{padding: '0px 20px', fontSize: '14px', fontWeight: 'normal', lineHeight: '150%', wordWrap: 'break-word'}}>
 
             <div style={{marginTop: '10px', fontWeight: 'normal', wordWrap: 'break-word'}}>
+              <div style={{fontWeight: 'light'}}>
+                Matches:
+                {this.props.matches && this.props.matches.map( match => <div>
+                  profile id: {match.id}
+                  {match.attributes && match.attributes.map(attr => <div>{attr.name}:{attr.value}</div>)}
+                </div>)}
+              </div>
+
               <div style={{marginBottom: '6px'}}>
                 <CancelButton onClick={this.props.onClick} size="12px">
                   Edit Profile
