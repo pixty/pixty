@@ -10,6 +10,8 @@ export default function reducer(state = {}, action) {
         return state;
       }
 
+      action.response.persons = action.response.persons.reverse();
+
       return {
         ...state,
         ...action.response

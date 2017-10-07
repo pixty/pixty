@@ -17,11 +17,22 @@ class Person extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = { mount: false, currentFaceSrc: this.props.pictures[0].url, pictureField: 'picURL',
+      selected: false,
       currentPictureSrc: this.props.pictures[0].picURL, pictureIndex: 0, pictureCount:this.props.pictures.length  };
   }
 
   componentDidMount() {
     setTimeout(() => this.setState({ mount: true }), 100);
+  }
+
+  setSelected = () => {
+    this.setState({ selected: !this.state.selected});
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.selectedPerson.id !== nextProps.selectedPerson.id) {
+      this.setState({ selected: false});
+    }
   }
 
   changePic(event) {
@@ -43,14 +54,15 @@ class Person extends React.PureComponent {
     //let attributes = this.props.profile && this.props.profile.attributes.map((a) => (<div key={a.name}><span style={{fontSize: '12px', color: '#777'}}>{a.name}</span><br/>{a.value}</div>))
 
     const selectedId = this.props.selectedPerson.id;
-    const isSelected = selectedId === this.props.id;
+    const isSelected = selectedId === this.props.id || this.state.selected;
     let startSize = 25;
 
     //<PersonLi alt={this.props.name} onMouseMove={this.changePic.bind(this)}
     return (
         <PersonLi alt={this.props.name}
+          onClick={this.setSelected}
           style={{
-          border: selectedId === this.props.id ? `1px solid ${mainColor}` : '1px solid rgba(255,255,255,0.1)',
+          border: selectedId === this.props.id ? `3px solid ${mainColor}` : '1px solid rgba(255,255,255,0.1)',
           height: '100%',
           width: `${PERSON_WIDTH}px`,
           margin: '0px',
@@ -79,31 +91,32 @@ class Person extends React.PureComponent {
           <div style={{padding: '10px 20px', paddingRight: '10px', fontSize: '14px', fontWeight: 'normal',
           color: isSelected ? '#444' : '#fff',
           background: isSelected ? '#fff' : 'rgba(0,0,0,0.1)', borderBottom: `1px solid rgba(0,0,0,0.2)`}}>
-            <div style={{float:'right', textAlign: 'right'}}>
-              <ImageButton type='image' onClick={this.toggleImageSource} src={ this.state.pictureField === 'url' ? '/images/eye.svg' : '/images/eye.svg'} width='24px' />
+
+            <div style={{float:'right', textAlign: 'right', marginLeft: '10px'}}>
+              <ImageButton type='image' onClick={(event) => { event.stopPropagation(); this.props.onClick(); }} src= { isSelected ? '/images/grey_write.svg' : '/images/write.svg' } width='24px' />
             </div>
+
+            <div style={{float:'right', textAlign: 'right'}}>
+              <ImageButton type='image' onClick={(event) => { event.stopPropagation(); this.toggleImageSource(event);}} src={ this.state.pictureField === 'url' || isSelected ? '/images/grey_eye.svg' : '/images/eye.svg'} width='24px' />
+            </div>
+
             <div style={{fontSize: '11px', opacity: 0.5}}>Last seen at</div>
             <div><TimeAgo date={this.props.lastSeenAt} /></div>
           </div>
 
           <div style={{padding: '0px 20px', fontSize: '14px', fontWeight: 'normal', lineHeight: '150%', wordWrap: 'break-word'}}>
-            <img alt='Profile Avatar' src={this.props.avatarUrl} style={{marginTop: '10px', width: '100px', height: '100px', borderRadius: '50px', border: '1px solid rgba(0,0,0,0.2)'}}/>
             <div style={{marginTop: '0px', fontWeight: 'normal', wordWrap: 'break-word'}}>
-              <div style={{fontWeight: 'light', fontSize: '13px', display: 'flex'}}>
+              <div style={{fontWeight: 'light', fontSize: '13px', display: 'flex', marginTop: '10px'}}>
+                <img alt='Profile Avatar' src={this.props.avatarUrl} style={{width: '100px', height: '100px', borderRadius: '50px', border: '1px solid rgba(0,0,0,0.2)'}}/>
                 {this.props.matches && this.props.matches.map( match => <div style={{padding: '3px'}}key={match.id}>
-                  id: {match.id}<br/>
                   <img alt='Matched Avatar' src={match.avatarUrl || '/images/missing.png'} style={{width: '100px', borderRadius: '50px', height: '100px', border: '1px solid rgba(0,0,0,0.2)'}}/>
                   {match.attributes && match.attributes.map(attr => <div key={attr.fieldId}>
+                    id: {match.id}<br/>
                     {attr.name}:{attr.value}
                   </div>)}
                 </div>)}
               </div>
 
-              <div style={{marginBottom: '6px'}}>
-                <CancelButton onClick={this.props.onClick} size="12px">
-                  Edit Profile
-                </CancelButton>
-              </div>
               { this.props.profile && this.props.profile.attributes && this.props.profile.attributes.map((attr) => <div key={attr.value}>
                 <div style={{fontSize: '12px', color: 'rgba(0,0,0,0.5)'}}>{attr.name}</div>
                 <div style={{lineHeight: '120%', fontSize: startSize+'px', whiteSpace: 'pre-line' }}>{(startSize -= 5) && attr.value }</div>
