@@ -56,8 +56,6 @@ class Persons extends React.Component {
       this.setState({ persons: size });
       this.refs.scroll_content.scrollLeft = scroll_left;
     }
-
-
   }
 
   render() {

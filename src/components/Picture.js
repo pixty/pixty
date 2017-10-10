@@ -59,10 +59,16 @@ class Picture extends React.PureComponent {
     const aspectRatioX = imageWidth / naturalWidth;
     const aspectRatioY = imageHeight / naturalHeight;
 
-    const faceLeft = faceX * aspectRatioX / 2;
-    const faceTop = faceY * aspectRatioY / 2;
-    const faceWidth = naturalFaceWidth * aspectRatioX / 1.15;
-    const faceHeight = naturalFacefHeight * aspectRatioY / 1.15;
+    const k = naturalHeight > 360 ? 1 : 1.15;
+    const k1 = naturalHeight > 360 ? 1 : 2;
+    const _offset_left = naturalHeight > 360 ? 0 : 0;
+    const _offset_top = naturalHeight > 360 ? -10 : 0;
+
+    const faceLeft = _offset_left + (faceX * aspectRatioX / k1);
+    const faceTop = _offset_top + (faceY * aspectRatioY / k1);
+
+    const faceWidth = naturalFaceWidth * aspectRatioX / k;
+    const faceHeight = naturalFacefHeight * aspectRatioY / k;
 
     /*console.log({faceLeft:faceLeft, faceTop:faceTop, naturalWidth:naturalWidth, naturalHeight:naturalHeight,
      imageWidth:imageWidth, imageHeight:imageHeight, faceX:faceX, faceY:faceY, faceWidth:faceWidth, faceHeight:faceHeight,

@@ -52,6 +52,8 @@ class Person extends React.PureComponent {
   render() {
 
     //let attributes = this.props.profile && this.props.profile.attributes.map((a) => (<div key={a.name}><span style={{fontSize: '12px', color: '#777'}}>{a.name}</span><br/>{a.value}</div>))
+    const { matches } = this.props;
+    matches.sort((a,b) => (b.id - a.id));
 
     const selectedId = this.props.selectedPerson.id;
     const isSelected = selectedId === this.props.id || this.state.selected;
@@ -108,7 +110,7 @@ class Person extends React.PureComponent {
             <div style={{marginTop: '0px', fontWeight: 'normal', wordWrap: 'break-word'}}>
               <div style={{fontWeight: 'light', fontSize: '13px', display: 'flex', marginTop: '10px'}}>
                 <img alt='Profile Avatar' src={this.props.avatarUrl} style={{width: '100px', height: '100px', borderRadius: '50px', border: '1px solid rgba(0,0,0,0.2)'}}/>
-                {this.props.matches && this.props.matches.map( match => <div style={{padding: '3px'}}key={match.id}>
+                {matches && matches.map( match => <div style={{padding: '3px'}}key={match.id}>
                   <img alt='Matched Avatar' src={match.avatarUrl || '/images/missing.png'} style={{width: '100px', borderRadius: '50px', height: '100px', border: '1px solid rgba(0,0,0,0.2)'}}/>
                   {match.attributes && match.attributes.map(attr => <div key={attr.fieldId}>
                     id: {match.id}<br/>
