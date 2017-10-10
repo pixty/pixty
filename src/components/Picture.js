@@ -56,23 +56,21 @@ class Picture extends React.PureComponent {
           naturalFaceWidth = this.props.rightBottom.x - this.props.leftTop.x,
           naturalFacefHeight = this.props.rightBottom.y - this.props.leftTop.y;
 
-    const aspectRatioX = imageWidth / naturalWidth;
-    const aspectRatioY = imageHeight / naturalHeight;
+    const cameraAspectRatioX = 1080 / naturalWidth;
+    const cameraAspectRatioY = 720 / naturalHeight;
 
-    const k = naturalHeight > 360 ? 1 : 1.15;
-    const k1 = naturalHeight > 360 ? 1 : 2;
-    const _offset_left = naturalHeight > 360 ? 0 : 0;
-    const _offset_top = naturalHeight > 360 ? -10 : 0;
+    const aspectRatioX = naturalWidth / imageWidth;
+    const aspectRatioY = naturalHeight / imageHeight;
 
-    const faceLeft = _offset_left + (faceX * aspectRatioX / k1);
-    const faceTop = _offset_top + (faceY * aspectRatioY / k1);
+    const faceLeft = faceX / aspectRatioX / cameraAspectRatioX;
+    const faceTop = faceY / aspectRatioY / cameraAspectRatioY;
 
-    const faceWidth = naturalFaceWidth * aspectRatioX / k;
-    const faceHeight = naturalFacefHeight * aspectRatioY / k;
+    const faceWidth = naturalFaceWidth / aspectRatioX / cameraAspectRatioX;
+    const faceHeight = naturalFacefHeight / aspectRatioY / cameraAspectRatioY;
 
-    /*console.log({faceLeft:faceLeft, faceTop:faceTop, naturalWidth:naturalWidth, naturalHeight:naturalHeight,
+    console.log({faceLeft:faceLeft, faceTop:faceTop, naturalWidth:naturalWidth, naturalHeight:naturalHeight,
      imageWidth:imageWidth, imageHeight:imageHeight, faceX:faceX, faceY:faceY, faceWidth:faceWidth, faceHeight:faceHeight,
-     aspectRatioX:aspectRatioX, aspectRatioY:aspectRatioY });*/
+     aspectRatioX:aspectRatioX, aspectRatioY:aspectRatioY, cameraAspectRatioX: cameraAspectRatioX, cameraAspectRatioY: cameraAspectRatioX});
 
     if (this.props.pictureField === 'picURL') {
       this.setState({ loaded: true, offsetTop: event.target.offsetHeight/2,

@@ -149,13 +149,19 @@ class PersonForm extends React.PureComponent<Props, State> {
         </div>
       );
 
-    if (!profile)
+    if (!profile) {
+      let matches = this.person.matches;
+
       return (
         <div style={{color: '#ccc', fontWeight: 'normal', fontSize: '14px'}}>
         {person.id}<br/>
-        no profile
+         {matches.map(match => <div>matches<br/>
+            {match.id}<br/>
+            <img src={match.avatarUrl} />
+          </div>)}
         </div>
       );
+    }
 
     return (
         <div style={{padding: '5px'}}>
