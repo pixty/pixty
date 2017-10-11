@@ -56,21 +56,17 @@ class Picture extends React.PureComponent {
           naturalFaceWidth = this.props.rightBottom.x - this.props.leftTop.x,
           naturalFacefHeight = this.props.rightBottom.y - this.props.leftTop.y;
 
-    const cameraAspectRatioX = 1080 / naturalWidth;
-    const cameraAspectRatioY = 720 / naturalHeight;
+    const aspectRatioX = imageWidth / naturalWidth;
+    const aspectRatioY = imageHeight / naturalHeight;
 
-    const aspectRatioX = naturalWidth / imageWidth;
-    const aspectRatioY = naturalHeight / imageHeight;
+    const faceLeft = faceX * aspectRatioX / 2;
+    const faceTop = faceY * aspectRatioY / 2;
+    const faceWidth = naturalFaceWidth * aspectRatioX / 1.15;
+    const faceHeight = naturalFacefHeight * aspectRatioY / 1.15;
 
-    const faceLeft = faceX / aspectRatioX / cameraAspectRatioX;
-    const faceTop = faceY / aspectRatioY / cameraAspectRatioY;
-
-    const faceWidth = naturalFaceWidth / aspectRatioX / cameraAspectRatioX;
-    const faceHeight = naturalFacefHeight / aspectRatioY / cameraAspectRatioY;
-
-    console.log({faceLeft:faceLeft, faceTop:faceTop, naturalWidth:naturalWidth, naturalHeight:naturalHeight,
+    /*console.log({faceLeft:faceLeft, faceTop:faceTop, naturalWidth:naturalWidth, naturalHeight:naturalHeight,
      imageWidth:imageWidth, imageHeight:imageHeight, faceX:faceX, faceY:faceY, faceWidth:faceWidth, faceHeight:faceHeight,
-     aspectRatioX:aspectRatioX, aspectRatioY:aspectRatioY, cameraAspectRatioX: cameraAspectRatioX, cameraAspectRatioY: cameraAspectRatioX});
+     aspectRatioX:aspectRatioX, aspectRatioY:aspectRatioY, cameraAspectRatioX: cameraAspectRatioX, cameraAspectRatioY: cameraAspectRatioX});*/
 
     if (this.props.pictureField === 'picURL') {
       this.setState({ loaded: true, offsetTop: event.target.offsetHeight/2,

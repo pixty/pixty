@@ -109,7 +109,11 @@ class Person extends React.PureComponent {
           <div style={{padding: '0px 20px', fontSize: '14px', fontWeight: 'normal', lineHeight: '150%', wordWrap: 'break-word'}}>
             <div style={{marginTop: '0px', fontWeight: 'normal', wordWrap: 'break-word'}}>
               <div style={{fontWeight: 'light', fontSize: '13px', display: 'flex', marginTop: '10px'}}>
-                <img alt='Profile Avatar' src={this.props.avatarUrl} style={{width: '100px', height: '100px', borderRadius: '50px', border: '1px solid rgba(0,0,0,0.2)'}}/>
+
+                { this.props.matchingResult && this.props.matchingResult !== 'identified' &&
+                  <img alt='Profile Avatar' src={this.props.avatarUrl} style={{width: '100px', height: '100px', borderRadius: '50px', border: '1px solid rgba(0,0,0,0.2)'}}/>
+                }
+
                 {matches && matches.map( match => <div style={{padding: '3px'}}key={match.id}>
                   <img alt='Matched Avatar' src={match.avatarUrl || '/images/missing.png'} style={{width: '100px', borderRadius: '50px', height: '100px', border: '1px solid rgba(0,0,0,0.2)'}}/>
                   {match.attributes && match.attributes.map(attr => <div key={attr.fieldId}>
@@ -118,6 +122,8 @@ class Person extends React.PureComponent {
                   </div>)}
                 </div>)}
               </div>
+
+              <div style={{color: 'green'}}>{ this.props.matchingResult }</div>
 
               { this.props.profile && this.props.profile.attributes && this.props.profile.attributes.map((attr) => <div key={attr.value}>
                 <div style={{fontSize: '12px', color: 'rgba(0,0,0,0.5)'}}>{attr.name}</div>
