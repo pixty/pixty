@@ -144,14 +144,15 @@ class TopMenu extends React.Component {
           <div>
             <DropDownMenu closeOnClick font_size="13px" icon_url='/images/camera.svg'>
               <ul>
-                { options.map( opt => <li onClick={this.selectCamera.bind(this, opt.id)} key={opt.id}>{ this.state.selected === opt.id ? '✔ ' : ''}{opt.label}</li>)}
+                { options && options.map( opt => <li onClick={this.selectCamera.bind(this, opt.id)} key={opt.id}>{ this.state.selected === opt.id ? '✔ ' : ''}{opt.label}</li>)}
               </ul>
             </DropDownMenu>
           </div>
           <div style={{marginTop: '4px', marginLeft: '10px', color: '#888', flex: 7,
           whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', minWidth: '10px',
           fontSize: '13px', fontWeight: '200'}}>
-            {this.state.selected && options[this.state.selected-1].label}
+            {options[this.state.selected] && options[this.state.selected].label}
+
           </div>
 
           <div style={{flex: 1}}>

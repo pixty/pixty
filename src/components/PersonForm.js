@@ -167,12 +167,14 @@ class PersonForm extends React.PureComponent<Props, State> {
     const profile = this.profile;
     const PIC_SIZE = 140;
 
-    if (!person)
+
+    if (!person) {
       return (
         <div>
         no person
         </div>
       );
+    }
 
     if (!profile) {
       let matches = this.person.matches;
@@ -182,7 +184,7 @@ class PersonForm extends React.PureComponent<Props, State> {
         <DeleteButton onClick={this.deletePerson.bind(this, person.id)}>Delete</DeleteButton><br/>
         person.id = {person.id}<br/>
         matchingResult: {person.matchingResult}
-         {matches.map(match => <div>matches<br/>
+         {matches && matches.map(match => <div>matches<br/>
             <img src={match.avatarUrl} style={{width: '100px'}} /><br/>
             <CancelButton size="14px" onClick={this.attachProfile.bind(this, person.id, match.id, match.avatarUrl)}>Attach</CancelButton>
           </div>)}
@@ -200,7 +202,7 @@ class PersonForm extends React.PureComponent<Props, State> {
           </div>
           <div style={{overflowX: 'auto', overflowY: 'hidden'}}>
             <div style={{display: 'flex', width: this.props.person.pictures.length*PIC_SIZE + 'px'}}>
-            { this.props.person.pictures.map((pic) => <img alt='Avatar' onClick={this.selectAvatar.bind(this, pic.id, pic.url)} key={pic.id} src={pic.url}
+            { this.props.person.pictures && this.props.person.pictures.map((pic) => <img alt='Avatar' onClick={this.selectAvatar.bind(this, pic.id, pic.url)} key={pic.id} src={pic.url}
               style={{cursor: 'pointer', border: this.state.selectedPictureId === pic.id ? `2px solid ${mainColor}` : '2px solid transparent', width: PIC_SIZE+"px", height: PIC_SIZE+"px"}} />) }
             </div>
           </div>
@@ -212,7 +214,7 @@ class PersonForm extends React.PureComponent<Props, State> {
             <div style={{float: 'left', marginTop: '10px', fontWeight: 'normal'}}>
               <DropDownMenu top float="right" closeOnClick font_size="13px" icon_url='/images/plus.svg'>
                 <ul>
-                  { this.props.metaInfo.map( field => !this.state.attributes[field.fieldName] &&
+                  { this.props.metaInfo && this.props.metaInfo.map( field => !this.state.attributes[field.fieldName] &&
                     <li onClick={this.newAttribute.bind(this, field.fieldName)} key={field.id}>{field.fieldName}</li>)}
                   <li onClick={this.addCustom} key='custom'>Custom Attributes</li>
                 </ul>

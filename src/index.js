@@ -25,7 +25,7 @@ import { CurrentUser, deleteSession } from './api';
 import { TermsOfService, PrivacyTerms } from './legal';
 
 // const preloadedState = window.__PRELOADED_STATE__
-const preloadedState = { entities: { settings: { showPreview: true, zoomLevel: 1 }, orgs: { 0: { cameras: [{id: 0, label: 'loading...', orgId: 1, hasSecretKey: true}] }}}};
+const preloadedState = { entities: { settings: { showPreview: true, zoomLevel: 1 }, orgs: { 0: { cameras: [{id: 0, label: 'loading...', name: 'Preset', orgId: 1, hasSecretKey: true}] }}}};
 // Allow the passed state to be garbage-collected
 delete window.__PRELOADED_STATE__;
 
@@ -64,11 +64,10 @@ store.close = () => store.dispatch(END);
 
 document.addEventListener("touchstart", ()=>{}, true);
 
-/*
+
 store.subscribe(() =>
 	console.log('Store', store.getState())
 );
-*/
 
 setTimeout(() => store.dispatch(loadAll()), 0);
 

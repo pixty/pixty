@@ -56,6 +56,7 @@ class Scene extends React.Component {
 */
 
   render() {
+
     const scene = this.props.scene;
     const selectedPerson = this.props.selectedPerson;
 
@@ -71,7 +72,7 @@ class Scene extends React.Component {
           <CameraPreview onDoubleClick={this.zoomCamera.bind(this)} style={{display: this.props.settings.showPreview ? 'block' : 'none',
           transition: 'border 0.5s ease, width 0.5s ease, height 0.5s ease', position: 'absolute',
           width: this.state.previewWidth + 'px', height: this.state.previewHeight + 'px', borderRadius: '6px'}}>
-            {scene.frame && scene.frame['picURL'] &&
+            {scene && scene.frame && scene.frame['picURL'] &&
             <img alt="Face" onDragStart={(event)=>{ event.preventDefault(); return false;}}   src={scene.frame['picURL']}
             style={{transition: 'width 0.5s ease, height 0.5s ease', borderRadius: '5px', width: this.state.previewWidth + 'px', height: this.state.previewHeight + 'px'}}  />
             || <div style={{transition: 'all 0.5s ease, height 0.5s ease', fontSize: '11px', fontWeight: 'bold', textAlign: 'center',   color: '#555', marginTop: this.state.previewHeight/2 - 5 + 'px'}}>
@@ -83,7 +84,7 @@ class Scene extends React.Component {
         <Main right={this.state.width + 'px'} margin={this.state.margin + 'px'}>
           <TopMenu isElectron={this.state.isElectron} />
 
-          { (scene.persons && scene.persons.length) ? <PersonList isElectron={this.state.isElectron} /> : <div style={{position: 'absolute', top: '50%', left: '50%'}}>
+          { (scene && scene.persons && scene.persons.length) ? <PersonList isElectron={this.state.isElectron} /> : <div style={{position: 'absolute', top: '50%', left: '50%'}}>
             <Spinner opacity={0.5} />
           </div>
           }
