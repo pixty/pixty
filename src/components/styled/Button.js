@@ -41,6 +41,11 @@ export const CancelButton = styled(Button)`
   background: rgba(0,0,0,0.2);
 `;
 
+export const DeleteButton = styled(Button)`
+  color: white;
+  background: red;
+`;
+
 export const RegularButton = styled.button`
   background: ${props => props.primary ? 'white' : 'none'};
   color: ${props => props.primary ? 'black' : 'white'};

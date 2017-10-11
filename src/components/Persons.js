@@ -54,7 +54,7 @@ class Persons extends React.Component {
     if (this.state.persons != size) {
       let scroll_left = (_.size(persons) - 1) * (PERSON_WIDTH + 10);
       this.setState({ persons: size });
-      this.refs.scroll_content.scrollLeft = scroll_left;
+      //this.refs.scroll_content.scrollLeft = scroll_left;
     }
   }
 

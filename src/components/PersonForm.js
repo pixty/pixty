@@ -9,9 +9,9 @@ import FormInput from './FormInput';
 import FormAreaInput from './FormAreaInput';
 import Spinner from './Spinner';
 import ImageButton from './styled/ImageButton';
-import { Button, CancelButton } from './styled/Button';
+import { Button, CancelButton, DeleteButton } from './styled/Button';
 import DropDownMenu from './DropDownMenu';
-import { fetchProfile, postProfile } from '../api';
+import { fetchProfile, postProfile, putPerson, deletePerson } from '../api';
 import { clickPerson, openModal, closeModal  } from '../actions';
 
 type Props = {
@@ -137,6 +137,24 @@ class PersonForm extends React.PureComponent<Props, State> {
       </div>);
   }
 
+  attachProfile = (person_id, profile_id, avatar_url) => {
+    putPerson({orgId: this.props.orgId, id: person_id, ProfileId: profile_id, CamId: 1, /*AvatarUrl: avatar_url*/})
+    .then(resolve => {
+      alert('resolve', resolve);
+    }, reject => {
+      alert('reject', reject);
+    });
+  }
+
+  deletePerson = (person_id) => {
+    if (confirm('Are You Sure?'))
+      deletePerson(person_id).then(resolve => {
+        alert('deleted');
+      }, reject => {
+        alert('error');
+      });
+  }
+
   render() {
     const person = this.person;
     const profile = this.profile;
@@ -154,10 +172,12 @@ class PersonForm extends React.PureComponent<Props, State> {
 
       return (
         <div style={{color: '#ccc', fontWeight: 'normal', fontSize: '14px'}}>
+        <DeleteButton onClick={this.deletePerson.bind(this, person.id)}>Delete</DeleteButton><br/>
         {person.id}<br/>
          {matches.map(match => <div>matches<br/>
-            {match.id}<br/>
-            <img src={match.avatarUrl} />
+            profile.id = {match.id}<br/>
+            <img src={match.avatarUrl} style={{width: '100px'}} /><br/>
+            <button onClick={this.attachProfile.bind(this, person.id, match.id, match.avatarUrl)}>Attach</button>
           </div>)}
         </div>
       );
@@ -205,6 +225,7 @@ class PersonForm extends React.PureComponent<Props, State> {
             </div>
           </div>
           <div style={{clear:'both'}}>&nbsp;</div>
+          <DeleteButton onClick={this.deletePerson.bind(this, person.id)}>Delete</DeleteButton>
         </div>
     );
   }

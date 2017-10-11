@@ -152,4 +152,6 @@ export const fetchOrgs = id => pixtyApiCall(`orgs`);
 export const fetchProfile = id => pixtyApiCall(`profiles/${id}`);
 
 export const postProfile = profile => pixtyApiCall(`profiles/${profile.id}`, 'PUT', profile);
+export const putPerson = person => pixtyApiCall(`persons/${person.id}`, 'PUT', person);
+export const deletePerson = personId => pixtyApiCall(`persons/${personId}`, 'DELETE', {id: personId});
 
