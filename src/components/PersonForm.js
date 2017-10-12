@@ -11,7 +11,8 @@ import Spinner from './Spinner';
 import ImageButton from './styled/ImageButton';
 import { Button, CancelButton, DeleteButton } from './styled/Button';
 import DropDownMenu from './DropDownMenu';
-import { fetchProfile, postProfile, putPerson, deletePerson, getProfilePersons, mergeTwoProfiles } from '../api';
+import { fetchProfile, postProfile, putPerson, deletePerson,
+         deletePersonFaces, getProfilePersons, mergeTwoProfiles } from '../api';
 import { clickPerson, openModal, closeModal  } from '../actions';
 import { mainColor } from '../components/styled/Colors';
 
@@ -42,7 +43,7 @@ class PersonForm extends React.PureComponent<Props, State> {
 
   constructor(props) {
     super(props);
-    this.state = { attributes: {}, profileId: undefined, loggin: false,
+    this.state = { attributes: {}, profileId: undefined, loggin: false, edit_photos: false,
     avatarUrl: null, selectedPictureId: null, all_pictures: null,
     all_attrs: [], new_key: null, new_value: null };
     //this.findNextValue = this.findNextValue.bind(this);
@@ -163,6 +164,18 @@ class PersonForm extends React.PureComponent<Props, State> {
     });
   }
 
+  deletePicture = (person_id, pic_id) => {
+    deletePersonFaces(person_id, [pic_id]).then(resolve => {
+      let pictures = [...this.state.all_pictures];
+      let index = _.findIndex(pictures, {id: pic_id});
+      pictures[index].deleted = true;
+      this.setState({ all_pictures: pictures });
+    }, reject => {
+      alert(reject.statusText);
+    });
+
+  }
+
   deletePerson = (person_id) => {
     if (confirm('Are You Sure?'))
       deletePerson(person_id).then(resolve => {
@@ -174,6 +187,10 @@ class PersonForm extends React.PureComponent<Props, State> {
 
   selectAvatar = (pic_id, pic_url) => {
     this.setState({ selectedPictureId: pic_id, avatarUrl: pic_url.substring(28) });
+  }
+
+  toggleEditPhotos = () => {
+    this.setState({ edit_photos: !this.state.edit_photos});
   }
 
   render() {
@@ -213,13 +230,18 @@ class PersonForm extends React.PureComponent<Props, State> {
           <div style={{fontSize: 'small', color: '#777', fontWeight: 'normal', marginBottom: '12px'}}>
             {person.matchingResult}
             <div style={{float: 'right'}}>
-              <CancelButton size="11px">Edit</CancelButton>
+              <CancelButton onClick={this.toggleEditPhotos} size="11px">{this.state.edit_photos ? 'Done' : 'Edit Photos'}</CancelButton>
             </div>
           </div>
           <div style={{overflowX: 'auto', overflowY: 'hidden'}}>
-            <div style={{display: 'flex', width: this.state.all_pictures.length*PIC_SIZE + 'px'}}>
-            { this.state.all_pictures && this.state.all_pictures.map((pic) => <img alt='Avatar' onClick={this.selectAvatar.bind(this, pic.id, pic.url)} key={pic.id} src={pic.url}
-              style={{cursor: 'pointer', border: this.state.selectedPictureId === pic.id ? `2px solid ${mainColor}` : '2px solid transparent', width: PIC_SIZE+"px", height: PIC_SIZE+"px"}} />) }
+            <div style={{display: 'flex', width: this.state.all_pictures && this.state.all_pictures.length*PIC_SIZE + 'px'}}>
+            { this.state.all_pictures && this.state.all_pictures.map((pic) => <div key={pic.id} style={{position:'relative'}}>
+              {this.state.edit_photos && !pic.deleted && <div style={{position: 'absolute', zIndex: 3}}>
+                <ImageButton type='image' onClick={this.deletePicture.bind(this, person.id, pic.id)} src='/images/minus.svg' width='20px' />
+              </div> }
+              <img title={pic.id} alt='Avatar' onClick={this.selectAvatar.bind(this, pic.id, pic.url)} key={pic.id} src={pic.url}
+              style={{transition: 'all 0.4s ease', opacity: pic.deleted ? 0.1 : 1.0, cursor: 'pointer', border: this.state.selectedPictureId === pic.id ? `2px solid ${mainColor}` : '2px solid transparent', width: PIC_SIZE+"px", height: PIC_SIZE+"px"}} />
+              </div>) }
             </div>
           </div>
           { _.keys(this.state.attributes).map( key => (

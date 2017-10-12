@@ -158,6 +158,8 @@ export const deletePerson = personId => pixtyApiCall(`persons/${personId}`, 'DEL
 // /profiles/:prfId/persons
 export const getProfilePersons = profileId => pixtyApiCall(`profiles/${profileId}/persons`, 'GET');
 // a.ge.POST("/profiles/:prf1Id/merge/:prf2Id", a.h_POST_profiles_mergeh)
-export const mergeTwoProfiles = (prf1Id, prf2Id)  => pixtyApiCall(`profiles/${prf1Id}/merge/${prf2Id}`, 'POST');
+export const mergeTwoProfiles = (prf1Id, prf2Id) => pixtyApiCall(`profiles/${prf1Id}/merge/${prf2Id}`, 'POST');
+// /persons/:persId/faces, faceIds: [1,2,3]
+export const deletePersonFaces = (person_id, faces) => pixtyApiCall(`persons/${person_id}/faces`, 'DELETE', faces);
 
 

@@ -16,9 +16,9 @@ class Person extends React.PureComponent {
 
   constructor(props) {
     super(props);
-    this.state = { mount: false, currentFaceSrc: this.props.pictures[0].url, pictureField: 'picURL',
+    this.state = { mount: false, currentFaceSrc: this.props.pictures && this.props.pictures[0].url, pictureField: 'picURL',
       selected: false,
-      currentPictureSrc: this.props.pictures[0].picURL, pictureIndex: 0, pictureCount:this.props.pictures.length  };
+      currentPictureSrc: this.props.pictures && this.props.pictures[0].picURL, pictureIndex: 0, pictureCount: this.props.pictures && this.props.pictures.length  };
   }
 
   componentDidMount() {
@@ -82,8 +82,8 @@ class Person extends React.PureComponent {
 
           <div onClick={this.props.onClick} style={{cursor: 'pointer', background:'none', overflowX: 'scroll', overflowY: 'hidden'}}>
             <div style={{overflowScrolling: "touch", display: 'flex',
-        WebkitOverflowScrolling: "touch", width: PERSON_WIDTH * this.props.pictures.length + 'px'}}>
-              { this.props.pictures.map((pic, index)=> <Picture index={index} leftTop={pic.rect.leftTop}
+        WebkitOverflowScrolling: "touch", width: this.props.pictures && PERSON_WIDTH * this.props.pictures.length + 'px'}}>
+              { this.props.pictures && this.props.pictures.map((pic, index)=> <Picture index={index} leftTop={pic.rect.leftTop}
                 containerWidth={PERSON_WIDTH} pictureField={this.state.pictureField}
                 rightBottom={pic.rect.rightBottom} key={pic.id} width={PERSON_WIDTH}
                 placeholder={<Spinner noLabel />} src={pic[this.state.pictureField]} /> )}
