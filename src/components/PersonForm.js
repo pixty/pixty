@@ -11,7 +11,7 @@ import Spinner from './Spinner';
 import ImageButton from './styled/ImageButton';
 import { Button, CancelButton, DeleteButton } from './styled/Button';
 import DropDownMenu from './DropDownMenu';
-import { fetchProfile, postProfile, putPerson, deletePerson } from '../api';
+import { fetchProfile, postProfile, putPerson, deletePerson, getProfilePersons, mergeTwoProfiles } from '../api';
 import { clickPerson, openModal, closeModal  } from '../actions';
 import { mainColor } from '../components/styled/Colors';
 
@@ -43,7 +43,7 @@ class PersonForm extends React.PureComponent<Props, State> {
   constructor(props) {
     super(props);
     this.state = { attributes: {}, profileId: undefined, loggin: false,
-    avatarUrl: null, selectedPictureId: null,
+    avatarUrl: null, selectedPictureId: null, all_pictures: null,
     all_attrs: [], new_key: null, new_value: null };
     //this.findNextValue = this.findNextValue.bind(this);
   }
@@ -54,6 +54,12 @@ class PersonForm extends React.PureComponent<Props, State> {
 
     if (this.profile) {
       if (this.state.profileId !== this.profile.id) {
+
+        getProfilePersons(this.profile.id).then(({response}) => {
+            let pictures = [];
+            _.map(response, person => person.pictures).map(index => index.map(el => pictures.push(el)));
+            this.setState({ all_pictures: pictures});
+        });
 
         fetchProfile(this.profile.id).then((response) => {
 
@@ -140,6 +146,14 @@ class PersonForm extends React.PureComponent<Props, State> {
       </div>);
   }
 
+  mergeProfiles = (profile_1_id, profile_2_id) => {
+    mergeTwoProfiles(profile_1_id, profile_2_id).then(resolve => {
+      alert('merged!');
+    }, reject => {
+      alert('error');
+    });
+  }
+
   attachProfile = (person_id, profile_id, avatar_url) => {
     putPerson({orgId: this.props.orgId, id: person_id, ProfileId: profile_id, CamId: 1, /*AvatarUrl: avatar_url*/})
     .then(resolve => {
@@ -184,10 +198,12 @@ class PersonForm extends React.PureComponent<Props, State> {
         <DeleteButton onClick={this.deletePerson.bind(this, person.id)}>Delete</DeleteButton><br/>
         person.id = {person.id}<br/>
         matchingResult: {person.matchingResult}
-         {matches && matches.map(match => <div>matches<br/>
+         {matches && matches.map(match => <div key={match.id}>matches<br/>
             <img src={match.avatarUrl} style={{width: '100px'}} /><br/>
             <CancelButton size="14px" onClick={this.attachProfile.bind(this, person.id, match.id, match.avatarUrl)}>Attach</CancelButton>
           </div>)}
+         <br/>
+         {matches && matches.length == 2 && <DeleteButton onClick={this.mergeProfiles.bind(this, matches[0].id, matches[1].id)}>Merge {matches[0].id} with {matches[1].id}</DeleteButton>}
         </div>
       );
     }
@@ -201,8 +217,8 @@ class PersonForm extends React.PureComponent<Props, State> {
             </div>
           </div>
           <div style={{overflowX: 'auto', overflowY: 'hidden'}}>
-            <div style={{display: 'flex', width: this.props.person.pictures.length*PIC_SIZE + 'px'}}>
-            { this.props.person.pictures && this.props.person.pictures.map((pic) => <img alt='Avatar' onClick={this.selectAvatar.bind(this, pic.id, pic.url)} key={pic.id} src={pic.url}
+            <div style={{display: 'flex', width: this.state.all_pictures.length*PIC_SIZE + 'px'}}>
+            { this.state.all_pictures && this.state.all_pictures.map((pic) => <img alt='Avatar' onClick={this.selectAvatar.bind(this, pic.id, pic.url)} key={pic.id} src={pic.url}
               style={{cursor: 'pointer', border: this.state.selectedPictureId === pic.id ? `2px solid ${mainColor}` : '2px solid transparent', width: PIC_SIZE+"px", height: PIC_SIZE+"px"}} />) }
             </div>
           </div>

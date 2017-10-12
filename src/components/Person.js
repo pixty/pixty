@@ -115,26 +115,21 @@ class Person extends React.PureComponent {
                 }
 
                 {matches && matches.map( match => <div style={{padding: '3px'}}key={match.id}>
-                  <img alt='Matched Avatar' src={match.avatarUrl || '/images/missing.png'} style={{width: '100px', borderRadius: '50px', height: '100px', border: '1px solid rgba(0,0,0,0.2)'}}/>
-                  {match.attributes && match.attributes.map(attr => <div key={attr.fieldId}>
-                    id: {match.id}<br/>
-                    {attr.name}:{attr.value}
-                  </div>)}
+                  <img title={match.id} alt={match.id} src={match.avatarUrl || '/images/missing.png'} style={{width: '100px', borderRadius: '50px', height: '100px', border: '1px solid rgba(0,0,0,0.2)'}}/>
                 </div>)}
               </div>
 
               <div style={{color: 'green'}}>{ this.props.matchingResult }</div>
 
               { this.props.profile && this.props.profile.attributes && this.props.profile.attributes.map((attr) => <div key={attr.value}>
-                <div style={{fontSize: '12px', color: 'rgba(0,0,0,0.5)'}}>{attr.name}</div>
-                <div style={{lineHeight: '120%', fontSize: startSize+'px', whiteSpace: 'pre-line' }}>{(startSize -= 5) && attr.value }</div>
+                <div style={{lineHeight: '120%', marginTop: '10px', fontSize: startSize+'px', whiteSpace: 'pre-line' }}>{(startSize -= 5) && attr.value }</div>
                 </div>) }
 
             </div>
 
           </div>
         </PersonLi>
-
+        //<div style={{fontSize: '12px', color: 'rgba(0,0,0,0.5)'}}>{attr.name}</div>
     );
   }
 }

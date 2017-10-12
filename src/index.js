@@ -64,10 +64,11 @@ store.close = () => store.dispatch(END);
 
 document.addEventListener("touchstart", ()=>{}, true);
 
-
+/*
 store.subscribe(() =>
 	console.log('Store', store.getState())
 );
+*/
 
 setTimeout(() => store.dispatch(loadAll()), 0);
 
