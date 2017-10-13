@@ -53,7 +53,7 @@ class Person extends React.PureComponent {
 
     //let attributes = this.props.profile && this.props.profile.attributes.map((a) => (<div key={a.name}><span style={{fontSize: '12px', color: '#777'}}>{a.name}</span><br/>{a.value}</div>))
     const { matches } = this.props;
-    matches.sort((a,b) => (b.id - a.id));
+    matches && matches.sort((a,b) => (b.id - a.id));
 
     const selectedId = this.props.selectedPerson.id;
     const isSelected = selectedId === this.props.id || this.state.selected;

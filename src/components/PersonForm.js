@@ -228,7 +228,7 @@ class PersonForm extends React.PureComponent<Props, State> {
     return (
         <div style={{padding: '5px'}}>
           <div style={{fontSize: 'small', color: '#777', fontWeight: 'normal', marginBottom: '12px'}}>
-            {person.matchingResult}
+            {person.matchingResult} profile.id: {profile.id}
             <div style={{float: 'right'}}>
               <CancelButton onClick={this.toggleEditPhotos} size="11px">{this.state.edit_photos ? 'Done' : 'Edit Photos'}</CancelButton>
             </div>
