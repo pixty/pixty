@@ -9,7 +9,7 @@ describe('API', () => {
     expect(data.response.user.login).toEqual('super');
   });
 
-      it('Makes sure window.fetch is the one from the polyfill', () => {
+  it('Makes sure window.fetch is the one from the polyfill', () => {
     expect(window.fetch.polyfill).toBe(true);
   });
 

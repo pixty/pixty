@@ -106,22 +106,45 @@ class Person extends React.PureComponent {
             <div><TimeAgo date={this.props.lastSeenAt} /></div>
           </div>
 
+          {
+            this.props.matchingResult !== 'identified' &&
+            <div style={{background: mainColor, color: 'white', padding: '5px 10px', textAlign: 'center', fontSize: '13px'}}>
+              We have several matches for the person.
+            </div>
+          }
+
           <div style={{padding: '0px 20px', fontSize: '14px', fontWeight: 'normal', lineHeight: '150%', wordWrap: 'break-word'}}>
             <div style={{marginTop: '0px', fontWeight: 'normal', wordWrap: 'break-word'}}>
-              <div style={{fontWeight: 'light', fontSize: '13px', display: 'flex', marginTop: '10px'}}>
+              <div style={{fontWeight: 'light', fontSize: '13px', marginTop: '10px'}}>
+                { this.props.matchingResult !== 'identified' &&
+                  <div>
+                  <div style={{ display: 'flex' }}>
+                    {matches && this.props.matchingResult !== 'identified' && matches.map( match => <div style={{padding: '3px'}}key={match.id}>
+                      <img title={match.id} alt={match.id} src={match.avatarUrl || '/images/missing.png'} style={{width: '100px', borderRadius: '50px', height: '100px', border: '1px solid rgba(0,0,0,0.2)'}}/>
+                    </div>)}
+                  </div>
 
-                { this.props.matchingResult && this.props.matchingResult !== 'identified' &&
-                  <img alt='Profile Avatar' src={this.props.avatarUrl} style={{width: '100px', height: '100px', borderRadius: '50px', border: '1px solid rgba(0,0,0,0.2)'}}/>
+                  <Button>Attach</Button>
+
+                  </div>
                 }
-
-                {matches && matches.map( match => <div style={{padding: '3px'}}key={match.id}>
-                  <img title={match.id} alt={match.id} src={match.avatarUrl || '/images/missing.png'} style={{width: '100px', borderRadius: '50px', height: '100px', border: '1px solid rgba(0,0,0,0.2)'}}/>
-                </div>)}
+                {
+                  this.props.matchingResult === 'identified' &&
+                  <div style={{display: 'flex'}}>
+                    <div>
+                      <img src='/images/verify.svg' style={{width: '20px'}} />
+                    </div>
+                    <div style={{ marginLeft: '6px', color: mainColor }}>
+                      Person has profile
+                    </div>
+                  </div>
+                }
               </div>
 
-              <div style={{color: 'green'}}>{ this.props.matchingResult }</div>
-
               { this.props.profile && this.props.profile.attributes && this.props.profile.attributes.map((attr) => <div key={attr.value}>
+                <div style={{ opacity: 0.5 }}>
+                  {attr.name}
+                </div>
                 <div style={{lineHeight: '120%', marginTop: '10px', fontSize: startSize+'px', whiteSpace: 'pre-line' }}>{(startSize -= 5) && attr.value }</div>
                 </div>) }
 

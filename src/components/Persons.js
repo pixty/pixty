@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import _ from 'lodash';
 import Person from './Person';
 //import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
@@ -24,6 +25,15 @@ import { PERSON_WIDTH } from './Constants';
   });
 
 */
+
+const Analyzing = styled.div`
+  width: 300px;
+  height: 225px;
+  background: url('/images/swim.gif');
+  background-blend-mode: screen;
+  background-color: #222122;
+  background-size: 100% 100%;
+`;
 
 class Persons extends React.Component {
 
@@ -81,7 +91,10 @@ class Persons extends React.Component {
                 {...person}
               />
             )}
-            <li style={{width: PERSON_WIDTH + 'px', height: '100%', border: '1px solid #444', marginRight: '10px'}}>
+            <li style={{width: PERSON_WIDTH + 'px', height: '100%',
+                border: 'none', marginRight: '10px',
+                display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                <Analyzing />
               &nbsp;
             </li>
           </ul>
