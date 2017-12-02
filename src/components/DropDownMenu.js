@@ -13,7 +13,7 @@ class DropDownMenu extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { open: this.props.open || false, left_offset: 0, menu_height: 0 };
+    this.state = {open: this.props.open || false, left_offset: 0, menu_height: 0 };
     this.setMenu = this.setMenu.bind(this);
     this.handleClickOutside = this.handleClickOutside.bind(this);
     this.onClick = this.onClick.bind(this);
@@ -39,7 +39,7 @@ class DropDownMenu extends React.Component {
 
   onClickMenu = (event) => {
     if (this.props.closeOnClick) {
-      this.setState({ open : false });
+      this.setState({ open:false });
     }
   }
 

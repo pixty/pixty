@@ -1,5 +1,5 @@
 {
-  "extends": "react-app, eslint:recommended",
+  "extends": "react-app, eslint:recommended, plugin:flowtype/recommended",
   "config_file": "/Users/thunder/node.dev/pixty/.eslintrc.json"
 }
 

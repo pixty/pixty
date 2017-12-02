@@ -1,6 +1,6 @@
-// @flow
+// flow
 import React from 'react';
-//import * as React from 'react';
+import styled from 'styled-components';
 //import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -16,22 +16,50 @@ import { fetchProfile, postProfile, putPerson, deletePerson,
 import { clickPerson, openModal, closeModal  } from '../actions';
 import { mainColor } from '../components/styled/Colors';
 
+/*
 type Props = {
   +person: {
+    id: string,
     avatarUrl: string,
     +profile: { id: string }
   },
   scene: {},
   metaInfo: Array<any>,
-  orgId: string
+  orgId: string,
+  openModalDialog: Function,
+  closeModalDialog: Function,
+  clickPerson: Function
 };
 
 type State = {
   attributes: {},
   all_attrs: Array<any>,
-  profileId?: string,
+  all_pictures: ?Array<any>,
+  profileId: ?string,
+  avatarUrl: ?string,
   loggin: boolean,
-}
+  edit_photos: boolean,
+  selectedPictureId: number,
+  all_attrs: Array<any>,
+  new_key: ?string,
+  new_value: ?string
+}*/
+
+const ButtonsFixedBlock = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 90px;
+  display: flex;
+`;
+
+const PersonContol = () => <ButtonsFixedBlock>
+  <Button>Create New Profile</Button>
+  <Button disabled>Attach Profile</Button>
+  <Button disabled>Merge Profiles</Button>
+  <DeleteButton>Delete Person</DeleteButton>
+</ButtonsFixedBlock>;
 
 class PersonForm extends React.PureComponent<Props, State> {
 
@@ -43,7 +71,7 @@ class PersonForm extends React.PureComponent<Props, State> {
 
   constructor(props) {
     super(props);
-    this.state = { attributes: {}, profileId: undefined, loggin: false, edit_photos: false,
+    this.state = { attributes: {}, profileId: null, loggin: false, edit_photos: false,
     avatarUrl: null, selectedPictureId: null, all_pictures: null,
     all_attrs: [], new_key: null, new_value: null };
     //this.findNextValue = this.findNextValue.bind(this);
@@ -177,9 +205,8 @@ class PersonForm extends React.PureComponent<Props, State> {
   }
 
   deletePerson = (person_id) => {
-    if (confirm('Are You Sure?'))
       deletePerson(person_id).then(resolve => {
-        alert('deleted');
+        // alert('deleted');
       }, reject => {
         alert('error');
       });
@@ -220,7 +247,8 @@ class PersonForm extends React.PureComponent<Props, State> {
             <CancelButton size="14px" onClick={this.attachProfile.bind(this, person.id, match.id, match.avatarUrl)}>Attach</CancelButton>
           </div>)}
          <br/>
-         {matches && matches.length == 2 && <DeleteButton onClick={this.mergeProfiles.bind(this, matches[0].id, matches[1].id)}>Merge {matches[0].id} with {matches[1].id}</DeleteButton>}
+         {matches && matches.length === 2 && <DeleteButton onClick={this.mergeProfiles.bind(this, matches[0].id, matches[1].id)}>Merge {matches[0].id} with {matches[1].id}</DeleteButton>}
+         <PersonContol />
         </div>
       );
     }

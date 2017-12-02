@@ -61,9 +61,9 @@ class LoginPage extends React.Component {
 
     }, error => {
       this.setState(() => ({ loggin: false }));
-
+      
       this.props.openModalDialog('login', <div style={{padding: '10px', paddingBottom: '0px'}}>
-        Invalid username or password.<br/>
+        Invalid username or password.<br/>{error.status} – {error.statusText}<br/>
         <div onClick={this.props.closeModalDialog.bind(this, 'login')} style={{display: 'flex', width: '100%', justifyContent: 'center', marginTop: '10px'}}>
           <CancelButton size="14px">OK</CancelButton>
         </div>
