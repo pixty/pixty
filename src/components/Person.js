@@ -14,7 +14,7 @@ import { PERSON_WIDTH } from './Constants';
 const ProfileInfo = styled.div`
   overflow: hidden;
   height: 105px;
-  padding: 5px 10px;
+  padding: 0px;
   background: ${ props => props.isSelected ? '#fff' : 'rgba(0,0,0,0.1)' };
   display: flex;
   border-bottom: 1px solid rgba(0,0,0,0.2);
@@ -25,7 +25,8 @@ const Avatar = styled.img`
   height: 100px;
   border-radius: 50px;
   border: 2px solid ${props => props.active ? mainColor : 'transparent'};
-  margin-right: 3px;
+  margin: 0 5px;
+  cursor: ${ props => props.zoomIn ? 'zoom-in' : 'zoom-out' };
 `;
 
 const AvatarContainer = styled.div`
@@ -39,9 +40,16 @@ const PicturesContainer = styled.div`
 `;
 
 const PicturesContainerScroll = styled.div`
-  width: ${props => props.count * 107 + 'px'};
+  width: ${props => props.count * 114 + 'px'};
   -webkit-overflow-scrolling: touch;
   cursor: zoom-out;
+`;
+
+const NoAattributes = styled.div`
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Match = ({id, avatarUrl, active}) => <div>
@@ -73,7 +81,7 @@ class Person extends React.PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.selectedPerson.id !== nextProps.selectedPerson.id) {
+    if (!this.props.selectedPerson.selected && this.props.selectedPerson.id !== nextProps.selectedPerson.id) {
       this.setState({ selected: false});
     }
   }
@@ -103,22 +111,26 @@ class Person extends React.PureComponent {
   </PicturesContainer>;
 
   ProfileAvatar = ({ url, identified, isSelected }) => <AvatarContainer>
-    <Avatar src={url} />
-    <div style={{ flex: 1 }}>
+    <div style={{position: 'relative'}}>
+      <Avatar src={url} onClick={ this.togglePictures } zoomIn />
       { identified &&
-        <div style={{display: 'flex', fontSize: '13px'}}>
-          <div>
-            <img src='/images/verify.svg' style={{width: '16px'}} />
-          </div>
-          <div style={{ marginLeft: '6px', color: mainColor }}>
-            Person has profile
-          </div>
+        <div style={{ position: 'absolute', top: '6px', left: '6px', width: '18px', height: '18px',
+                      borderRadius: '50%',
+                      background: 'white' }}>
+          <img src='/images/verify.svg' style={{width: '16px', marginTop: '1px', marginLeft: '1px'}} />
         </div>
       }
-      <div style={{ flex: 1 }}>
-        <ImageButton type='image' title='Show Pictures' titleColor={isSelected ? '#555' : 'white'}
-                onClick={ this.togglePictures }
-                src={ this.state.pictureField === 'url' || isSelected ? '/images/grey_eye.svg' : '/images/eye.svg'} width='24px' />
+    </div>
+    <div style={{ flex: 1, borderLeft: '1px solid rgba(0,0,0,0.2)' }}>
+      <div style={{borderBottom: '1px solid rgba(0,0,0,0.2)'}} >
+      <ImageButton type='image' height='50px' fullWidth title='Show Faces' titleColor={isSelected ? '#555' : 'white'}
+              onClick={ this.togglePictures }
+              src={ this.state.pictureField === 'url' || isSelected ? '/images/grey_eye.svg' : '/images/eye.svg'} width='24px' />
+      </div>
+      <div>
+        <ImageButton fullWidth height='50px' type='image' title='Edit' titleColor={isSelected ? '#555' : 'white'}
+                onClick={(event) => { event.stopPropagation(); this.props.onClick(); }}
+                src={ isSelected ? '/images/grey_write.svg' : '/images/write.svg' } width='24px' />
       </div>
     </div>
   </AvatarContainer>;
@@ -130,11 +142,12 @@ class Person extends React.PureComponent {
     matches && matches.sort((a,b) => (b.id - a.id));
 
     const selectedId = this.props.selectedPerson.id;
-    const isSelected = selectedId === this.props.id || this.state.selected;
+    const isSelected = (this.props.selectedPerson.selected && selectedId === this.props.id) || this.state.selected;
     let startSize = 25;
+    let backgroundColor = isSelected ? '#fff' : 'rgba(255,255,255,.1)';
 
     if (this.props.matchingResult !== 'identified') {
-      // console.log(this.props);
+      backgroundColor = isSelected ? '#fff' : 'none';
     }
 
     //<PersonLi alt={this.props.name} onMouseMove={this.changePic.bind(this)}
@@ -142,7 +155,7 @@ class Person extends React.PureComponent {
         <PersonLi alt={this.props.name}
           onClick={this.setSelected}
           style={{
-          border: selectedId === this.props.id ? `3px solid ${mainColor}` : '1px solid rgba(255,255,255,0.1)',
+          border: this.props.selectedPerson.selected && selectedId === this.props.id ? `3px solid ${mainColor}` : '1px solid rgba(255,255,255,0.1)',
           height: '100%',
           width: `${PERSON_WIDTH}px`,
           margin: '0px',
@@ -153,7 +166,7 @@ class Person extends React.PureComponent {
           transform: this.state.mount ? 'scale(1.0)' : 'scale(0.5)',
           opacity: this.state.mount ? 1.0 : 0.0,
           boxShadow: isSelected ? '4px 4px 6px rgba(0,0,0,0.2)' : '2px 2px 2px rgba(0,0,0,0.2)',
-          background: isSelected ? '#fff' : 'rgba(255,255,255,.1)',
+          background: backgroundColor,
           borderRadius: '2px',
           color: isSelected ? 'black' : 'white'
         }}>
@@ -185,44 +198,46 @@ class Person extends React.PureComponent {
           background: isSelected ? '#fff' : 'rgba(0,0,0,0.1)', borderBottom: `1px solid rgba(0,0,0,0.2)`}}>
 
             <div style={{float:'right', textAlign: 'right'}}>
-              <ImageButton type='image' title='Edit' titleColor={isSelected ? '#555' : 'white'}
-                onClick={(event) => { event.stopPropagation(); this.props.onClick(); }}
-                src={ isSelected ? '/images/grey_write.svg' : '/images/write.svg' } width='24px' />
-            </div>
-
-            <div style={{float:'right', textAlign: 'right'}}>
-              <ImageButton type='image' title={ this.state.pictureField === 'url' ? 'Scene' : 'Face' } titleColor={isSelected ? '#555' : 'white'}
+              <ImageButton type='image' title={ this.state.pictureField === 'url' ? 'Scene' : 'Zoom' } titleColor={isSelected ? '#777' : '#ccc'}
                 onClick={(event) => { event.stopPropagation(); this.toggleImageSource(event);}}
-                src={ this.state.pictureField === 'url' || isSelected ? '/images/grey_eye.svg' : '/images/eye.svg'} width='24px' />
+                height='33px' />
             </div>
 
             <div style={{fontSize: '11px', opacity: 0.5}}>Last seen at</div>
             <div><TimeAgo date={this.props.lastSeenAt} /></div>
           </div>
 
-          {
-            this.props.matchingResult !== 'identified' &&
-            <div style={{background: mainColor, color: 'white', padding: '5px 10px', textAlign: 'center', fontSize: '13px'}}>
-              We have several matches for the person. ({matches && matches.length})
-            </div>
-          }
+          <div style={{padding: '0px 20px', height: 'calc(100% - 400px)', fontSize: '14px', fontWeight: 'normal', lineHeight: '150%', wordWrap: 'break-word'}}>
 
-          <div style={{padding: '0px 20px', fontSize: '14px', fontWeight: 'normal', lineHeight: '150%', wordWrap: 'break-word'}}>
-            <div style={{marginTop: '0px', fontWeight: 'normal', wordWrap: 'break-word'}}>
-              <div style={{fontWeight: 'light', fontSize: '13px', marginTop: '10px'}}>
-                { this.props.matchingResult !== 'identified' &&
-                  <div style={{ display: 'flex' }}>
-                    {matches && this.props.matchingResult !== 'identified' &&
-                      matches.map( (match, index) => <Match key={match.id} active={index === 1 ? true : false} {...match} />)}
+            { this.props.profile && !this.props.profile.attributes &&
+                <NoAattributes onClick={(event) => { event.stopPropagation(); this.props.onClick(); }}>
+                  <ImageButton type='image' title='Add Attributes' titleColor={isSelected ? '#ccc' : '#777'}
+                  src={ '/images/plus.svg' } width='24px' />
+                </NoAattributes>
+              }
+
+              {
+                this.props.matchingResult !== 'identified' &&
+                <NoAattributes onClick={(event) => { event.stopPropagation(); this.props.onClick(); }}>
+                  <div style={{fontSize: '12px', textAlign: 'center'}}>
+
+                    <div style={{ color: mainColor, marginBottom: '8px'}}>
+                    We have ({matches && matches.length}) matches for the person.
+                    </div>
+
+                    <ImageButton fullWidth type='image' title='Resolve' titleColor={mainColor}
+                  src={ '/images/blue_write.svg' } width='24px' />
                   </div>
-                }
-              </div>
+                </NoAattributes>
+              }
+
+            <div style={{margin: '10px 0px', fontWeight: 'normal', wordWrap: 'break-word'}}>
 
               { this.props.profile && this.props.profile.attributes && this.props.profile.attributes.map((attr) => <div key={attr.value}>
-                <div style={{ opacity: 0.3, fontSize: '12px'}}>
+                <div style={{ opacity: 0.3, fontSize: '12px', marginTop: '7px'}}>
                   {attr.name}
                 </div>
-                <div style={{lineHeight: '120%', marginTop: '4px', fontSize: startSize+'px', whiteSpace: 'pre-line' }}>{(startSize -= 5) && attr.value }</div>
+                <div style={{lineHeight: '120%', marginTop: '4px', fontSize: startSize+'px', whiteSpace: 'pre-line' }}>{(startSize -= 1) && attr.value }</div>
                 </div>) }
 
             </div>

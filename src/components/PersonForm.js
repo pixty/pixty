@@ -61,6 +61,26 @@ const PersonContol = () => <ButtonsFixedBlock>
   <DeleteButton>Delete Person</DeleteButton>
 </ButtonsFixedBlock>;
 
+const Container = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100vh;
+`;
+
+const Content = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 50px;
+  width: 100%;
+`;
+
+const ButtonsBlock = styled.div`
+  position: absolute;
+  bottom: 0;
+  height: 50px;
+  width: 100%;
+`;
+
 class PersonForm extends React.PureComponent<Props, State> {
 
   person: {} | { id: string };
@@ -227,82 +247,126 @@ class PersonForm extends React.PureComponent<Props, State> {
 
 
     if (!person) {
-      return (
-        <div>
-        no person
-        </div>
-      );
+      return null;
     }
 
     if (!profile) {
       let matches = this.person.matches;
 
       return (
-        <div style={{color: '#ccc', fontWeight: 'normal', fontSize: '14px'}}>
-        <DeleteButton onClick={this.deletePerson.bind(this, person.id)}>Delete</DeleteButton><br/>
-        person.id = {person.id}<br/>
-        matchingResult: {person.matchingResult}
-         {matches && matches.map(match => <div key={match.id}>matches<br/>
-            <img src={match.avatarUrl} style={{width: '100px'}} /><br/>
-            <CancelButton size="14px" onClick={this.attachProfile.bind(this, person.id, match.id, match.avatarUrl)}>Attach</CancelButton>
-          </div>)}
-         <br/>
-         {matches && matches.length === 2 && <DeleteButton onClick={this.mergeProfiles.bind(this, matches[0].id, matches[1].id)}>Merge {matches[0].id} with {matches[1].id}</DeleteButton>}
-         <PersonContol />
-        </div>
+        <Container>
+          <Content>
+            <div style={{fontSize: 'small', color: '#777', fontWeight: 'normal', marginBottom: '12px'}}>
+              Press edit to delete profile
+              <div style={{float: 'right'}}>
+                <CancelButton onClick={this.toggleEditPhotos} style={{ padding: "2px 5px" }} size="11px">{this.state.edit_photos ? 'Done' : 'Edit'}</CancelButton>
+              </div>
+            </div>
+
+             {matches && matches.map(match => <div key={match.id}>
+                <img src={match.avatarUrl} style={{width: '100px', borderRadius: '50%'}} /><br/>
+                <CancelButton size="14px" onClick={this.attachProfile.bind(this, person.id, match.id, match.avatarUrl)}>
+                  Attach
+                </CancelButton>
+              </div>)}
+
+          </Content>
+          <ButtonsBlock>
+            <div style={{display: 'flex'}}>
+              <div>
+                {matches && matches.length === 2 &&
+                <DeleteButton size="14px" onClick={this.mergeProfiles.bind(this, matches[0].id, matches[1].id)}>
+                    Merge
+                  </DeleteButton>
+                }
+              </div>
+              <div style={{marginLeft: '8px'}}>
+                <CancelButton size="14px" onClick={this.closeForm}>
+                  Cancel
+                </CancelButton>
+              </div>
+              <div style={{flex: 1}}>
+                <div style={{float: 'right'}}>
+                  {
+                    this.state.edit_photos &&
+                    <DeleteButton size="14px" onClick={this.deletePerson.bind(this, person.id)}>
+                      Delete Profile
+                    </DeleteButton>
+                  }
+                </div>
+              </div>
+            </div>
+          </ButtonsBlock>
+        </Container>
       );
     }
 
     return (
-        <div style={{padding: '5px'}}>
-          <div style={{fontSize: 'small', color: '#777', fontWeight: 'normal', marginBottom: '12px'}}>
-            {person.matchingResult} profile.id: {profile.id}
-            <div style={{float: 'right'}}>
-              <CancelButton onClick={this.toggleEditPhotos} size="11px">{this.state.edit_photos ? 'Done' : 'Edit Photos'}</CancelButton>
+        <Container>
+          <Content>
+            <div style={{padding: '0px'}}>
+              <div style={{fontSize: 'small', color: '#777', fontWeight: 'normal', marginBottom: '12px'}}>
+                Press edit to delete photos or profile
+                <div style={{float: 'right'}}>
+                  <CancelButton onClick={this.toggleEditPhotos} style={{ padding: "2px 5px" }} size="11px">{this.state.edit_photos ? 'Done' : 'Edit'}</CancelButton>
+                </div>
+              </div>
+              <div style={{overflowX: 'auto', overflowY: 'hidden'}}>
+                <div style={{display: 'flex', width: this.state.all_pictures && this.state.all_pictures.length*PIC_SIZE + 'px'}}>
+                { this.state.all_pictures && this.state.all_pictures.map((pic) => <div key={pic.id} style={{position:'relative'}}>
+                  {this.state.edit_photos && !pic.deleted && <div style={{position: 'absolute', zIndex: 3}}>
+                    <ImageButton type='image' onClick={this.deletePicture.bind(this, person.id, pic.id)} src='/images/minus.svg' width='20px' />
+                  </div> }
+                  <img title={pic.id} alt='Avatar' onClick={this.selectAvatar.bind(this, pic.id, pic.url)} key={pic.id} src={pic.url}
+                  style={{transition: 'all 0.4s ease', opacity: pic.deleted ? 0.1 : 1.0, cursor: 'pointer', border: this.state.selectedPictureId === pic.id ? `2px solid ${mainColor}` : '2px solid transparent', width: PIC_SIZE+"px", height: PIC_SIZE+"px"}} />
+                  </div>) }
+                </div>
+              </div>
+              { _.keys(this.state.attributes).map( key => (
+                <FormAreaInput key={key} label={key} onChange={this.onChange(key)} value={this.state.attributes[key]} />
+              ))
+              }
+              <div>
+                <div style={{float: 'left', marginTop: '10px', fontWeight: 'normal'}}>
+                  <DropDownMenu top float="right" closeOnClick font_size="13px" icon_url='/images/plus.svg'>
+                    <ul>
+                      { this.props.metaInfo && this.props.metaInfo.map( field => !this.state.attributes[field.fieldName] &&
+                        <li onClick={this.newAttribute.bind(this, field.fieldName)} key={field.id}>{field.fieldName}</li>)}
+                      <li onClick={this.addCustom} key='custom'>Custom Attributes</li>
+                    </ul>
+                  </DropDownMenu>
+                </div>
+              </div>
+              <div style={{clear:'both'}}>&nbsp;</div>
             </div>
-          </div>
-          <div style={{overflowX: 'auto', overflowY: 'hidden'}}>
-            <div style={{display: 'flex', width: this.state.all_pictures && this.state.all_pictures.length*PIC_SIZE + 'px'}}>
-            { this.state.all_pictures && this.state.all_pictures.map((pic) => <div key={pic.id} style={{position:'relative'}}>
-              {this.state.edit_photos && !pic.deleted && <div style={{position: 'absolute', zIndex: 3}}>
-                <ImageButton type='image' onClick={this.deletePicture.bind(this, person.id, pic.id)} src='/images/minus.svg' width='20px' />
-              </div> }
-              <img title={pic.id} alt='Avatar' onClick={this.selectAvatar.bind(this, pic.id, pic.url)} key={pic.id} src={pic.url}
-              style={{transition: 'all 0.4s ease', opacity: pic.deleted ? 0.1 : 1.0, cursor: 'pointer', border: this.state.selectedPictureId === pic.id ? `2px solid ${mainColor}` : '2px solid transparent', width: PIC_SIZE+"px", height: PIC_SIZE+"px"}} />
-              </div>) }
+          </Content>
+          <ButtonsBlock>
+            <div style={{display: 'flex'}}>
+              <div>
+                <Button size="14px" onClick={this.onClickUpdate.bind(this)}>
+                { this.state.loggin ?
+                  <div style={{transform: 'scale(0.3)', position: 'absolute', marginTop: '-1px', marginLeft: '-4px'}}><Spinner stroke={4} noLabel /></div> : null }
+                  <div className="button__text" style={{marginLeft: this.state.loggin ? '19px' : '0px'}}>Save</div>
+                </Button>
+              </div>
+              <div style={{marginLeft: '8px'}}>
+                <CancelButton size="14px" onClick={this.closeForm}>
+                  Cancel
+                </CancelButton>
+              </div>
+              <div style={{flex: 1}}>
+                <div style={{float: 'right'}}>
+                  {
+                    this.state.edit_photos &&
+                    <DeleteButton size="14px" onClick={this.deletePerson.bind(this, person.id)}>
+                      Delete Profile
+                    </DeleteButton>
+                  }
+                </div>
+              </div>
             </div>
-          </div>
-          { _.keys(this.state.attributes).map( key => (
-            <FormAreaInput key={key} label={key} onChange={this.onChange(key)} value={this.state.attributes[key]} />
-          ))
-          }
-          <div>
-            <div style={{float: 'left', marginTop: '10px', fontWeight: 'normal'}}>
-              <DropDownMenu top float="right" closeOnClick font_size="13px" icon_url='/images/plus.svg'>
-                <ul>
-                  { this.props.metaInfo && this.props.metaInfo.map( field => !this.state.attributes[field.fieldName] &&
-                    <li onClick={this.newAttribute.bind(this, field.fieldName)} key={field.id}>{field.fieldName}</li>)}
-                  <li onClick={this.addCustom} key='custom'>Custom Attributes</li>
-                </ul>
-              </DropDownMenu>
-            </div>
-
-            <div style={{float: 'right', marginTop: '10px'}}>
-              <Button size="14px" onClick={this.onClickUpdate.bind(this)}>
-              { this.state.loggin ?
-                <div style={{transform: 'scale(0.3)', position: 'absolute', marginTop: '-1px', marginLeft: '-4px'}}><Spinner stroke={4} noLabel /></div> : null }
-                <div className="button__text" style={{marginLeft: this.state.loggin ? '19px' : '0px'}}>Save</div>
-              </Button>
-            </div>
-            <div style={{float: 'right', marginTop: '10px', marginRight: '15px'}}>
-              <CancelButton size="14px" onClick={this.closeForm}>
-                Close
-              </CancelButton>
-            </div>
-          </div>
-          <div style={{clear:'both'}}>&nbsp;</div>
-          <DeleteButton onClick={this.deletePerson.bind(this, person.id)}>Delete</DeleteButton>
-        </div>
+          </ButtonsBlock>
+        </Container>
     );
   }
 }

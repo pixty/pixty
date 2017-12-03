@@ -29,8 +29,8 @@ import { PERSON_WIDTH } from './Constants';
 const Analyzing = styled.div`
   width: 300px;
   height: 225px;
-  background: url('/images/_swim.gif');
-  _background-blend-mode: screen;
+  background: url('/images/swim.gif');
+  background-blend-mode: screen;
   background-color: #222122;
   background-size: 100% 100%;
 `;

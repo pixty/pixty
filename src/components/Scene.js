@@ -27,7 +27,7 @@ class Scene extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.selectedPerson.id) {
+    if (nextProps.selectedPerson.selected) {
       this.setState({ width: RIGHT_BAR_WIDTH, opacity: 1, margin: 0 });
     } else {
       this.setState({ width: 0, opacity: 0, margin: 0 });

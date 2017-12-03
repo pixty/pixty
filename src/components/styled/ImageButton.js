@@ -8,6 +8,8 @@ const ImageButton = styled.button`
   cursor: pointer;
   justify-content: center;
   align-items: center;
+  width: ${props => props.fullWidth ? '100%' : 'auto'};
+  height: ${props => props.height ? props.height : 'auto'};
 
   &:hover {
     opacity: 0.8;
@@ -22,6 +24,7 @@ const ImageButton = styled.button`
     background-size: ${props => props.width} ${props => props.width};
     content: '';
     display: inline-block;
+    color: ${props => props.titleColor};
     width: ${props => props.width};
     height: ${props => props.width};
   }
