@@ -16,7 +16,8 @@ export const Main = styled.div.attrs({
 
 export const RightBar = styled.div.attrs({
   width: props => props.width || '0px',
-  opacity: props => props.opacity || 0,
+  transform: props => props.width ? 'scaleX(1)' : 'scaleX(0)',
+  // opacity: props => props.opacity || 0,
 })`
   position: absolute;
   overflow-scrolling: touch;

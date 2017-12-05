@@ -11,50 +11,14 @@ import Picture from '../components/Picture';
 import Spinner from './Spinner';
 import { PERSON_WIDTH } from './Constants';
 
-const ProfileInfo = styled.div`
-  overflow: hidden;
-  height: 105px;
-  padding: 0px;
-  background: ${ props => props.isSelected ? '#fff' : 'rgba(0,0,0,0.1)' };
-  display: flex;
-  border-bottom: 1px solid rgba(0,0,0,0.2);
-`;
-
-const Avatar = styled.img`
-  width: 100px;
-  height: 100px;
-  border-radius: 50px;
-  border: 2px solid ${props => props.active ? mainColor : 'transparent'};
-  margin: 0 5px;
-  cursor: ${ props => props.zoomIn ? 'zoom-in' : 'zoom-out' };
-`;
-
-const AvatarContainer = styled.div`
-  display: flex;
-  flex: 1;
-`;
-
-const PicturesContainer = styled.div`
-  overflow-y: hidden;
-  overflow-x: auto;
-`;
-
-const PicturesContainerScroll = styled.div`
-  width: ${props => props.count * 114 + 'px'};
-  -webkit-overflow-scrolling: touch;
-  cursor: zoom-out;
-`;
-
-const NoAattributes = styled.div`
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Match = ({id, avatarUrl, active}) => <div>
-  <Avatar alt={id} src={avatarUrl || '/images/missing.png'} active={active} />
-</div>;
+import { ProfileInfo,
+         Avatar,
+         AvatarContainer,
+         PicturesContainer,
+         PicturesContainerScroll,
+         NoAattributes,
+         Match
+       } from '../components/styled';
 
 let lastX = 1;
 class Person extends React.PureComponent {
@@ -128,9 +92,15 @@ class Person extends React.PureComponent {
               src={ this.state.pictureField === 'url' || isSelected ? '/images/grey_eye.svg' : '/images/eye.svg'} width='24px' />
       </div>
       <div>
-        <ImageButton fullWidth height='50px' type='image' title='Edit' titleColor={isSelected ? '#555' : 'white'}
-                onClick={(event) => { event.stopPropagation(); this.props.onClick(); }}
-                src={ isSelected ? '/images/grey_write.svg' : '/images/write.svg' } width='24px' />
+        <ImageButton
+          fullWidth
+          height='50px'
+          type='image'
+          title={ this.props.matchingResult !== 'identified' ? 'Resolve' : 'Edit' }
+          titleColor={isSelected ? '#555' : 'white'}
+          onClick={(event) => { event.stopPropagation(); this.props.onClick(); }}
+          src={ isSelected ? '/images/grey_write.svg' : '/images/write.svg' }
+          width='24px' />
       </div>
     </div>
   </AvatarContainer>;

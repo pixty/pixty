@@ -16,6 +16,13 @@ import { fetchProfile, postProfile, putPerson, deletePerson,
 import { clickPerson, openModal, closeModal  } from '../actions';
 import { mainColor } from '../components/styled/Colors';
 
+import { ProfileInfo,
+         AvatarContainer,
+         PicturesContainer,
+         PicturesContainerScroll,
+         NoAattributes
+       } from '../components/styled';
+
 /*
 type Props = {
   +person: {
@@ -81,6 +88,15 @@ const ButtonsBlock = styled.div`
   width: 100%;
 `;
 
+const Avatar = styled.img`
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  border: 2px solid ${props => props.active ? mainColor : 'transparent'};
+  margin: 0 5px;
+  cursor: ${props => props.pointer ? 'pointer' : 'default'};
+`;
+
 class PersonForm extends React.PureComponent<Props, State> {
 
   person: {} | { id: string };
@@ -93,8 +109,15 @@ class PersonForm extends React.PureComponent<Props, State> {
     super(props);
     this.state = { attributes: {}, profileId: null, loggin: false, edit_photos: false,
     avatarUrl: null, selectedPictureId: null, all_pictures: null,
+    selectedList: {},
+    canAttach: false,
+    canMerge: false,
     all_attrs: [], new_key: null, new_value: null };
     //this.findNextValue = this.findNextValue.bind(this);
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return !_.isEqual(this.props, nextProps) || !_.isEqual(this.state, nextState);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -107,7 +130,7 @@ class PersonForm extends React.PureComponent<Props, State> {
         getProfilePersons(this.profile.id).then(({response}) => {
             let pictures = [];
             _.map(response, person => person.pictures).map(index => index.map(el => pictures.push(el)));
-            this.setState({ all_pictures: pictures});
+            this.setState({ all_pictures: pictures });
         });
 
         fetchProfile(this.profile.id).then((response) => {
@@ -125,7 +148,15 @@ class PersonForm extends React.PureComponent<Props, State> {
         );
       }
     } else {
-      this.setState({ attributes: {}, profileId: undefined});
+
+      if (this.props.person.id !== nextProps.person.id) {
+        this.setState({
+          attributes: {},
+          profileId: undefined,
+          canAttach: false,
+          canMerge: false,
+          selectedList: {} });
+      }
     }
   }
 
@@ -195,7 +226,7 @@ class PersonForm extends React.PureComponent<Props, State> {
       </div>);
   }
 
-  mergeProfiles = (profile_1_id, profile_2_id) => {
+  mergeProfiles = (profile_1_id, profile_2_id) => () => {
     mergeTwoProfiles(profile_1_id, profile_2_id).then(resolve => {
       alert('merged!');
     }, reject => {
@@ -203,8 +234,9 @@ class PersonForm extends React.PureComponent<Props, State> {
     });
   }
 
-  attachProfile = (person_id, profile_id, avatar_url) => {
-    putPerson({orgId: this.props.orgId, id: person_id, ProfileId: profile_id, CamId: 1, /*AvatarUrl: avatar_url*/})
+  attachProfile = (person_id, profile_id) => () => {
+
+    putPerson({orgId: this.props.orgId, id: person_id, ProfileId: profile_id, CamId: 1})
     .then(resolve => {
       alert('resolve', resolve);
     }, reject => {
@@ -240,47 +272,124 @@ class PersonForm extends React.PureComponent<Props, State> {
     this.setState({ edit_photos: !this.state.edit_photos});
   }
 
+  selectMatch = (id) => () => {
+    const newList = this.state.selectedList;
+    const selectedMatches = [];
+    let [ canAttach, canMerge ] = [ false, false ];
+
+    newList[id] = newList[id] ? false : true;
+    _.mapKeys(newList, (value, key) => {
+      if (value) {
+        selectedMatches.push(key);
+      }
+    });
+
+    switch(selectedMatches.length) {
+      case 1:
+        canAttach = true;
+        break;
+      case 2:
+        canMerge = true;
+        break;
+      default:
+        break;
+    }
+
+    this.setState({ selectedList: newList, canAttach: canAttach, canMerge: canMerge, selectedMatches: selectedMatches });
+  }
+
+  matchAttribures = (attributes) => {
+    return (<div style={{flex: 1, fontSize: '12px', color: '#777', marginLeft: '5px'}}>
+      { attributes.map(attr => <div>
+          <div style={{fontSize:'11px', fontWeight:'bold', color: '#555'}}>
+          {attr.name}
+          </div>
+          <div>
+          {attr.value}
+          </div>
+        </div>)
+      }
+    </div>);
+  }
+
   render() {
     const person = this.person;
     const profile = this.profile;
     const PIC_SIZE = 140;
 
-
     if (!person) {
       return null;
     }
 
+    const matches = this.person.matches;
+    const pictures = this.person.pictures;
+
     if (!profile) {
-      let matches = this.person.matches;
 
       return (
         <Container>
           <Content>
-            <div style={{fontSize: 'small', color: '#777', fontWeight: 'normal', marginBottom: '12px'}}>
-              Press edit to delete profile
-              <div style={{float: 'right'}}>
+            <div style={{fontSize: 'small', display: 'flex', color: '#777', fontWeight: 'normal', marginBottom: '12px'}}>
+              <div style={{flex: 1}}>
+              { pictures && `We have (${pictures.length}) person pictures` }
+              </div>
+              <div style={{}}>
                 <CancelButton onClick={this.toggleEditPhotos} style={{ padding: "2px 5px" }} size="11px">{this.state.edit_photos ? 'Done' : 'Edit'}</CancelButton>
               </div>
             </div>
 
-             {matches && matches.map(match => <div key={match.id}>
-                <img src={match.avatarUrl} style={{width: '100px', borderRadius: '50%'}} /><br/>
-                <CancelButton size="14px" onClick={this.attachProfile.bind(this, person.id, match.id, match.avatarUrl)}>
-                  Attach
-                </CancelButton>
-              </div>)}
+            <PicturesContainer>
+              <PicturesContainerScroll count={ pictures && pictures.length }>
+                { pictures && pictures.map(picture => <Avatar key={picture.id} src={picture.url} />) }
+              </PicturesContainerScroll>
+            </PicturesContainer>
+
+            <div style={{fontSize: 'small', color: '#999',
+                          padding: '7px 0px',
+                          textAlign: 'center',
+                          borderBottom: '1px solid #444',
+                          borderTop: '1px solid #444',
+                          fontWeight: 'normal', margin: '10px 0px'}}>
+              We have found similar profiles. Help Pixty solve the ambiguous results.
+            </div>
+
+             { matches && matches.map(match =>
+                <div key={match.id} style={{display: 'flex', paddingBottom: '6px', borderBottom: '1px solid #444'}}>
+                  <Avatar
+                    pointer
+                    src={match.avatarUrl}
+                    active={this.state.selectedList[match.id]}
+                    onClick={this.selectMatch(match.id)} />
+
+                  { this.matchAttribures(match.attributes) }
+                </div>)
+              }
 
           </Content>
           <ButtonsBlock>
             <div style={{display: 'flex'}}>
               <div>
+                <Button
+                  size="14px"
+                  onClick={this.state.canAttach && this.attachProfile(person.id, this.state.selectedMatches[0])}
+                  disabled={!this.state.canAttach}
+                  style={{marginRight: '8px'}}>
+                  Attach
+                </Button>
+              </div>
+              <div>
                 {matches && matches.length === 2 &&
-                <DeleteButton size="14px" onClick={this.mergeProfiles.bind(this, matches[0].id, matches[1].id)}>
+                <DeleteButton
+                    size="14px"
+                    disabled={!this.state.canMerge}
+                    style={{marginRight: '8px'}}
+                    onClick={this.state.canMerge &&
+                      this.mergeProfiles(this.state.selectedMatches[0], this.state.selectedMatches[1])}>
                     Merge
                   </DeleteButton>
                 }
               </div>
-              <div style={{marginLeft: '8px'}}>
+              <div style={{marginRight: '8px'}}>
                 <CancelButton size="14px" onClick={this.closeForm}>
                   Cancel
                 </CancelButton>
@@ -290,7 +399,7 @@ class PersonForm extends React.PureComponent<Props, State> {
                   {
                     this.state.edit_photos &&
                     <DeleteButton size="14px" onClick={this.deletePerson.bind(this, person.id)}>
-                      Delete Profile
+                      Delete
                     </DeleteButton>
                   }
                 </div>
@@ -306,7 +415,7 @@ class PersonForm extends React.PureComponent<Props, State> {
           <Content>
             <div style={{padding: '0px'}}>
               <div style={{fontSize: 'small', color: '#777', fontWeight: 'normal', marginBottom: '12px'}}>
-                Press edit to delete photos or profile
+                { this.state.all_pictures && `We have (${this.state.all_pictures.length}) profile pictures` }
                 <div style={{float: 'right'}}>
                   <CancelButton onClick={this.toggleEditPhotos} style={{ padding: "2px 5px" }} size="11px">{this.state.edit_photos ? 'Done' : 'Edit'}</CancelButton>
                 </div>
